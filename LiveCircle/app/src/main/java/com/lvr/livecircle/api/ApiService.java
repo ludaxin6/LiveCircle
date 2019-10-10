@@ -2,7 +2,6 @@ package com.lvr.livecircle.api;
 
 
 import com.lvr.livecircle.bean.NewsInfo;
-import com.lvr.livecircle.login.model.bean.UserInfo;
 import com.lvr.livecircle.login.model.bean.request.LoginRequest;
 import com.lvr.livecircle.login.model.bean.response.UserResponse;
 import com.lvr.livecircle.meitu.model.bean.GirlData;
