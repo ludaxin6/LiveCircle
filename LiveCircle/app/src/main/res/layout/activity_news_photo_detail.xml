@@ -25,7 +25,7 @@
             android:background="@color/black"
             android:scaleType="centerCrop"/>
 
-        <com.lvr.livecircle.recycleviewcardgallery.SpeedRecyclerView
+        <com.deshine.huishu.app.recycleviewcardgallery.SpeedRecyclerView
             android:id="@+id/recyclerView"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
