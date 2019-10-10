@@ -2,6 +2,9 @@ package com.lvr.livecircle.api;
 
 
 import com.lvr.livecircle.bean.NewsInfo;
+import com.lvr.livecircle.login.model.bean.UserInfo;
+import com.lvr.livecircle.login.model.bean.request.LoginRequest;
+import com.lvr.livecircle.login.model.bean.response.UserResponse;
 import com.lvr.livecircle.meitu.model.bean.GirlData;
 import com.lvr.livecircle.news.model.bean.NewsDetail;
 
@@ -10,7 +13,9 @@ import java.util.Map;
 
 import io.reactivex.Observable;
 import okhttp3.ResponseBody;
+import retrofit2.http.Body;
 import retrofit2.http.GET;
+import retrofit2.http.POST;
 import retrofit2.http.Path;
 import retrofit2.http.Url;
 
@@ -21,6 +26,7 @@ import retrofit2.http.Url;
 public interface ApiService {
     public static final String NEWS_BASE_URL = "http://c.m.163.com/nc/article/";
     public static final String PHOTO_BASE_URL = "http://gank.io/api/data/福利/";
+    public static final String BASE_URL = "http://192.168.38.188:8188/crm_dgcs/api/";
     @GET("{type}/{id}/{startPage}-20.html")
     Observable<Map<String, List<NewsInfo>>> getNewsList(
             @Path("type") String type, @Path("id") String id,
@@ -34,4 +40,6 @@ public interface ApiService {
             @Url String photoPath);
     @GET("{size}/{page}")
     Observable<GirlData> getPhotoList(@Path("size") int size, @Path("page") int page);
+    @POST("user/login")
+    Observable<UserResponse> login(@Body LoginRequest request);
 }

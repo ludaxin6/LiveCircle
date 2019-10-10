@@ -4,12 +4,18 @@ import android.animation.Animator;
 import android.animation.AnimatorSet;
 import android.animation.ObjectAnimator;
 import android.animation.PropertyValuesHolder;
+import android.content.Context;
+import android.content.SharedPreferences;
+import android.text.TextUtils;
 import android.view.animation.AccelerateInterpolator;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.lvr.livecircle.R;
+import com.lvr.livecircle.app.AppApplication;
+import com.lvr.livecircle.app.AppConstant;
 import com.lvr.livecircle.base.BaseActivity;
+import com.lvr.livecircle.login.LoginActivity;
 
 import butterknife.BindView;
 
@@ -46,6 +52,16 @@ public class SplashActivity extends BaseActivity {
         animatorSet.setInterpolator(new AccelerateInterpolator());
         animatorSet.setDuration(2000);
         animatorSet.addListener(new Animator.AnimatorListener() {
+            private void initMain(){
+                //有jwt初始化应用
+                MainActivity.startAction(SplashActivity.this);
+                finish();
+            }
+            private void initLogin(){
+                //登陆初始化
+                LoginActivity.startAction(SplashActivity.this);
+                finish();
+            }
             @Override
             public void onAnimationStart(Animator animator) {
 
@@ -53,8 +69,19 @@ public class SplashActivity extends BaseActivity {
 
             @Override
             public void onAnimationEnd(Animator animator) {
-                MainActivity.startAction(SplashActivity.this);
-                finish();
+                //检查登陆jwt
+                SharedPreferences sharedPreferences = AppApplication.getAppContext().getSharedPreferences(AppConstant.CACHE_DATA, Context.MODE_PRIVATE);
+                if(null == sharedPreferences){
+                    initMain();
+                }else{
+                    //没有jwt 跳转到登陆页面
+                    String jwt = sharedPreferences.getString(AppConstant.JWT,null);
+                    if(TextUtils.isEmpty(jwt)){
+                        initLogin();
+                    }else{
+                        initMain();
+                    }
+                }
             }
 
             @Override
