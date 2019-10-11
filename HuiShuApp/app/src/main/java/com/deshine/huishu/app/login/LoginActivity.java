@@ -5,16 +5,16 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
-import android.widget.ProgressBar;
 
 import com.deshine.huishu.app.R;
 import com.deshine.huishu.app.base.BaseActivity;
-import com.deshine.huishu.app.home.MainActivity;
 import com.deshine.huishu.app.login.model.bean.UserInfo;
 import com.deshine.huishu.app.login.presenter.LoginPresenter;
 import com.deshine.huishu.app.login.presenter.impl.LoginPresenterImpl;
 import com.deshine.huishu.app.login.view.LoginView;
 import com.deshine.huishu.app.utils.EncryptionUtil;
+import com.deshine.huishu.app.widget.LoadingTip;
+import com.deshine.huishu.app.workbench.view.WorkbenchActivity;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -31,8 +31,8 @@ public class LoginActivity extends BaseActivity implements LoginView {
     EditText etLoginUserName;
     @BindView(R.id.et_login_pwd)
     EditText etLoginPwd;
-    @BindView(R.id.pb_progress)
-    ProgressBar pbProgress;
+    @BindView(R.id.loadedTip)
+    LoadingTip mLoadedTip;
     private LoginPresenter mLoginPresenter;
 
     @Override
@@ -68,12 +68,12 @@ public class LoginActivity extends BaseActivity implements LoginView {
 
     @Override
     public void showProgress() {
-        pbProgress.setVisibility(View.VISIBLE);
+        mLoadedTip.setLoadingTip(LoadingTip.LoadStatus.loading);
     }
 
     @Override
     public void hideProgress() {
-        pbProgress.setVisibility(View.GONE);
+        mLoadedTip.setLoadingTip(LoadingTip.LoadStatus.finish);
     }
     @Override
     public void showErrorMsg(String msg) {
@@ -87,7 +87,9 @@ public class LoginActivity extends BaseActivity implements LoginView {
 
     @Override
     public void toMain() {
-        MainActivity.startAction(LoginActivity.this);
+//        MainActivity.startAction(LoginActivity.this);
+//        finish();
+        WorkbenchActivity.startAction(LoginActivity.this);
         finish();
     }
 

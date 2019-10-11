@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">汇数手机端</string>
+    <string name="app_name">汇数数据</string>
     <string name="loading">请稍候</string>
     <string name="net_error">网络访问错误，请稍后再试</string>
     <string name="download">下载中心</string>
@@ -21,4 +21,5 @@
     <string name="invalid_username">Not a valid username</string>
     <string name="invalid_password">Password must be >5 characters</string>
     <string name="login_failed">"Login failed"</string>
+    <string name="hs_working">工作台</string>
 </resources>

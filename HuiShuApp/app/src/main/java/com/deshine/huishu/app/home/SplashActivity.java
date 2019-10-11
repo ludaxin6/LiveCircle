@@ -16,6 +16,7 @@ import com.deshine.huishu.app.app.AppApplication;
 import com.deshine.huishu.app.app.AppConstant;
 import com.deshine.huishu.app.base.BaseActivity;
 import com.deshine.huishu.app.login.LoginActivity;
+import com.deshine.huishu.app.workbench.view.WorkbenchActivity;
 
 import butterknife.BindView;
 
@@ -54,7 +55,8 @@ public class SplashActivity extends BaseActivity {
         animatorSet.addListener(new Animator.AnimatorListener() {
             private void initMain(){
                 //有jwt初始化应用
-                MainActivity.startAction(SplashActivity.this);
+                //MainActivity.startAction(SplashActivity.this);
+                WorkbenchActivity.startAction(SplashActivity.this);
                 finish();
             }
             private void initLogin(){

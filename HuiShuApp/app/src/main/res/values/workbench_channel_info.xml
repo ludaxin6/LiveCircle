@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="workbench_channel_id">
+        <!--<item>5YyX5Lqs</item>-->
+        <item>5YyX5Lqs</item>
+        <item>T1348648517839</item>
+        <item>T1348648650048</item>
+        <item>T1348654060988</item>
+        <item>T1348654151579</item>
+        <item>T1351233117091</item>
+        <item>T1348654225495</item>
+        <item>T1348654204705</item>
+        <item>T1348649654285</item>
+        <item>T1348649654255</item>
+    </string-array>
+    <!--工作台频道-->
+    <string-array name="workbench_channel_name">
+        <item>合同</item>
+        <item>待办</item>
+        <item>日报</item>
+        <item>签收单上传</item>
+        <item>客户自提</item>
+        <item>更多...</item>
+        <item>考勤签到</item>
+        <item>外出拜访</item>
+        <item>请假</item>
+        <item>注销</item>
+    </string-array>
+
+</resources>

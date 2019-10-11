@@ -1,6 +1,7 @@
 package com.deshine.huishu.app.login.model.impl;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.util.Log;
 
 import com.jakewharton.retrofit2.adapter.rxjava2.HttpException;
@@ -88,6 +89,15 @@ public class LoginModelImpl implements LoginModel {
         context.getSharedPreferences(AppConstant.CACHE_DATA, Context.MODE_PRIVATE).edit()
                 .putString(AppConstant.JWT, token)
                 .putString(AppConstant.USER_INFO_JSON, GesonUtil.getGson().toJson(user))
+                .commit();
+    }
+
+    @Override
+    public void removeUserInfo(Context context) {
+        Log.e("LoginModelImpl","开始移除用户信息");
+        context.getSharedPreferences(AppConstant.CACHE_DATA, Context.MODE_PRIVATE).edit()
+                .remove(AppConstant.JWT)
+                .remove(AppConstant.USER_INFO_JSON)
                 .commit();
     }
 }

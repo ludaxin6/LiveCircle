@@ -49,4 +49,6 @@ dependencies {
     compile 'com.android.support:cardview-v7:25.1.0'
     compile 'com.android.support:recyclerview-v7:25.1.0'
     compile 'com.github.Aspsine:IRecyclerView:0.0.5'
+    //引入新的recyclerview组件
+    //compile 'com.jcodecraeer:xrecyclerview:1.2.7'
 }

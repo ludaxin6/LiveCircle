@@ -10,4 +10,6 @@ public interface LoginModel {
     void login(UserInfo userInfo, OnHttpCallBack<UserResponse> callBack);//登录
 
     void saveUserInfo(Context context, UserInfo user, String token);//登录成功就保存用户信息
+
+    void removeUserInfo(Context context);
 }

@@ -11,6 +11,7 @@ import android.view.Window;
 import com.deshine.huishu.app.R;
 import com.deshine.huishu.app.app.AppManager;
 import com.deshine.huishu.app.utils.StatusBarSetting;
+import com.deshine.huishu.app.utils.StatusBarUtil;
 import com.deshine.huishu.app.utils.ToastUitl;
 import com.deshine.huishu.app.widget.LoadingDialog;
 
@@ -86,6 +87,9 @@ public abstract class BaseActivity extends AppCompatActivity {
      */
     protected void SetTranslanteBar() {
         StatusBarSetting.setTranslucent(this);
+    }
+    protected void statusBarLightMode(){
+        StatusBarUtil.statusBarLightMode(this);
     }
 
 
