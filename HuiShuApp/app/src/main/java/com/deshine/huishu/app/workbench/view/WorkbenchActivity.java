@@ -18,6 +18,7 @@ import com.deshine.huishu.app.home.MainActivity;
 import com.deshine.huishu.app.login.LoginActivity;
 import com.deshine.huishu.app.login.model.LoginModel;
 import com.deshine.huishu.app.login.model.impl.LoginModelImpl;
+import com.deshine.huishu.app.scan.ScanDemo;
 import com.deshine.huishu.app.utils.StatusBarSetting;
 import com.deshine.huishu.app.utils.ToastUitl;
 import com.deshine.huishu.app.workbench.model.WorkbenchModel;
@@ -55,7 +56,7 @@ public class WorkbenchActivity extends BaseActivity {
         StatusBarSetting.setColorNoTranslucent(this, getResources().getColor(R.color.hs_base_black));
         setSupportActionBar(mToolbar);
         //加载工作台九宫格数据
-        Observable<List<Workbench>> moreObservable = mModel.lodeAllWorkbenchItem(false);
+        Observable<List<Workbench>> moreObservable = mModel.lodeAllWorkbenchItem(true);
         moreObservable.subscribe(new Observer<List<Workbench>>() {
             @Override
             public void onSubscribe(Disposable d) {
@@ -95,6 +96,8 @@ public class WorkbenchActivity extends BaseActivity {
                     mLoginModel.removeUserInfo(AppApplication.getAppContext());
                     ToastUitl.showShort("用户已注销");
                     LoginActivity.startAction(WorkbenchActivity.this);
+                }else if(workbench.getName().equals("扫一扫")){
+                    ScanDemo.startAction(WorkbenchActivity.this);
                 }
             }
         });
