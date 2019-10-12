@@ -18,4 +18,5 @@
     <color name="role_yellow_gray">#33CC99</color>
     <color name="container_background">#EBEBEB</color>
     <color name="hs_base_black">#383D41</color>
+    <color name="hs_border">#DCDCDC</color>
 </resources>

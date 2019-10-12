@@ -52,7 +52,7 @@ public class WorkbenchActivity extends BaseActivity {
     @Override
     public void initView() {
         //设置标题栏
-        StatusBarSetting.setColorNoTranslucent(this, getResources().getColor(R.color.colorPrimaryDark));
+        StatusBarSetting.setColorNoTranslucent(this, getResources().getColor(R.color.hs_base_black));
         setSupportActionBar(mToolbar);
         //加载工作台九宫格数据
         Observable<List<Workbench>> moreObservable = mModel.lodeAllWorkbenchItem(false);
