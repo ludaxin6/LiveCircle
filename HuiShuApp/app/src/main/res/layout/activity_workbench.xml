@@ -8,24 +8,8 @@
     android:fitsSystemWindows="true"
     android:orientation="vertical">
 
-
-    <android.support.v7.widget.Toolbar
-        android:id="@+id/work_toolbar"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:minHeight="?attr/actionBarSize"
-        android:background="@color/hs_base_black"
-        app:contentInsetStart="0dp"
-        android:layout_gravity="center"
-        app:popupTheme="@style/AppTheme.PopupOverlay">
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:text="@string/hs_working"
-            android:textColor="@color/white"
-            android:textSize="22sp" />
-    </android.support.v7.widget.Toolbar>
+    <!--标题栏-->
+    <include layout="@layout/activity_common_titlebar" />
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/work_list"

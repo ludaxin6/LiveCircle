@@ -8,17 +8,19 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
+import android.widget.TextView;
 
 import com.deshine.huishu.app.R;
 import com.deshine.huishu.app.adapter.WorkbenchAdapter;
 import com.deshine.huishu.app.app.AppApplication;
 import com.deshine.huishu.app.base.BaseActivity;
 import com.deshine.huishu.app.client.RxDisposeManager;
+import com.deshine.huishu.app.customerInvite.CustomerInviteActivity;
 import com.deshine.huishu.app.home.MainActivity;
 import com.deshine.huishu.app.login.LoginActivity;
 import com.deshine.huishu.app.login.model.LoginModel;
 import com.deshine.huishu.app.login.model.impl.LoginModelImpl;
-import com.deshine.huishu.app.scan.ScanDemo;
+import com.deshine.huishu.app.scan.ScanActivity;
 import com.deshine.huishu.app.utils.StatusBarSetting;
 import com.deshine.huishu.app.utils.ToastUitl;
 import com.deshine.huishu.app.workbench.model.WorkbenchModel;
@@ -33,8 +35,10 @@ import io.reactivex.Observer;
 import io.reactivex.disposables.Disposable;
 
 public class WorkbenchActivity extends BaseActivity {
-    @BindView(R.id.work_toolbar)
+    @BindView(R.id.common_titlebar)
     Toolbar mToolbar;
+    @BindView(R.id.common_titlebar_tv)
+    TextView mTextView;
     @BindView(R.id.work_list)
     RecyclerView mWorkbenchRv;
     private WorkbenchModel mModel;
@@ -53,7 +57,8 @@ public class WorkbenchActivity extends BaseActivity {
     @Override
     public void initView() {
         //设置标题栏
-        StatusBarSetting.setColorNoTranslucent(this, getResources().getColor(R.color.hs_base_black));
+        mTextView.setText(R.string.hs_working);
+        StatusBarSetting.setColorNoTranslucent(this, getResources().getColor(R.color.colorPrimary));
         setSupportActionBar(mToolbar);
         //加载工作台九宫格数据
         Observable<List<Workbench>> moreObservable = mModel.lodeAllWorkbenchItem(true);
@@ -97,7 +102,7 @@ public class WorkbenchActivity extends BaseActivity {
                     ToastUitl.showShort("用户已注销");
                     LoginActivity.startAction(WorkbenchActivity.this);
                 }else if(workbench.getName().equals("扫一扫")){
-                    ScanDemo.startAction(WorkbenchActivity.this);
+                    CustomerInviteActivity.startAction(WorkbenchActivity.this);
                 }
             }
         });

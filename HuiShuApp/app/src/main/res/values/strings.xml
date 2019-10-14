@@ -22,4 +22,6 @@
     <string name="invalid_password">Password must be >5 characters</string>
     <string name="login_failed">"Login failed"</string>
     <string name="hs_working">工作台</string>
+    <string name="hs_scan">扫一扫</string>
+    <string name="hs_scan_result_label">扫码结果</string>
 </resources>
