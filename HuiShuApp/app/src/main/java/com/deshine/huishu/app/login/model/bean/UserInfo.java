@@ -1,12 +1,14 @@
 package com.deshine.huishu.app.login.model.bean;
 
+import java.io.Serializable;
 import java.util.Date;
 
 /**
  * 用户实体类
  * Created by Administrator on 2016/7/22.
  */
-public class UserInfo {
+public class UserInfo implements Serializable {
+    private static final long serialVersionUID = 1L;
     private String userName;//用户名
     private String pwd;//密码
     private String address;//地址

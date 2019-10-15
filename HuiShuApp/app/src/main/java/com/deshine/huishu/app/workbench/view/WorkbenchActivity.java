@@ -1,6 +1,7 @@
 package com.deshine.huishu.app.workbench.view;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.GridLayoutManager;
@@ -13,6 +14,7 @@ import android.widget.TextView;
 import com.deshine.huishu.app.R;
 import com.deshine.huishu.app.adapter.WorkbenchAdapter;
 import com.deshine.huishu.app.app.AppApplication;
+import com.deshine.huishu.app.app.AppConstant;
 import com.deshine.huishu.app.base.BaseActivity;
 import com.deshine.huishu.app.client.RxDisposeManager;
 import com.deshine.huishu.app.customerInvite.CustomerInviteActivity;
@@ -21,6 +23,7 @@ import com.deshine.huishu.app.login.LoginActivity;
 import com.deshine.huishu.app.login.model.LoginModel;
 import com.deshine.huishu.app.login.model.impl.LoginModelImpl;
 import com.deshine.huishu.app.scan.ScanActivity;
+import com.deshine.huishu.app.scan.bean.ScanEvent;
 import com.deshine.huishu.app.utils.StatusBarSetting;
 import com.deshine.huishu.app.utils.ToastUitl;
 import com.deshine.huishu.app.workbench.model.WorkbenchModel;
@@ -30,6 +33,8 @@ import com.deshine.huishu.app.workbench.model.impl.WorkbenchModelImpl;
 import java.util.List;
 
 import butterknife.BindView;
+import de.greenrobot.event.EventBus;
+import de.greenrobot.event.Subscribe;
 import io.reactivex.Observable;
 import io.reactivex.Observer;
 import io.reactivex.disposables.Disposable;
@@ -58,7 +63,6 @@ public class WorkbenchActivity extends BaseActivity {
     public void initView() {
         //设置标题栏
         mTextView.setText(R.string.hs_working);
-        StatusBarSetting.setColorNoTranslucent(this, getResources().getColor(R.color.colorPrimary));
         setSupportActionBar(mToolbar);
         //加载工作台九宫格数据
         Observable<List<Workbench>> moreObservable = mModel.lodeAllWorkbenchItem(true);
@@ -82,6 +86,10 @@ public class WorkbenchActivity extends BaseActivity {
 
             }
         });
+
+        if (!EventBus.getDefault().isRegistered(this)) {
+            EventBus.getDefault().register(this);
+        }
     }
     public void showWorkbench(List<Workbench> tables){
         mWorkbenchAdapter = new WorkbenchAdapter(this, tables);
@@ -93,16 +101,18 @@ public class WorkbenchActivity extends BaseActivity {
             public void onItemClick(View view, int position) {
                 Workbench workbench = mWorkbenchAdapter.getAdapterData().get(position);
                 if(workbench.getName().equals("客户自提")){
-                    ToastUitl.showShort("客户自提被点击");
-                    MainActivity.startAction(WorkbenchActivity.this);
+                    //MainActivity.startAction(WorkbenchActivity.this);
                     //finish();
+                    CustomerInviteActivity.startAction(WorkbenchActivity.this);
                 }else if(workbench.getName().equals("注销")){
                     LoginModel mLoginModel = new LoginModelImpl();
                     mLoginModel.removeUserInfo(AppApplication.getAppContext());
                     ToastUitl.showShort("用户已注销");
                     LoginActivity.startAction(WorkbenchActivity.this);
                 }else if(workbench.getName().equals("扫一扫")){
-                    CustomerInviteActivity.startAction(WorkbenchActivity.this);
+                    ScanActivity.startAction(WorkbenchActivity.this);
+                }else if(workbench.getName().equals("更多...")){
+                    MainActivity.startAction(WorkbenchActivity.this);
                 }
             }
         });
@@ -117,5 +127,13 @@ public class WorkbenchActivity extends BaseActivity {
         activity.startActivity(intent);
         activity.overridePendingTransition(R.anim.fade_in,
                 R.anim.fade_out);
+    }
+
+    @Subscribe
+    public void onScanSuccessBackEvent(ScanEvent event) {
+        if(this.getClass().getSimpleName().equals(event.getTargetActivityName())){
+            //扫码返回
+            ToastUitl.showLong("ScanBack:"+event.getScanValue());
+        }
     }
 }

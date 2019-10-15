@@ -21,7 +21,18 @@
     <string name="invalid_username">Not a valid username</string>
     <string name="invalid_password">Password must be >5 characters</string>
     <string name="login_failed">"Login failed"</string>
+    <string name="hs_empty"></string>
     <string name="hs_working">工作台</string>
     <string name="hs_scan">扫一扫</string>
+    <string name="camera_permission_required">本功能需要相机权限！</string>
     <string name="hs_scan_result_label">扫码结果</string>
+    <string name="hs_customer_invite">客户自提</string>
+    <string name="hs_thrxm">提货人姓名</string>
+    <string name="hs_thrsj">提货人手机</string>
+    <string name="hs_thrsfz">提货人身份证号</string>
+    <string name="hs_submit">提交</string>
+    <string name="hs_idCard_positive">头像面，对准点击拍照</string>
+    <string name="hs_idCard_contrary">国徽面，对准点击拍照</string>
+    <string name="hs_check_success">已验证</string>
+    <string name="hs_idCard_success">已拍照</string>
 </resources>

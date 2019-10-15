@@ -63,7 +63,6 @@ public class ScanActivity extends BaseActivity implements QRCodeView.Delegate {
     public void initView() {
         //设置标题栏
         mTextView.setText(R.string.hs_scan);
-        StatusBarSetting.setColorNoTranslucent(this, getResources().getColor(R.color.colorPrimary));
         setSupportActionBar(mToolbar);
 
         mContext = this;

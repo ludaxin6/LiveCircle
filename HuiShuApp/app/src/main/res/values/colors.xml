@@ -19,4 +19,15 @@
     <color name="container_background">#EBEBEB</color>
     <color name="hs_base_black">#383D41</color>
     <color name="hs_border">#DCDCDC</color>
+    <color name="hs_label">#999999</color>
+    <color name="hs_val">#666666</color>
+    <color name="hs_warning">#FF981D</color>
+    <color name="hs_success">#008000</color>
+    <color name="hs_gray">#F2F2F2</color>
+    <color name="hs_green_bg">#E7F9FF</color>
+    <color name="hs_green">#54B9E1</color>
+    <color name="hs_green_border">#00C1E1</color>
+
+    <color name="lightGrey">#d3d3d3</color>
+
 </resources>

@@ -34,7 +34,8 @@ public abstract class BaseActivity extends AppCompatActivity {
         doBeforeSetcontentView();
         setContentView(getLayoutId());
         // 默认着色状态栏
-        SetStatusBarColor();
+        //SetStatusBarColor();
+        StatusBarSetting.setColorNoTranslucent(this, getResources().getColor(R.color.colorPrimary));
         mUnbinder = ButterKnife.bind(this);
         mContext = this;
 

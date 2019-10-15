@@ -88,6 +88,8 @@ public class LoginModelImpl implements LoginModel {
         Log.e("LoginModelImpl","开始保存用户信息"+user.getUserName());
         context.getSharedPreferences(AppConstant.CACHE_DATA, Context.MODE_PRIVATE).edit()
                 .putString(AppConstant.JWT, token)
+                .putString(AppConstant.USER_ID, user.getUserId())
+                .putString(AppConstant.USER_NAME, user.getUserName())
                 .putString(AppConstant.USER_INFO_JSON, GesonUtil.getGson().toJson(user))
                 .commit();
     }
@@ -97,6 +99,8 @@ public class LoginModelImpl implements LoginModel {
         Log.e("LoginModelImpl","开始移除用户信息");
         context.getSharedPreferences(AppConstant.CACHE_DATA, Context.MODE_PRIVATE).edit()
                 .remove(AppConstant.JWT)
+                .remove(AppConstant.USER_ID)
+                .remove(AppConstant.USER_NAME)
                 .remove(AppConstant.USER_INFO_JSON)
                 .commit();
     }

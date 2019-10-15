@@ -34,9 +34,14 @@ public class AppConstant {
 
     public static final String CACHE_DATA = "CACHE_DATA";
     public static final String JWT = "jwt";
+    public static final String USER_ID = "userId";
+    public static final String USER_NAME = "userName";
     public static final String USER_INFO_JSON = "UserInfoJson";
 
     /*工作台*/
     public static final String WORKBENCH_ALL = "WORKBENCH_ALL";
+
+    /*客户自提缓存数据名称*/
+    public static final String CUSTOMER_INVITE = "CUSTOMER_INVITE";
 
 }
