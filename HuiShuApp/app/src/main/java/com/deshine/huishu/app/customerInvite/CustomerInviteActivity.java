@@ -151,6 +151,7 @@ public class CustomerInviteActivity extends BaseActivity implements CustomerInvi
             idcardSubmit.setVisibility(View.VISIBLE);
             tvBackImage.setImageURI(Uri.fromFile(new File(CustomerInviteActivity.this.getFilesDir(), IDCARD_BACK_IMAGE_NAME)));
         }
+        //签收单拍照返回
         else if (resultCode == 101 && SIGN_ORDER_REQUEST_CODE==requestCode) {
             LogUtil.i("picture");
             String path = data.getStringExtra("path");
@@ -158,11 +159,13 @@ public class CustomerInviteActivity extends BaseActivity implements CustomerInvi
             signOrderPhoto.setVisibility(View.VISIBLE);
             signOrderPhoto.setImageBitmap(BitmapFactory.decodeFile(path));
         }
-        if (resultCode == 102 && SIGN_ORDER_REQUEST_CODE==requestCode) {
+        //相机录像返回
+        else if (resultCode == 102 && SIGN_ORDER_REQUEST_CODE==requestCode) {
             LogUtil.i("video");
             String path = data.getStringExtra("path");
         }
-        if (resultCode == 103 && SIGN_ORDER_REQUEST_CODE==requestCode) {
+        //权限异常返回
+        else if (resultCode == 103 && SIGN_ORDER_REQUEST_CODE==requestCode) {
             ToastUitl.showLong("请检查相机权限");
         }
     }
@@ -369,11 +372,6 @@ public class CustomerInviteActivity extends BaseActivity implements CustomerInvi
     }
     //签收单拍照
     public void signOrderPhotograph(){
-//        Bundle bundle = new Bundle();
-//        bundle.putString("outputFilePath", new File(CustomerInviteActivity.this.getFilesDir(), IDCARD_FRONT_IMAGE_NAME).toString());
-//        bundle.putString("contentType", "IDCardFront");
-//        startActivityForResult(OcrCameraActivity.class,bundle,IDCARD_FRONT_REQUEST_CODE);
-//        startActivityForResult(new Intent(MainActivity.this, OcrCameraActivity.class), 100);
         startActivityForResult(com.deshine.huishu.app.camera.CameraActivity.class,SIGN_ORDER_REQUEST_CODE);
     }
     //客户自提提交
