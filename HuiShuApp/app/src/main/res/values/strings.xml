@@ -35,4 +35,6 @@
     <string name="hs_idCard_contrary">国徽面，对准点击拍照</string>
     <string name="hs_check_success">已验证</string>
     <string name="hs_idCard_success">已拍照</string>
+    <string name="hs_sign_order_tip">请逐页拍照已签字的签收单 </string>
+    <string name="hs_sign_order_camera">将此框对准签收单，点击拍照 </string>
 </resources>

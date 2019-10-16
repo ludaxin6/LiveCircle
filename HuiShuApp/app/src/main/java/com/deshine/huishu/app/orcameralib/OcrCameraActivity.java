@@ -32,7 +32,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 
 
-public class CameraActivity extends AppCompatActivity {
+public class OcrCameraActivity extends AppCompatActivity {
 
     public static final String KEY_OUTPUT_FILE_PATH = "outputFilePath";
     public static final String KEY_CONTENT_TYPE = "contentType";
@@ -62,7 +62,7 @@ public class CameraActivity extends AppCompatActivity {
     private PermissionCallback permissionCallback = new PermissionCallback() {
         @Override
         public boolean onRequestPermission() {
-            ActivityCompat.requestPermissions(CameraActivity.this,
+            ActivityCompat.requestPermissions(OcrCameraActivity.this,
                     new String[] {Manifest.permission.CAMERA},
                     PERMISSIONS_REQUEST_CAMERA);
             return false;
@@ -189,7 +189,7 @@ public class CameraActivity extends AppCompatActivity {
             if (ActivityCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.READ_EXTERNAL_STORAGE)
                     != PackageManager.PERMISSION_GRANTED) {
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
-                    ActivityCompat.requestPermissions(CameraActivity.this,
+                    ActivityCompat.requestPermissions(OcrCameraActivity.this,
                             new String[] {Manifest.permission.READ_EXTERNAL_STORAGE},
                             PERMISSIONS_EXTERNAL_STORAGE);
                     return;
@@ -315,7 +315,7 @@ public class CameraActivity extends AppCompatActivity {
                 }
 
                 Intent intent = new Intent();
-                intent.putExtra(CameraActivity.KEY_CONTENT_TYPE, contentType);
+                intent.putExtra(OcrCameraActivity.KEY_CONTENT_TYPE, contentType);
                 setResult(Activity.RESULT_OK, intent);
                 finish();
             }

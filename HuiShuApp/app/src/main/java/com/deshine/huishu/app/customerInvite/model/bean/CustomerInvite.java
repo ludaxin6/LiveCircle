@@ -10,6 +10,15 @@ public class CustomerInvite implements Serializable {
     private String consigneeMobilePhone;//收货联系电话
     private String consigneeAddress;//收货地址
     private String idCardNo;//身份证号
+    private int signOrderCount;
+
+    public int getSignOrderCount() {
+        return signOrderCount;
+    }
+
+    public void setSignOrderCount(int signOrderCount) {
+        this.signOrderCount = signOrderCount;
+    }
 
     public String getConsigneeName() {
         return consigneeName;

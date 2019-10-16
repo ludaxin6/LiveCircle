@@ -21,4 +21,19 @@
     <integer name="type_solid">2</integer>
     <integer name="type_underline">3</integer>
 
+    <attr name="iconSize" format="dimension"/>
+    <attr name="iconMargin" format="dimension"/>
+    <attr name="iconSrc" format="reference"/>
+    <attr name="iconLeft" format="reference"/>
+    <attr name="iconRight" format="reference"/>
+    <attr name="duration_max" format="integer"/>
+    <declare-styleable name="JCameraView">
+        <attr name="iconSize"/>
+        <attr name="iconMargin"/>
+        <attr name="iconSrc"/>
+        <attr name="iconLeft"/>
+        <attr name="iconRight"/>
+        <attr name="duration_max"/>
+    </declare-styleable>
+
 </resources>

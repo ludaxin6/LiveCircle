@@ -32,6 +32,7 @@ public class CustomerInviteModelImpl implements CustomerInviteModel {
         customerInvite.setConsigneeMobilePhone("15000447608");
         customerInvite.setConsigneeAddress("客户自提 513436200010144065 张震 15000447608");
         customerInvite.setIdCardNo("513436200010144065");
+        customerInvite.setSignOrderCount(5);
         return customerInvite;
     }
 }

@@ -4,9 +4,7 @@ import android.Manifest;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
@@ -20,23 +18,20 @@ import android.widget.TextView;
 import com.deshine.huishu.app.R;
 import com.deshine.huishu.app.app.AppConstant;
 import com.deshine.huishu.app.base.BaseActivity;
+import com.deshine.huishu.app.camera.CameraActivity;
+import com.deshine.huishu.app.cameralib.util.LogUtil;
 import com.deshine.huishu.app.customerInvite.model.bean.CustomerInvite;
 import com.deshine.huishu.app.customerInvite.presenter.CustomerInvitePresenter;
 import com.deshine.huishu.app.customerInvite.presenter.impl.CustomerInvitePresenterImpl;
 import com.deshine.huishu.app.customerInvite.view.CustomerInviteView;
-import com.deshine.huishu.app.orcameralib.CameraActivity;
+import com.deshine.huishu.app.orcameralib.OcrCameraActivity;
 import com.deshine.huishu.app.permission.PermissionUtil;
 import com.deshine.huishu.app.permission.callback.PermissionResultCallBack;
 import com.deshine.huishu.app.scan.bean.ScanEvent;
-import com.deshine.huishu.app.utils.CollectionUtils;
 import com.deshine.huishu.app.utils.ToastUitl;
 import com.deshine.huishu.app.widget.SeparatedEditText;
 
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -85,6 +80,16 @@ public class CustomerInviteActivity extends BaseActivity implements CustomerInvi
     @BindView(R.id.submit)
     Button submit;
 
+    //签收单上传
+    @BindView(R.id.sign_order_layout)
+    LinearLayout signOrderLayoput;
+    @BindView(R.id.sign_order_count)
+    TextView signOrderCount;
+    @BindView(R.id.camera_btn)
+    TextView cameraBtn;
+    @BindView(R.id.photo_view)
+    ImageView signOrderPhoto;
+
     //短信验证页面
     @BindView(R.id.sms_check_layout)
     LinearLayout mSmsCheckLayout;
@@ -112,6 +117,8 @@ public class CustomerInviteActivity extends BaseActivity implements CustomerInvi
     private static final String IDCARD_FRONT_IMAGE_NAME = "idcard_front.jpg";
     private static final int IDCARD_BACK_REQUEST_CODE = 1002;
     private static final String IDCARD_BACK_IMAGE_NAME = "idcard_back.jpg";
+
+    private static final int SIGN_ORDER_REQUEST_CODE = 100;
 
     private static final String SMS_PWD="1234";
     private final String scanVal = "XDDEL190918-08032/1";
@@ -143,6 +150,20 @@ public class CustomerInviteActivity extends BaseActivity implements CustomerInvi
             tvBackImage.setVisibility(View.VISIBLE);
             idcardSubmit.setVisibility(View.VISIBLE);
             tvBackImage.setImageURI(Uri.fromFile(new File(CustomerInviteActivity.this.getFilesDir(), IDCARD_BACK_IMAGE_NAME)));
+        }
+        else if (resultCode == 101 && SIGN_ORDER_REQUEST_CODE==requestCode) {
+            LogUtil.i("picture");
+            String path = data.getStringExtra("path");
+            cameraBtn.setVisibility(View.GONE);
+            signOrderPhoto.setVisibility(View.VISIBLE);
+            signOrderPhoto.setImageBitmap(BitmapFactory.decodeFile(path));
+        }
+        if (resultCode == 102 && SIGN_ORDER_REQUEST_CODE==requestCode) {
+            LogUtil.i("video");
+            String path = data.getStringExtra("path");
+        }
+        if (resultCode == 103 && SIGN_ORDER_REQUEST_CODE==requestCode) {
+            ToastUitl.showLong("请检查相机权限");
         }
     }
     /*********************
@@ -182,7 +203,7 @@ public class CustomerInviteActivity extends BaseActivity implements CustomerInvi
      * @param view
      */
     @OnClick({R.id.tvFront,R.id.tvBack,R.id.tvFrontImage,R.id.tvBackImage,
-            R.id.idCard_submit,R.id.submit})
+            R.id.idCard_submit,R.id.submit,R.id.camera_btn,R.id.photo_view})
     public void activityViewClick(View view) {
         switch (view.getId()) {
             case R.id.tvFront:
@@ -199,6 +220,11 @@ public class CustomerInviteActivity extends BaseActivity implements CustomerInvi
                 //身份证上传
                 idCardUpload();
                 break;
+            case R.id.camera_btn:
+            case R.id.photo_view:
+                //签收单拍照点击事件
+                signOrderPhotograph();
+                break;
             case R.id.submit:
                 //客户自提提交
                 submit();
@@ -214,7 +240,7 @@ public class CustomerInviteActivity extends BaseActivity implements CustomerInvi
     public void updateInfo(CustomerInvite customerInvite) {
         this.customerInvite = customerInvite;
         mUserName.setText(customerInvite.getConsigneeName());
-        //调用发送短信验证码
+        //调用发送短信验证码 TODO
 
         mSmsTip.setText("验证码已发至提货人手机"+customerInvite.getConsigneeMobilePhone()+"，请输入验证码");
         mSmsVal.setText(customerInvite.getConsigneeMobilePhone());
@@ -256,6 +282,7 @@ public class CustomerInviteActivity extends BaseActivity implements CustomerInvi
         mIdCardLayout.setVisibility(View.GONE);
         mSmsCheckLayout.setVisibility(View.GONE);
         mIdCardCheckLayout.setVisibility(View.GONE);
+        signOrderLayoput.setVisibility(View.GONE);
         tvFrontImage.setVisibility(View.GONE);
         tvBackImage.setVisibility(View.GONE);
         idcardSubmit.setVisibility(View.GONE);
@@ -276,6 +303,14 @@ public class CustomerInviteActivity extends BaseActivity implements CustomerInvi
         mIdCardLayout.setVisibility(View.VISIBLE);
         mIdCardCheckLayout.setVisibility(View.VISIBLE);
     }
+    //签收单上传
+    public void initSignOrderView(){
+        mIdCardCheckLayout.setVisibility(View.GONE);
+        idcardSubmit.setVisibility(View.GONE);
+        mIdCardStatus.setVisibility(View.VISIBLE);
+        signOrderLayoput.setVisibility(View.VISIBLE);
+        submit.setVisibility(View.VISIBLE);
+    }
     //扫码完成回调
     public void scanBack(ScanEvent event){
         if(this.getClass().getSimpleName().equals(event.getTargetActivityName())) {
@@ -284,7 +319,7 @@ public class CustomerInviteActivity extends BaseActivity implements CustomerInvi
             //获取客户自提数据
             String soNo = event.getScanValue();
             String userId = this.getSharedPreferences(AppConstant.CACHE_DATA, Context.MODE_PRIVATE).getString(AppConstant.USER_ID, null);
-            ToastUitl.showLong("soNo:" + soNo + " userId:" + userId);
+            //ToastUitl.showLong("soNo:" + soNo + " userId:" + userId);
             //扫码完成后显示的界面
             initCustomerInviteDataView();
             customerInvitePresenter.fetchCustomerInvite(soNo, userId);
@@ -315,24 +350,31 @@ public class CustomerInviteActivity extends BaseActivity implements CustomerInvi
         Bundle bundle = new Bundle();
         bundle.putString("outputFilePath", new File(CustomerInviteActivity.this.getFilesDir(), IDCARD_FRONT_IMAGE_NAME).toString());
         bundle.putString("contentType", "IDCardFront");
-        startActivityForResult(CameraActivity.class,bundle,IDCARD_FRONT_REQUEST_CODE);
+        startActivityForResult(OcrCameraActivity.class,bundle,IDCARD_FRONT_REQUEST_CODE);
     }
     //身份证反面拍照
     public void idCardBackClick(){
         Bundle bundle = new Bundle();
         bundle.putString("outputFilePath", new File(CustomerInviteActivity.this.getFilesDir(), IDCARD_BACK_IMAGE_NAME).toString());
         bundle.putString("contentType", "IDCardBack");
-        startActivityForResult(CameraActivity.class,bundle,IDCARD_BACK_REQUEST_CODE);
+        startActivityForResult(OcrCameraActivity.class,bundle,IDCARD_BACK_REQUEST_CODE);
     }
     //身份证上传
     public void idCardUpload(){
         //身份证上传TODO
-        mIdCardCheckLayout.setVisibility(View.GONE);
-        mIdCardStatus.setVisibility(View.VISIBLE);
+        initSignOrderView();
         mIdCardStatus.setText(R.string.hs_idCard_success);
         mIdCardStatus.setTextColor(getResources().getColor(R.color.hs_success));
-        idcardSubmit.setVisibility(View.GONE);
-        submit.setVisibility(View.VISIBLE);
+        signOrderCount.setText("共"+customerInvite.getSignOrderCount()+"页");
+    }
+    //签收单拍照
+    public void signOrderPhotograph(){
+//        Bundle bundle = new Bundle();
+//        bundle.putString("outputFilePath", new File(CustomerInviteActivity.this.getFilesDir(), IDCARD_FRONT_IMAGE_NAME).toString());
+//        bundle.putString("contentType", "IDCardFront");
+//        startActivityForResult(OcrCameraActivity.class,bundle,IDCARD_FRONT_REQUEST_CODE);
+//        startActivityForResult(new Intent(MainActivity.this, OcrCameraActivity.class), 100);
+        startActivityForResult(com.deshine.huishu.app.camera.CameraActivity.class,SIGN_ORDER_REQUEST_CODE);
     }
     //客户自提提交
     public void submit(){
