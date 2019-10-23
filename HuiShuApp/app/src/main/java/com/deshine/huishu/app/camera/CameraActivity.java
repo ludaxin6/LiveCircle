@@ -124,4 +124,8 @@ public class CameraActivity extends AppCompatActivity {
         super.onPause();
         jCameraView.onPause();
     }
+
+    public JCameraView getjCameraView(){
+        return jCameraView;
+    }
 }

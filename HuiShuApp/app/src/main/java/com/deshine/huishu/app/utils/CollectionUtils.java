@@ -14,7 +14,7 @@ public class CollectionUtils {
      * @param c
      * @return
      */
-    public static boolean isNullOrEmpty(Collection c) {
+    public static boolean isEmpty(Collection c) {
         if (null == c || c.isEmpty()) {
             return true;
         }

@@ -38,16 +38,33 @@ public class FileUtil {
         String path = initPath();
         long dataTake = System.currentTimeMillis();
         String jpegName = path + File.separator + "picture_" + dataTake + ".jpg";
+        FileOutputStream fout = null;
+        BufferedOutputStream bos = null;
         try {
-            FileOutputStream fout = new FileOutputStream(jpegName);
-            BufferedOutputStream bos = new BufferedOutputStream(fout);
+            fout = new FileOutputStream(jpegName);
+            bos = new BufferedOutputStream(fout);
             b.compress(Bitmap.CompressFormat.JPEG, 100, bos);
-            bos.flush();
-            bos.close();
+
             return jpegName;
         } catch (IOException e) {
             e.printStackTrace();
             return "";
+        }finally {
+            if(bos!=null){
+                try{
+                    bos.flush();
+                    bos.close();
+                    // Bitmap对象没有被回收
+                    if (!b.isRecycled()) {
+                        // 释放
+                        b.recycle();
+                        // 提醒系统及时回收
+                        System.gc();
+                    }
+                }catch (IOException ee){
+                    ee.printStackTrace();
+                }
+            }
         }
     }
 

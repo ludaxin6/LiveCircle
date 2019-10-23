@@ -27,7 +27,7 @@ public class BaseFragmentAdapter extends FragmentPagerAdapter {
 
     @Override
     public CharSequence getPageTitle(int position) {
-        return !CollectionUtils.isNullOrEmpty(mTitles) ? mTitles.get(position) : "";
+        return !CollectionUtils.isEmpty(mTitles) ? mTitles.get(position) : "";
     }
 
     @Override

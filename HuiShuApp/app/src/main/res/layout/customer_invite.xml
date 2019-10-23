@@ -102,13 +102,13 @@
                         android:layout_height="wrap_content"
                         android:textColor="@color/hs_val"
                         android:textSize="@dimen/font_normal8"
-                        android:textStyle="bold"
-                        android:layout_marginLeft="8dp" />
+                        android:textStyle="bold"/>
 
                     <TextView
                         android:id="@+id/idCard_status"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content" />
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="8dp"  />
                 </LinearLayout>
                 <!--手机验证-->
                 <LinearLayout
@@ -246,6 +246,14 @@
                             android:layout_marginTop="@dimen/dp_5"
                             android:layout_marginBottom="@dimen/dp_3"/>
                     </LinearLayout>
+                    <android.support.v7.widget.RecyclerView
+                        android:id="@+id/recyclerView"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:fadeScrollbars="true"
+                        android:scrollbarFadeDuration="1"
+                        android:scrollbars="vertical"/>
+
                     <TextView
                         android:id="@+id/camera_btn"
                         android:layout_width="match_parent"
@@ -259,8 +267,8 @@
                         android:layout_marginBottom="@dimen/text_margin"/>
                     <ImageView
                         android:id="@+id/photo_view"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:layout_width="133dp"
+                        android:layout_height="100dp"
                         android:layout_gravity="center"
                         android:contentDescription="@string/hs_empty"
                         android:visibility="gone" />

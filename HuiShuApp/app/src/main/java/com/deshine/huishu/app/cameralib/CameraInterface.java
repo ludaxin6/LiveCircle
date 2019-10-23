@@ -33,13 +33,17 @@ import com.deshine.huishu.app.cameralib.util.FileUtil;
 import com.deshine.huishu.app.cameralib.util.LogUtil;
 import com.deshine.huishu.app.cameralib.util.ScreenUtils;
 
+import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 
 import static android.graphics.Bitmap.createBitmap;
+import static com.deshine.huishu.app.orcameralib.util.ImageUtil.calculateInSampleSize;
 
 /**
  * =====================================
@@ -470,7 +474,19 @@ public class CameraInterface implements Camera.PreviewCallback {
         mCamera.takePicture(null, null, new Camera.PictureCallback() {
             @Override
             public void onPictureTaken(byte[] data, Camera camera) {
-                Bitmap bitmap = BitmapFactory.decodeByteArray(data, 0, data.length);
+                final BitmapFactory.Options options = new BitmapFactory.Options();
+                Bitmap bitmap = null;
+                try {
+                    options.inJustDecodeBounds = true;
+                    // Decode bitmap with inSampleSize set
+                    options.inJustDecodeBounds = false;
+                    //避免出现内存溢出的情况，进行相应的属性设置。
+                    options.inPreferredConfig = Bitmap.Config.RGB_565;
+                    options.inDither = true;
+                    bitmap = BitmapFactory.decodeByteArray(data, 0, data.length,options);
+                }catch (Exception e){
+                    e.printStackTrace();
+                }
                 Matrix matrix = new Matrix();
                 if (SELECTED_CAMERA == CAMERA_POST_POSITION) {
                     matrix.setRotate(nowAngle);
@@ -478,8 +494,11 @@ public class CameraInterface implements Camera.PreviewCallback {
                     matrix.setRotate(360 - nowAngle);
                     matrix.postScale(-1, 1);
                 }
-
-                bitmap = createBitmap(bitmap, 0, 0, bitmap.getWidth(), bitmap.getHeight(), matrix, true);
+                try {
+                    bitmap = createBitmap(bitmap, 0, 0, bitmap.getWidth(), bitmap.getHeight(), matrix, true);
+                }catch (Exception e){
+                    e.printStackTrace();
+                }
                 if (callback != null) {
                     if (nowAngle == 90 || nowAngle == 270) {
                         callback.captureResult(bitmap, true);

@@ -1,9 +1,26 @@
 package com.deshine.huishu.app.customerInvite.model.impl;
 
+
+import com.deshine.huishu.app.api.CrmDgcsApiService;
+import com.deshine.huishu.app.api.ResultCode;
 import com.deshine.huishu.app.base.OnHttpCallBack;
-import com.deshine.huishu.app.client.BaseResponse;
+import com.deshine.huishu.app.base.response.BaseResponse;
+import com.deshine.huishu.app.cameralib.util.LogUtil;
 import com.deshine.huishu.app.customerInvite.model.CustomerInviteModel;
-import com.deshine.huishu.app.customerInvite.model.bean.CustomerInvite;
+import com.deshine.huishu.app.customerInvite.model.bean.CustomerInviteAffix;
+import com.deshine.huishu.app.customerInvite.model.bean.CustomerInviteVo;
+import com.deshine.huishu.app.customerInvite.model.bean.FinanceBillResponse;
+import com.deshine.huishu.app.http.CommonRetrofitClientUtil;
+import com.jakewharton.retrofit2.adapter.rxjava2.HttpException;
+
+import java.net.ConnectException;
+import java.net.SocketTimeoutException;
+import java.util.Map;
+
+import io.reactivex.Observer;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.Disposable;
+import io.reactivex.schedulers.Schedulers;
 
 public class CustomerInviteModelImpl implements CustomerInviteModel {
     /**
@@ -14,25 +31,170 @@ public class CustomerInviteModelImpl implements CustomerInviteModel {
      * @param callBack
      */
     @Override
-    public void getCustomerInvite(String soNo, String userId, OnHttpCallBack<BaseResponse> callBack) {
+    public void getCustomerInvite(String soNo, String userId, final OnHttpCallBack<BaseResponse<CustomerInviteVo>> callBack) {
+        CommonRetrofitClientUtil.newInstence(CrmDgcsApiService.BASE_URL)//实例化Retrofit对象
+                .create(CrmDgcsApiService.class)//创建Rxjava---->LoginService对象
+                .getPsData4Os(soNo, userId)//调用登录的接口
+                .subscribeOn(Schedulers.newThread())//在新线程中执行登录请求
+                .observeOn(AndroidSchedulers.mainThread())//在主线程中执行
+                .subscribe(new Observer<BaseResponse<CustomerInviteVo>>() {//网络(登录)请求回调
+                    private Disposable mDisposable;
+                    @Override
+                    public void onSubscribe(Disposable d) {
+                        mDisposable = d;
+                    }
 
+                    @Override
+                    public void onNext(BaseResponse<CustomerInviteVo> baseResponse) {
+                        if (ResultCode.SUCCESS.equals(baseResponse.getResultCode())) {
+                            callBack.onSuccessful(baseResponse);//登录成功------获取完数据,返回给P---P获取到数据之后就将数据交回给V
+                        } else {
+                            callBack.onFaild(baseResponse.getResultDesc());//登录失败
+                        }
+                        mDisposable.dispose();
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        LogUtil.e(e.getMessage()+ "--");
+                        e.printStackTrace();
+                        //失败的时候调用-----一下可以忽略 直接 callBack.onFaild("请求失败");
+                        if (e instanceof HttpException) {
+                            HttpException httpException = (HttpException) e;
+                            //httpException.response().errorBody().string()
+                            int code = httpException.code();
+                            if (code == 500 || code == 404) {
+                                callBack.onFaild("服务器出错");
+                            }
+                        } else if (e instanceof ConnectException) {
+                            callBack.onFaild("网络断开,请打开网络!");
+                        } else if (e instanceof SocketTimeoutException) {
+                            callBack.onFaild("网络连接超时!!");
+                        } else {
+                            LogUtil.e(e.getMessage());
+                            callBack.onFaild("发生未知错误" + e.getMessage());
+                        }
+                        mDisposable.dispose();
+                    }
+                    @Override
+                    public void onComplete() {
+                        //完成的时候调用
+                    }
+                });
     }
 
     /**
-     * demo 测试用
-     *
-     * @param soNo
-     * @param userId
-     * @return
+     * 客户自提出库
      */
     @Override
-    public CustomerInvite getCustomerInvite(String soNo, String userId) {
-        CustomerInvite customerInvite = new CustomerInvite();
-        customerInvite.setConsigneeName("张震");
-        customerInvite.setConsigneeMobilePhone("15000447608");
-        customerInvite.setConsigneeAddress("客户自提 513436200010144065 张震 15000447608");
-        customerInvite.setIdCardNo("513436200010144065");
-        customerInvite.setSignOrderCount(5);
-        return customerInvite;
+    public void customerInviteSubmit(Map<String,Object> request, final OnHttpCallBack<FinanceBillResponse> callBack) {
+        CommonRetrofitClientUtil.newInstence(CrmDgcsApiService.BASE_URL)//实例化Retrofit对象
+                .create(CrmDgcsApiService.class)//创建Rxjava---->LoginService对象
+                .addOs4PtBillFromPs(request)//调用客户自提出库
+                .subscribeOn(Schedulers.newThread())//在新线程中执行登录请求
+                .observeOn(AndroidSchedulers.mainThread())//在主线程中执行
+                .subscribe(new Observer<FinanceBillResponse>() {
+                    private Disposable mDisposable;
+                    @Override
+                    public void onSubscribe(Disposable d) {
+                        mDisposable = d;
+                    }
+
+                    @Override
+                    public void onNext(FinanceBillResponse response) {
+                        if (ResultCode.SUCCESS.equals(response.getResultCode())) {
+                            callBack.onSuccessful(response);
+                        } else {
+                            callBack.onFaild(response.getResultDesc());//登录失败
+                        }
+                        mDisposable.dispose();
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        LogUtil.e(e.getMessage()+ "--");
+                        e.printStackTrace();
+                        //失败的时候调用-----一下可以忽略 直接 callBack.onFaild("请求失败");
+                        if (e instanceof HttpException) {
+                            HttpException httpException = (HttpException) e;
+                            //httpException.response().errorBody().string()
+                            int code = httpException.code();
+                            if (code == 500 || code == 404) {
+                                callBack.onFaild("服务器出错");
+                            }
+                        } else if (e instanceof ConnectException) {
+                            callBack.onFaild("网络断开,请打开网络!");
+                        } else if (e instanceof SocketTimeoutException) {
+                            callBack.onFaild("网络连接超时!!");
+                        } else {
+                            LogUtil.e(e.getMessage());
+                            callBack.onFaild("发生未知错误" + e.getMessage());
+                        }
+                        mDisposable.dispose();
+                    }
+                    @Override
+                    public void onComplete() {
+                        //完成的时候调用
+                    }
+                });
+    }
+
+    /**
+     * 签收单附件添加索引
+     *
+     * @param osId
+     * @param request
+     */
+    @Override
+    public void uploadCustomerInviteAffix(String osId, CustomerInviteAffix request,final OnHttpCallBack<BaseResponse<Integer>> callBack) {
+        CommonRetrofitClientUtil.newInstence(CrmDgcsApiService.BASE_URL)//实例化Retrofit对象
+                .create(CrmDgcsApiService.class)//创建Rxjava---->LoginService对象
+                .saveCustomerInviteAffix(osId,request)//调用客户自提出库
+                .subscribeOn(Schedulers.newThread())//在新线程中执行登录请求
+                .observeOn(AndroidSchedulers.mainThread())//在主线程中执行
+                .subscribe(new Observer<BaseResponse<Integer>>() {
+                    private Disposable mDisposable;
+                    @Override
+                    public void onSubscribe(Disposable d) {
+                        mDisposable = d;
+                    }
+
+                    @Override
+                    public void onNext(BaseResponse<Integer> response) {
+                        if (ResultCode.SUCCESS.equals(response.getResultCode())) {
+                            callBack.onSuccessful(response);
+                        } else {
+                            callBack.onFaild("附件上传失败");//登录失败
+                        }
+                        mDisposable.dispose();
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        LogUtil.e(e.getMessage()+ "--");
+                        e.printStackTrace();
+                        //失败的时候调用-----一下可以忽略 直接 callBack.onFaild("请求失败");
+                        if (e instanceof HttpException) {
+                            HttpException httpException = (HttpException) e;
+                            //httpException.response().errorBody().string()
+                            int code = httpException.code();
+                            if (code == 500 || code == 404) {
+                                callBack.onFaild("服务器出错");
+                            }
+                        } else if (e instanceof ConnectException) {
+                            callBack.onFaild("网络断开,请打开网络!");
+                        } else if (e instanceof SocketTimeoutException) {
+                            callBack.onFaild("网络连接超时!!");
+                        } else {
+                            LogUtil.e(e.getMessage());
+                            callBack.onFaild("发生未知错误" + e.getMessage());
+                        }
+                        mDisposable.dispose();
+                    }
+                    @Override
+                    public void onComplete() {
+                        //完成的时候调用
+                    }
+                });
     }
 }

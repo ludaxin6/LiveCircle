@@ -25,7 +25,6 @@ import retrofit2.http.Url;
 public interface ApiService {
     public static final String NEWS_BASE_URL = "http://c.m.163.com/nc/article/";
     public static final String PHOTO_BASE_URL = "http://gank.io/api/data/福利/";
-    public static final String BASE_URL = "http://192.168.38.188:8188/crm_dgcs/api/";
     @GET("{type}/{id}/{startPage}-20.html")
     Observable<Map<String, List<NewsInfo>>> getNewsList(
             @Path("type") String type, @Path("id") String id,
@@ -39,6 +38,4 @@ public interface ApiService {
             @Url String photoPath);
     @GET("{size}/{page}")
     Observable<GirlData> getPhotoList(@Path("size") int size, @Path("page") int page);
-    @POST("user/login")
-    Observable<UserResponse> login(@Body LoginRequest request);
 }

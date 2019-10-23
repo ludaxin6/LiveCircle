@@ -1,6 +1,9 @@
 package com.deshine.huishu.app.customerInvite.model.bean;
 
+import com.deshine.huishu.app.commonAffix.bean.CommonAffix;
+
 import java.io.Serializable;
+import java.util.List;
 
 public class CustomerInvite implements Serializable {
     private static final long serialVersionUID = 1L;
@@ -11,6 +14,15 @@ public class CustomerInvite implements Serializable {
     private String consigneeAddress;//收货地址
     private String idCardNo;//身份证号
     private int signOrderCount;
+    private List<CommonAffix> affixList;
+
+    public List<CommonAffix> getAffixList() {
+        return affixList;
+    }
+
+    public void setAffixList(List<CommonAffix> affixList) {
+        this.affixList = affixList;
+    }
 
     public int getSignOrderCount() {
         return signOrderCount;

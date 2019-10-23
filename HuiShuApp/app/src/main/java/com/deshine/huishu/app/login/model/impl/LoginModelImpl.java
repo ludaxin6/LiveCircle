@@ -1,11 +1,10 @@
 package com.deshine.huishu.app.login.model.impl;
 
 import android.content.Context;
-import android.content.SharedPreferences;
 import android.util.Log;
 
+import com.deshine.huishu.app.api.CrmDgcsApiService;
 import com.jakewharton.retrofit2.adapter.rxjava2.HttpException;
-import com.deshine.huishu.app.api.ApiService;
 import com.deshine.huishu.app.api.ResultCode;
 import com.deshine.huishu.app.app.AppConstant;
 import com.deshine.huishu.app.base.OnHttpCallBack;
@@ -14,7 +13,7 @@ import com.deshine.huishu.app.login.model.bean.UserInfo;
 import com.deshine.huishu.app.login.model.bean.request.LoginRequest;
 import com.deshine.huishu.app.login.model.bean.response.UserResponse;
 import com.deshine.huishu.app.utils.GesonUtil;
-import com.deshine.huishu.app.utils.RetrofitUtils;
+import com.deshine.huishu.app.http.CommonRetrofitClientUtil;
 
 import java.net.ConnectException;
 import java.net.SocketTimeoutException;
@@ -32,8 +31,8 @@ public class LoginModelImpl implements LoginModel {
         request.setUserInfo(userInfo);
         request.setClientType(userInfo.getClientType());
         request.setTokenId("null");
-        RetrofitUtils.newInstence(ApiService.BASE_URL)//实例化Retrofit对象
-                .create(ApiService.class)//创建Rxjava---->LoginService对象
+        CommonRetrofitClientUtil.newInstence(CrmDgcsApiService.BASE_URL)//实例化Retrofit对象
+                .create(CrmDgcsApiService.class)//创建Rxjava---->LoginService对象
                 .login(request)//调用登录的接口
                 .subscribeOn(Schedulers.newThread())//在新线程中执行登录请求
                 .observeOn(AndroidSchedulers.mainThread())//在主线程中执行
@@ -81,6 +80,7 @@ public class LoginModelImpl implements LoginModel {
                         //完成的时候调用
                     }
                 });
+        //CommonRetrofitClientUtil.getOkHttpClient().interceptors().clear();
     }
 
     @Override
