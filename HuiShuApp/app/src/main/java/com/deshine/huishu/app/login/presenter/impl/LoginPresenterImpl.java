@@ -2,6 +2,7 @@ package com.deshine.huishu.app.login.presenter.impl;
 
 import com.deshine.huishu.app.app.AppApplication;
 import com.deshine.huishu.app.base.OnHttpCallBack;
+import com.deshine.huishu.app.common.util.CommonCallBackFaild;
 import com.deshine.huishu.app.login.model.LoginModel;
 import com.deshine.huishu.app.login.model.bean.response.UserResponse;
 import com.deshine.huishu.app.login.model.impl.LoginModelImpl;
@@ -29,9 +30,10 @@ public class LoginPresenterImpl implements LoginPresenter {
             }
 
             @Override
-            public void onFaild(String errorMsg) {
+            public void onFaild(String errorMsg, String errorCode) {
                 mLoginView.hideProgress();//隐藏进度条
                 mLoginView.showErrorMsg(errorMsg);//登录失败  显示错误信息
+                CommonCallBackFaild.onFaild(errorCode);
             }
         });
     }

@@ -31,8 +31,6 @@ public class LoginActivity extends BaseActivity implements LoginView {
     EditText etLoginUserName;
     @BindView(R.id.et_login_pwd)
     EditText etLoginPwd;
-    @BindView(R.id.loadedTip)
-    LoadingTip mLoadedTip;
     private LoginPresenter mLoginPresenter;
 
     @Override
@@ -68,12 +66,12 @@ public class LoginActivity extends BaseActivity implements LoginView {
 
     @Override
     public void showProgress() {
-        mLoadedTip.setLoadingTip(LoadingTip.LoadStatus.loading);
+        startProgressDialog("加载中");
     }
 
     @Override
     public void hideProgress() {
-        mLoadedTip.setLoadingTip(LoadingTip.LoadStatus.finish);
+        stopProgressDialog();
     }
     @Override
     public void showErrorMsg(String msg) {

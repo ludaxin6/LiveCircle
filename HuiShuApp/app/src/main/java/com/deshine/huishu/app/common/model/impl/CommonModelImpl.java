@@ -3,7 +3,9 @@ package com.deshine.huishu.app.common.model.impl;
 import android.util.Log;
 
 import com.deshine.huishu.app.api.CrmDgcsApiService;
+import com.deshine.huishu.app.api.ResultCode;
 import com.deshine.huishu.app.base.OnHttpCallBack;
+import com.deshine.huishu.app.cameralib.util.LogUtil;
 import com.deshine.huishu.app.common.model.CommonModel;
 import com.deshine.huishu.app.customerInvite.model.bean.ResultFile;
 import com.deshine.huishu.app.http.CommonRetrofitClientUtil;
@@ -57,14 +59,14 @@ public class CommonModelImpl implements CommonModel {
                         if (!CollectionUtils.isEmpty(resultFiles)) {
                             callBack.onSuccessful(resultFiles);//登录成功------获取完数据,返回给P---P获取到数据之后就将数据交回给V
                         } else {
-                            callBack.onFaild("文件上传失败");//登录失败
+                            callBack.onFaild(ResultCode.Base.Affix.AFFIX_UPLOAD_ERROR_DESC, ResultCode.Base.Affix.AFFIX_UPLOAD_ERROR);//登录失败
                         }
                         mDisposable.dispose();
                     }
 
                     @Override
                     public void onError(Throwable e) {
-                        Log.e("LoginModelImpl", e.getMessage()+ "--");
+                        LogUtil.e(e.getMessage()+ "--");
                         e.printStackTrace();
                         //失败的时候调用-----一下可以忽略 直接 callBack.onFaild("请求失败");
                         if (e instanceof HttpException) {
@@ -72,15 +74,15 @@ public class CommonModelImpl implements CommonModel {
                             //httpException.response().errorBody().string()
                             int code = httpException.code();
                             if (code == 500 || code == 404) {
-                                callBack.onFaild("服务器出错");
+                                callBack.onFaild(ResultCode.Base.System.SERVER_ERROR_DESC,ResultCode.Base.System.SERVER_ERROR);
                             }
                         } else if (e instanceof ConnectException) {
-                            callBack.onFaild("网络断开,请打开网络!");
+                            callBack.onFaild(ResultCode.Base.Network.NETWORK_DISCONNECTION_DESC,ResultCode.Base.Network.NETWORK_DISCONNECTION);
                         } else if (e instanceof SocketTimeoutException) {
-                            callBack.onFaild("网络连接超时!!");
+                            callBack.onFaild(ResultCode.Base.Network.NETWORK_TIMEOUT_DESC,ResultCode.Base.Network.NETWORK_TIMEOUT);
                         } else {
-                            Log.e("LoginModelImpl", e.getMessage());
-                            callBack.onFaild("发生未知错误" + e.getMessage());
+                            LogUtil.e(e.getMessage());
+                            callBack.onFaild("发生未知错误" + e.getMessage(),ResultCode.Base.System.AN_UNKNOWN_ERROR);
                         }
                         mDisposable.dispose();
                     }

@@ -435,7 +435,7 @@ public class CustomerInviteActivity extends BaseActivity implements CustomerInvi
         if(affixList == null) affixList = new ArrayList<>();
         String suffixName = imgPath.substring(imgPath.lastIndexOf("/")+1);
         String suffix = suffixName.substring(suffixName.lastIndexOf(".")+1).toUpperCase();
-        suffixName = customerInviteDto.getSignOrderIndex()+"."+suffix.toLowerCase();
+        suffixName = affixList.size()+"."+suffix.toLowerCase();
         String userId = this.getSharedPreferences(AppConstant.CACHE_DATA, Context.MODE_PRIVATE).getString(AppConstant.USER_ID,null);
         CommonAffix commonAffix = new CommonAffix(null, AffixBizType.SF_SIGN_RECEIPT_NUM,null,
                 imgPath,suffixName,suffix,0,userId,userId,new Date(),new Date());
@@ -443,6 +443,7 @@ public class CustomerInviteActivity extends BaseActivity implements CustomerInvi
         if(SIGN_ORDER_OPT_INDEX>=0){
             commonAffix.setBizId(affixList.get(SIGN_ORDER_OPT_INDEX).getBizId());
             commonAffix.setAffixId(affixList.get(SIGN_ORDER_OPT_INDEX).getAffixId());
+            commonAffix.setSuffixName(affixList.size()+"."+suffix.toLowerCase());
             affixList.set(SIGN_ORDER_OPT_INDEX,commonAffix);
             SIGN_ORDER_OPT_INDEX = -1;
         }else{

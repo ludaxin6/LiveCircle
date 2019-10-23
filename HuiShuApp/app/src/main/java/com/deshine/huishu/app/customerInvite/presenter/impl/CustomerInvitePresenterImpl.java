@@ -4,10 +4,12 @@ import android.content.Context;
 
 import com.deshine.huishu.app.app.AppApplication;
 import com.deshine.huishu.app.app.AppConstant;
+import com.deshine.huishu.app.base.BaseActivity;
 import com.deshine.huishu.app.base.OnHttpCallBack;
 import com.deshine.huishu.app.base.response.BaseResponse;
 import com.deshine.huishu.app.common.model.CommonModel;
 import com.deshine.huishu.app.common.model.impl.CommonModelImpl;
+import com.deshine.huishu.app.common.util.CommonCallBackFaild;
 import com.deshine.huishu.app.commonAffix.bean.CommonAffix;
 import com.deshine.huishu.app.commonAffix.constants.AffixBizType;
 import com.deshine.huishu.app.customerInvite.model.CustomerInviteModel;
@@ -84,14 +86,14 @@ public class CustomerInvitePresenterImpl implements CustomerInvitePresenter {
                 psBill.setCommandExecDto(vo.getCommandExecDto());
                 psBill.setRefBillList(refBillList);
                 psBill.setSignOrderTotal(scanData.getSignOrderTotal());
-                psBill.setSignOrderIndex(scanData.getSingOrderIndex());
                 customerInviteView.updateInfo(psBill);
             }
 
             @Override
-            public void onFaild(String errorMsg) {
+            public void onFaild(String errorMsg, String errorCode) {
                 customerInviteView.stopLoading();//隐藏进度条
                 customerInviteView.showErrorMsg(errorMsg);//显示错误信息
+                CommonCallBackFaild.onFaild(errorCode);
             }
         });
     }
@@ -124,9 +126,10 @@ public class CustomerInvitePresenterImpl implements CustomerInvitePresenter {
             }
 
             @Override
-            public void onFaild(String errorMsg) {
+            public void onFaild(String errorMsg, String errorCode) {
                 customerInviteView.stopLoading();//隐藏进度条
                 customerInviteView.showErrorMsg(errorMsg);//显示错误信息
+                CommonCallBackFaild.onFaild(errorCode);
             }
         });
     }
@@ -161,9 +164,10 @@ public class CustomerInvitePresenterImpl implements CustomerInvitePresenter {
             }
 
             @Override
-            public void onFaild(String errorMsg) {
+            public void onFaild(String errorMsg, String errorCode) {
                 customerInviteView.stopLoading();//隐藏进度条
                 customerInviteView.showErrorMsg(errorMsg);//显示错误信息
+                CommonCallBackFaild.onFaild(errorCode);
             }
         });
     }
@@ -182,29 +186,39 @@ public class CustomerInvitePresenterImpl implements CustomerInvitePresenter {
         customerInviteModel.customerInviteSubmit(map, new OnHttpCallBack<FinanceBillResponse>() {
             @Override
             public void onSuccessful(FinanceBillResponse response) {
-                customerInviteView.stopLoading();//隐藏进度条
-                FinanceBillDto osDto = response.getFinanceBill();
-                String osId = osDto.getBillId();
-                CustomerInviteAffix request = new CustomerInviteAffix(dto.getIdCardAffixList(), dto.getAffixList());
-                customerInviteModel.uploadCustomerInviteAffix(osId,request,new OnHttpCallBack<BaseResponse<Integer>>() {
-                    @Override
-                    public void onSuccessful(BaseResponse<Integer> response) {
-                        //页面成功跳转
-                        customerInviteView.toSuccessPage();
-                    }
 
-                    @Override
-                    public void onFaild(String errorMsg) {
-                        customerInviteView.stopLoading();//隐藏进度条
-                        customerInviteView.showErrorMsg(errorMsg);//显示错误信息
-                    }
-                });
+                uploadCustomerInviteAffix(response.getFinanceBill().getBillId(),dto);
             }
 
             @Override
-            public void onFaild(String errorMsg) {
+            public void onFaild(String errorMsg, String errorCode) {
                 customerInviteView.stopLoading();//隐藏进度条
                 customerInviteView.showErrorMsg(errorMsg);//显示错误信息
+                CommonCallBackFaild.onFaild(errorCode);
+            }
+        });
+    }
+
+    /**
+     * 根据出库id,客户自提附件信息，条件附件索引记录
+     */
+    @Override
+    public void uploadCustomerInviteAffix(String osId, FinanceBillDto dto) {
+        customerInviteView.loading();
+        CustomerInviteAffix request = new CustomerInviteAffix(dto.getIdCardAffixList(), dto.getAffixList());
+        customerInviteModel.uploadCustomerInviteAffix(osId,request,new OnHttpCallBack<BaseResponse<Integer>>() {
+            @Override
+            public void onSuccessful(BaseResponse<Integer> response) {
+                customerInviteView.stopLoading();//隐藏进度条
+                //页面成功跳转
+                customerInviteView.toSuccessPage();
+            }
+
+            @Override
+            public void onFaild(String errorMsg, String errorCode) {
+                customerInviteView.stopLoading();//隐藏进度条
+                customerInviteView.showErrorMsg(errorMsg);//显示错误信息
+                CommonCallBackFaild.onFaild(errorCode);
             }
         });
     }

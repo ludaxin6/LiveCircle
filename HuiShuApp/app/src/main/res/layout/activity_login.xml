@@ -72,17 +72,4 @@
         android:background="@color/colorPrimary"
         android:textColor="@color/white"
         android:text="登 录" />
-
-    <!--    <Button-->
-    <!--        android:layout_width="wrap_content"-->
-    <!--        android:layout_height="wrap_content"-->
-    <!--        android:onClick="onRegister"-->
-    <!--        android:text="注册" />-->
-
-    <com.deshine.huishu.app.widget.LoadingTip
-        android:id="@+id/loadedTip"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_gravity="center"
-        android:gravity="center"></com.deshine.huishu.app.widget.LoadingTip>
 </LinearLayout>

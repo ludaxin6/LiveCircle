@@ -4,6 +4,7 @@ import android.content.Context;
 import android.util.Log;
 
 import com.deshine.huishu.app.api.CrmDgcsApiService;
+import com.deshine.huishu.app.cameralib.util.LogUtil;
 import com.jakewharton.retrofit2.adapter.rxjava2.HttpException;
 import com.deshine.huishu.app.api.ResultCode;
 import com.deshine.huishu.app.app.AppConstant;
@@ -48,7 +49,7 @@ public class LoginModelImpl implements LoginModel {
                         if (ResultCode.SUCCESS.equals(loginResultUserHttpResult.getResultCode())) {
                             callBack.onSuccessful(loginResultUserHttpResult);//登录成功------获取完数据,返回给P---P获取到数据之后就将数据交回给V
                         } else {
-                            callBack.onFaild("用户名或密码错误!");//登录失败
+                            callBack.onFaild(loginResultUserHttpResult.getResultDesc(),loginResultUserHttpResult.getResultCode());//登录失败
                         }
                         mDisposable.dispose();
                     }
@@ -63,15 +64,15 @@ public class LoginModelImpl implements LoginModel {
                             //httpException.response().errorBody().string()
                             int code = httpException.code();
                             if (code == 500 || code == 404) {
-                                callBack.onFaild("服务器出错");
+                                callBack.onFaild(ResultCode.Base.System.SERVER_ERROR_DESC,ResultCode.Base.System.SERVER_ERROR);
                             }
                         } else if (e instanceof ConnectException) {
-                            callBack.onFaild("网络断开,请打开网络!");
+                            callBack.onFaild(ResultCode.Base.Network.NETWORK_DISCONNECTION_DESC,ResultCode.Base.Network.NETWORK_DISCONNECTION);
                         } else if (e instanceof SocketTimeoutException) {
-                            callBack.onFaild("网络连接超时!!");
+                            callBack.onFaild(ResultCode.Base.Network.NETWORK_TIMEOUT_DESC,ResultCode.Base.Network.NETWORK_TIMEOUT);
                         } else {
-                            Log.e("LoginModelImpl", e.getMessage());
-                            callBack.onFaild("发生未知错误" + e.getMessage());
+                            LogUtil.e(e.getMessage());
+                            callBack.onFaild("发生未知错误" + e.getMessage(),ResultCode.Base.System.AN_UNKNOWN_ERROR);
                         }
                         mDisposable.dispose();
                     }

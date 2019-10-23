@@ -13,6 +13,18 @@ public interface ResultCode {
         interface System {
             String SYSTEM_ERROR = "100000";
             String SYSTEM_ERROR_DESC = "系统错误";
+            String SERVER_ERROR = "100001";
+            String SERVER_ERROR_DESC = "服务器出错";
+            String AN_UNKNOWN_ERROR = "100003";
+            String AN_UNKNOWN_ERROR_DESC = "未知错误";
+        }
+        interface Network {
+            String NETWORK_DISCONNECTION= "100020";
+            String NETWORK_DISCONNECTION_DESC = "网络断开,请打开网络!";
+            String NETWORK_TIMEOUT = "100021";
+            String NETWORK_TIMEOUT_DESC = "网络连接超时!!";
+            String SERVER_ERROR = "100022";
+            String SERVER_ERROR_DESC = "网络连接超时!!";
         }
 
         interface Param {//参数
@@ -77,6 +89,8 @@ public interface ResultCode {
             String AFFIX_NOT_FOUND_DESC = "未找到附件";
             String AFFIX_DAMAGED = "106511";
             String AFFIX_DAMAGED_DESC = "附件文件破损";
+            String AFFIX_UPLOAD_ERROR = "106511";
+            String AFFIX_UPLOAD_ERROR_DESC = "文件上传失败";
         }
 
         interface Mail {//邮件

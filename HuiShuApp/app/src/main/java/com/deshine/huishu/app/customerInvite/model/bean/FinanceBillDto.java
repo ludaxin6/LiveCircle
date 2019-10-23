@@ -236,7 +236,6 @@ public class FinanceBillDto extends FinanceBill implements Serializable {
     //App 按钮
     private CommandExecDto commandExecDto;
     private Integer signOrderTotal;//签收单张数
-    private Integer signOrderIndex;//签收单编号
 
     //关联的生产单、移库单
     private List<Map<String,String>> refBillList;
@@ -256,14 +255,6 @@ public class FinanceBillDto extends FinanceBill implements Serializable {
 
     public void setSignOrderTotal(Integer signOrderTotal) {
         this.signOrderTotal = signOrderTotal;
-    }
-
-    public Integer getSignOrderIndex() {
-        return signOrderIndex;
-    }
-
-    public void setSignOrderIndex(Integer signOrderIndex) {
-        this.signOrderIndex = signOrderIndex;
     }
 
     public List<Map<String, String>> getRefBillList() {

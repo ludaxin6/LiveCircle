@@ -9,7 +9,6 @@ public class CustomerInviteScanData implements Serializable {
     private Integer pieceCount;//件数
     private BigDecimal weight;//重量
     private Integer signOrderTotal;//签收单张数
-    private Integer singOrderIndex;//签收单编号
 
     public String getSoNo() {
         return soNo;
@@ -41,13 +40,5 @@ public class CustomerInviteScanData implements Serializable {
 
     public void setSignOrderTotal(Integer signOrderTotal) {
         this.signOrderTotal = signOrderTotal;
-    }
-
-    public Integer getSingOrderIndex() {
-        return singOrderIndex;
-    }
-
-    public void setSingOrderIndex(Integer singOrderIndex) {
-        this.singOrderIndex = singOrderIndex;
     }
 }
