@@ -177,4 +177,12 @@ public class AppManager {
             }
         }
     }
+
+    /**
+     * 栈里的活动数量
+     * @return
+     */
+    public int currentStackSize(){
+        return activityStack.size();
+    }
 }

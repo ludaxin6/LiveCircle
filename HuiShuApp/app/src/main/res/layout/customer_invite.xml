@@ -9,270 +9,270 @@
     <!--滚动-->
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:background="@color/white">
         <!--内容根布局-->
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:orientation="vertical">
-            <!--内容区域-->
+            <!--提货人姓名-->
             <LinearLayout
+                android:id="@+id/user_layout"
                 android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="1"
-                android:orientation="vertical">
-                <!--提货人姓名-->
-                <LinearLayout
-                    android:id="@+id/user_layout"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/shape_border_bottom"
+                android:orientation="horizontal"
+                android:padding="@dimen/text_margin">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/hs_thrxm"
+                    android:textColor="@color/hs_label" />
+
+                <TextView
+                    android:id="@+id/user_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/hs_val"
+                    android:textStyle="bold" />
+            </LinearLayout>
+            <!--提货人手机号-->
+            <LinearLayout
+                android:id="@+id/sms_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/shape_border_bottom"
+                android:orientation="horizontal"
+                android:padding="@dimen/text_margin">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/hs_thrsj"
+                    android:textColor="@color/hs_label" />
+
+                <TextView
+                    android:id="@+id/sms_val"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/hs_val"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/sms_status"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="8dp" />
+            </LinearLayout>
+            <!--提货人身份证-->
+            <LinearLayout
+                android:id="@+id/idCard_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/shape_border_bottom"
+                android:orientation="horizontal"
+                android:padding="@dimen/text_margin">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/hs_thrsfz"
+                    android:textColor="@color/hs_label" />
+
+                <TextView
+                    android:id="@+id/idCard_val"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/hs_val" />
+
+                <TextView
+                    android:id="@+id/idCard_val_1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/hs_val"
+                    android:textSize="@dimen/font_normal8"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/idCard_status"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="8dp" />
+            </LinearLayout>
+            <!--手机验证-->
+            <LinearLayout
+                android:id="@+id/sms_check_layout"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/white"
+                android:orientation="vertical"
+                android:padding="@dimen/text_margin"
+                android:visibility="gone">
+
+                <TextView
+                    android:id="@+id/sms_tip"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
-                    android:background="@drawable/shape_border_bottom"
-                    android:orientation="horizontal"
-                    android:padding="@dimen/text_margin">
+                    android:layout_gravity="center"
+                    android:textColor="@color/hs_warning" />
 
-                    <TextView
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:text="@string/hs_thrxm"
-                        android:textColor="@color/hs_label" />
-
-                    <TextView
-                        android:id="@+id/user_name"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:textColor="@color/hs_val"
-                        android:textStyle="bold" />
-                </LinearLayout>
-                <!--提货人手机号-->
                 <LinearLayout
-                    android:id="@+id/sms_layout"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="@drawable/shape_border_bottom"
-                    android:orientation="horizontal"
-                    android:padding="@dimen/text_margin">
-
-                    <TextView
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:text="@string/hs_thrsj"
-                        android:textColor="@color/hs_label" />
-
-                    <TextView
-                        android:id="@+id/sms_val"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:textColor="@color/hs_val"
-                        android:textStyle="bold" />
-
-                    <TextView
-                        android:id="@+id/sms_status"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="8dp" />
-                </LinearLayout>
-                <!--提货人身份证-->
-                <LinearLayout
-                    android:id="@+id/idCard_layout"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="@drawable/shape_border_bottom"
-                    android:orientation="horizontal"
-                    android:padding="@dimen/text_margin">
-
-                    <TextView
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:text="@string/hs_thrsfz"
-                        android:textColor="@color/hs_label" />
-
-                    <TextView
-                        android:id="@+id/idCard_val"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:textColor="@color/hs_val" />
-
-                    <TextView
-                        android:id="@+id/idCard_val_1"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:textColor="@color/hs_val"
-                        android:textSize="@dimen/font_normal8"
-                        android:textStyle="bold"/>
-
-                    <TextView
-                        android:id="@+id/idCard_status"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="8dp"  />
-                </LinearLayout>
-                <!--手机验证-->
-                <LinearLayout
-                    android:id="@+id/sms_check_layout"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
                     android:background="@color/white"
-                    android:orientation="vertical"
-                    android:padding="@dimen/text_margin"
-                    android:visibility="gone">
+                    android:orientation="vertical">
 
-                    <TextView
-                        android:id="@+id/sms_tip"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:textColor="@color/hs_warning" />
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:background="@color/white"
-                        android:orientation="vertical">
-
-                        <com.deshine.huishu.app.widget.SeparatedEditText
-                            android:id="@+id/edit_hollow"
-                            android:layout_width="200dp"
-                            android:layout_height="50dp"
-                            android:layout_gravity="center"
-                            android:layout_marginTop="20dp"
-                            android:inputType="number"
-                            app:borderColor="@color/lightGrey"
-                            app:corner="10dp"
-                            app:cursorColor="@android:color/holo_orange_light"
-                            app:cursorWidth="3dp"
-                            app:maxLength="4"
-                            app:separateType="@integer/type_hollow"
-                            app:textColor="@color/colorAccent" />
-
-                        <TextView
-                            android:id="@+id/sms_time"
-                            android:layout_width="200dp"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center"
-                            android:layout_marginTop="20dp"
-                            android:background="@color/hs_gray"
-                            android:gravity="center"
-                            android:padding="@dimen/text_margin"
-                            android:textColor="@color/hs_val" />
-
-
-                    </LinearLayout>
-
-                </LinearLayout>
-                <!--身份证验证-->
-                <LinearLayout
-                    android:id="@+id/idCard_check_layout"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:background="@color/white"
-                    android:orientation="vertical"
-                    android:paddingLeft="@dimen/title_margin"
-                    android:paddingTop="@dimen/text_margin"
-                    android:paddingRight="@dimen/title_margin"
-                    android:paddingBottom="@dimen/text_margin"
-                    android:visibility="gone">
-
-                    <TextView
-                        android:id="@+id/tvFront"
-                        android:layout_width="match_parent"
-                        android:layout_height="180dp"
-                        android:layout_gravity="center"
-                        android:background="@drawable/shape_border"
-                        android:gravity="center"
-                        android:text="@string/hs_idCard_positive"
-                        android:textColor="@color/hs_label" />
-
-                    <ImageView
-                        android:id="@+id/tvFrontImage"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:contentDescription="@string/hs_empty"
-                        android:visibility="gone" />
-
-                    <TextView
-                        android:id="@+id/tvBack"
-                        android:layout_width="match_parent"
-                        android:layout_height="180dp"
+                    <com.deshine.huishu.app.widget.SeparatedEditText
+                        android:id="@+id/edit_hollow"
+                        android:layout_width="200dp"
+                        android:layout_height="50dp"
                         android:layout_gravity="center"
                         android:layout_marginTop="20dp"
-                        android:background="@drawable/shape_border"
-                        android:gravity="center"
-                        android:text="@string/hs_idCard_contrary"
-                        android:textColor="@color/hs_label" />
-
-                    <ImageView
-                        android:id="@+id/tvBackImage"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:contentDescription="@string/hs_empty"
-                        android:visibility="gone" />
-
-                </LinearLayout>
-                <!--签收单上传-->
-                <LinearLayout
-                    android:id="@+id/sign_order_layout"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:background="@color/white"
-                    android:orientation="vertical"
-                    android:padding="@dimen/text_margin">
-                    <LinearLayout
-                        android:id="@+id/sign_order_tip_layout"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:background="@drawable/shape_border_green"
-                        android:orientation="vertical"
-                        android:paddingLeft="@dimen/dp_5"
-                        android:paddingRight="@dimen/dp_5">
-                        <TextView
-                            android:id="@+id/sign_order_count"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:textColor="@color/hs_warning"
-                            android:textStyle="bold"
-                            android:textSize="@dimen/font_norma20"
-                            android:layout_marginTop="@dimen/dp_3"/>
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:textColor="@color/hs_green"
-                            android:text="@string/hs_sign_order_tip"
-                            android:layout_marginTop="@dimen/dp_5"
-                            android:layout_marginBottom="@dimen/dp_3"/>
-                    </LinearLayout>
-                    <android.support.v7.widget.RecyclerView
-                        android:id="@+id/recyclerView"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:fadeScrollbars="true"
-                        android:scrollbarFadeDuration="1"
-                        android:scrollbars="vertical"/>
+                        android:inputType="number"
+                        app:borderColor="@color/lightGrey"
+                        app:corner="10dp"
+                        app:cursorColor="@android:color/holo_orange_light"
+                        app:cursorWidth="3dp"
+                        app:maxLength="4"
+                        app:separateType="@integer/type_hollow"
+                        app:textColor="@color/colorAccent" />
 
                     <TextView
-                        android:id="@+id/camera_btn"
-                        android:layout_width="match_parent"
-                        android:layout_height="180dp"
+                        android:id="@+id/sms_time"
+                        android:layout_width="200dp"
+                        android:layout_height="wrap_content"
                         android:layout_gravity="center"
-                        android:background="@drawable/shape_border"
+                        android:layout_marginTop="20dp"
+                        android:background="@color/hs_gray"
                         android:gravity="center"
-                        android:text="@string/hs_sign_order_camera"
-                        android:textColor="@color/hs_label"
-                        android:layout_marginTop="@dimen/text_margin"
-                        android:layout_marginBottom="@dimen/text_margin"/>
-                    <ImageView
-                        android:id="@+id/photo_view"
-                        android:layout_width="133dp"
-                        android:layout_height="100dp"
-                        android:layout_gravity="center"
-                        android:contentDescription="@string/hs_empty"
-                        android:visibility="gone" />
+                        android:padding="@dimen/text_margin"
+                        android:textColor="@color/hs_val" />
+
+
                 </LinearLayout>
+
+            </LinearLayout>
+            <!--身份证验证-->
+            <LinearLayout
+                android:id="@+id/idCard_check_layout"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/white"
+                android:orientation="vertical"
+                android:paddingLeft="@dimen/title_margin"
+                android:paddingTop="@dimen/text_margin"
+                android:paddingRight="@dimen/title_margin"
+                android:paddingBottom="@dimen/text_margin"
+                android:visibility="gone">
+
+                <TextView
+                    android:id="@+id/tvFront"
+                    android:layout_width="match_parent"
+                    android:layout_height="180dp"
+                    android:layout_gravity="center"
+                    android:background="@drawable/shape_border"
+                    android:gravity="center"
+                    android:text="@string/hs_idCard_positive"
+                    android:textColor="@color/hs_label" />
+
+                <ImageView
+                    android:id="@+id/tvFrontImage"
+                    android:layout_width="wrap_content"
+                    android:layout_height="180dp"
+                    android:layout_gravity="center"
+                    android:contentDescription="@string/hs_empty"
+                    android:visibility="gone" />
+
+                <TextView
+                    android:id="@+id/tvBack"
+                    android:layout_width="match_parent"
+                    android:layout_height="180dp"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="20dp"
+                    android:background="@drawable/shape_border"
+                    android:gravity="center"
+                    android:text="@string/hs_idCard_contrary"
+                    android:textColor="@color/hs_label" />
+
+                <ImageView
+                    android:id="@+id/tvBackImage"
+                    android:layout_width="wrap_content"
+                    android:layout_height="180dp"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="20dp"
+                    android:contentDescription="@string/hs_empty"
+                    android:visibility="gone" />
+
+            </LinearLayout>
+            <!--签收单上传-->
+            <LinearLayout
+                android:id="@+id/sign_order_layout"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/white"
+                android:orientation="vertical"
+                android:padding="@dimen/text_margin">
+
+                <LinearLayout
+                    android:id="@+id/sign_order_tip_layout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/shape_border_green"
+                    android:orientation="vertical"
+                    android:paddingLeft="@dimen/dp_5"
+                    android:paddingRight="@dimen/dp_5">
+
+                    <TextView
+                        android:id="@+id/sign_order_count"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/dp_3"
+                        android:textColor="@color/hs_warning"
+                        android:textSize="@dimen/font_norma20"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/dp_5"
+                        android:layout_marginBottom="@dimen/dp_3"
+                        android:text="@string/hs_sign_order_tip"
+                        android:textColor="@color/hs_green" />
+                </LinearLayout>
+
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/recyclerView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fadeScrollbars="true"
+                    android:scrollbarFadeDuration="1"
+                    android:scrollbars="vertical" />
+
+                <TextView
+                    android:id="@+id/camera_btn"
+                    android:layout_width="match_parent"
+                    android:layout_height="180dp"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="@dimen/text_margin"
+                    android:layout_marginBottom="@dimen/text_margin"
+                    android:background="@drawable/shape_border"
+                    android:gravity="center"
+                    android:text="@string/hs_sign_order_camera"
+                    android:textColor="@color/hs_label" />
+
+                <ImageView
+                    android:id="@+id/photo_view"
+                    android:layout_width="133dp"
+                    android:layout_height="100dp"
+                    android:layout_gravity="center"
+                    android:contentDescription="@string/hs_empty"
+                    android:visibility="gone" />
             </LinearLayout>
             <!--底部按钮-->
             <LinearLayout
@@ -288,7 +288,7 @@
                     android:background="@color/colorPrimary"
                     android:text="@string/hs_submit"
                     android:textColor="@color/white"
-                    android:visibility="gone"/>
+                    android:visibility="gone" />
 
                 <Button
                     android:id="@+id/submit"
@@ -297,8 +297,9 @@
                     android:background="@color/colorPrimary"
                     android:text="@string/hs_submit"
                     android:textColor="@color/white"
-                    android:visibility="gone"/>
+                    android:visibility="gone" />
             </LinearLayout>
+
         </LinearLayout>
     </ScrollView>
 

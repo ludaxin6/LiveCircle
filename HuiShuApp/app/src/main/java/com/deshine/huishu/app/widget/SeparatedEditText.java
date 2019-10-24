@@ -12,6 +12,7 @@ import android.util.AttributeSet;
 import android.view.ActionMode;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 
 import com.deshine.huishu.app.R;
@@ -198,8 +199,6 @@ public class SeparatedEditText extends android.support.v7.widget.AppCompatEditTe
         this.requestFocus();
         this.setCursorVisible(false);
         this.setFilters(new InputFilter[]{new InputFilter.LengthFilter(maxLength)});
-
-        showSoftInput();
 
         blockPaint = new Paint();
         blockPaint.setAntiAlias(true);

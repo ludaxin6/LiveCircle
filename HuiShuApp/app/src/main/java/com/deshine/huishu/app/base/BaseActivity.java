@@ -233,5 +233,7 @@ public abstract class BaseActivity extends AppCompatActivity {
         super.onDestroy();
         mUnbinder.unbind();
         AppManager.getAppManager().finishActivity(this);
+        //关闭弹出框
+        LoadingDialog.cancelDialogForLoading();
     }
 }

@@ -1,16 +1,18 @@
 package com.deshine.huishu.app.customerInvite;
 
 import android.Manifest;
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-import android.os.Handler;
+import android.os.CountDownTimer;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.text.InputType;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -20,6 +22,7 @@ import android.widget.TextView;
 import com.deshine.huishu.app.R;
 import com.deshine.huishu.app.adapter.CommonAffixAdapter;
 import com.deshine.huishu.app.app.AppConstant;
+import com.deshine.huishu.app.app.AppManager;
 import com.deshine.huishu.app.base.BaseActivity;
 import com.deshine.huishu.app.cameralib.util.LogUtil;
 import com.deshine.huishu.app.commonAffix.bean.CommonAffix;
@@ -98,8 +101,8 @@ public class CustomerInviteActivity extends BaseActivity implements CustomerInvi
     TextView signOrderCount;
     @BindView(R.id.camera_btn)
     TextView cameraBtn;
-    @BindView(R.id.photo_view)
-    ImageView signOrderPhoto;
+//    @BindView(R.id.photo_view)
+//    ImageView signOrderPhoto;
     @BindView(R.id.recyclerView)
     RecyclerView mRecyclerView;
 
@@ -124,8 +127,8 @@ public class CustomerInviteActivity extends BaseActivity implements CustomerInvi
 
     private CustomerInvitePresenter customerInvitePresenter;
     private FinanceBillDto customerInviteDto;
-    private int time=300;
-    private final Handler handler = new Handler();
+    private int time=60;
+    private CountDownTimer timer;
     private static final int IDCARD_FRONT_REQUEST_CODE = 1001;
     private static final int IDCARD_BACK_REQUEST_CODE = 1002;
 
@@ -134,7 +137,6 @@ public class CustomerInviteActivity extends BaseActivity implements CustomerInvi
     private List<CommonAffix> affixList = null;
 
     private static final String SMS_PWD="1234";
-    private final String scanVal = "XDDEL190918-08032/1";
     /**
      * 入口
      *
@@ -205,9 +207,6 @@ public class CustomerInviteActivity extends BaseActivity implements CustomerInvi
         if (!EventBus.getDefault().isRegistered(this)) {
             EventBus.getDefault().register(this);
         }
-        //String scanVal="";
-        //ScanEvent scanEvent = new ScanEvent(scanVal,this.getClass().getSimpleName());
-        //scanBack(scanEvent);
         //启动扫码
         ScanActivity.startAction(CustomerInviteActivity.this);
 
@@ -218,7 +217,7 @@ public class CustomerInviteActivity extends BaseActivity implements CustomerInvi
      * @param view
      */
     @OnClick({R.id.tvFront,R.id.tvBack,R.id.tvFrontImage,R.id.tvBackImage,
-            R.id.idCard_submit,R.id.submit,R.id.camera_btn,R.id.photo_view})
+            R.id.idCard_submit,R.id.submit,R.id.camera_btn})
     public void activityViewClick(View view) {
         switch (view.getId()) {
             case R.id.tvFront:
@@ -236,7 +235,6 @@ public class CustomerInviteActivity extends BaseActivity implements CustomerInvi
                 idCardUpload();
                 break;
             case R.id.camera_btn:
-            case R.id.photo_view:
                 //签收单拍照点击事件
                 signOrderPhotograph();
                 break;
@@ -261,18 +259,29 @@ public class CustomerInviteActivity extends BaseActivity implements CustomerInvi
         mSmsTip.setText("验证码已发至提货人手机"+customerInviteDto.getConsigneeMobilePhone()+"，请输入验证码");
         mSmsVal.setText(customerInviteDto.getConsigneeMobilePhone());
         //倒计时
-        time=300;
-        mSmsTime.setText(""+time);
-        Runnable runnable = new Runnable() {
+        time=60;
+        //倒计时60秒,这里不直接写60000,而用1000*60是因为后者看起来更直观,每走一步是1000毫秒也就是1秒
+        timer = new CountDownTimer(1000 * 60, 1000) {
+            @SuppressLint("DefaultLocale")
             @Override
-            public void run() {
-                time--;
-                if(mSmsTime != null) mSmsTime.setText(""+time);
-                handler.postDelayed(this, 1000);
+            public void onTick(long millisUntilFinished) {
+                time --;
+                if(time<=0){
+                    this.onFinish();
+                    return;
+                }
+                mSmsTime.setText(""+time);
+            }
+
+            @Override
+            public void onFinish() {
+                mSmsTime.setText("重新获取");
+                mSmsTime.setBackgroundColor(getResources().getColor(R.color.colorPrimary));
             }
         };
-        handler.postDelayed(runnable, 1000);
+        timer.start();
         separatedEdit.setPassword(true);
+        separatedEdit.setInputType(InputType.TYPE_CLASS_NUMBER);
         separatedEdit.showSoftInput();
         separatedEdit.setTextChangedListener(new SeparatedEditText.TextChangedListener() {
             @Override
@@ -343,10 +352,11 @@ public class CustomerInviteActivity extends BaseActivity implements CustomerInvi
     }
     //扫码返回后界面
     public void initAfterScanView(){
-        mUserLayout.setVisibility(View.VISIBLE);
+        if(mUserLayout != null && mUserLayout.getVisibility() != View.VISIBLE) mUserLayout.setVisibility(View.VISIBLE);
     }
     //获取客户自提数据后界面
     public void initCustomerInviteDataView(){
+        mSmsTime.setBackgroundColor(getResources().getColor(R.color.hs_gray));
         mSmsCheckLayout.setVisibility(View.VISIBLE);
     }
     //短信验证通过
@@ -376,7 +386,11 @@ public class CustomerInviteActivity extends BaseActivity implements CustomerInvi
             LogUtil.i("扫码结果："+event.getScanValue());
             CustomerInviteScanData scanData = GesonUtil.getGson().fromJson(event.getScanValue(), CustomerInviteScanData.class);
             //获取客户自提数据,并发送短信验证码
-            customerInvitePresenter.fetchCustomerInvite(scanData);
+            if(customerInviteDto == null){
+                customerInvitePresenter.fetchCustomerInvite(scanData);
+            }else{
+                LogUtil.i("---------重复扫码了");
+            }
         }
     }
     //短信验证回调
@@ -384,7 +398,7 @@ public class CustomerInviteActivity extends BaseActivity implements CustomerInvi
         if(SMS_PWD.equals(text)){
             ToastUitl.showShort("短信验证通过");
             //定时销毁
-            handler.removeCallbacksAndMessages(null);
+            if(timer!=null)timer.cancel();
             //隐藏软键盘
             separatedEdit.hideSoftInput();
             initSmsSuccessView();
@@ -524,5 +538,12 @@ public class CustomerInviteActivity extends BaseActivity implements CustomerInvi
                         ToastUitl.showLong(builder.toString() + " show Rational");
                     }
                 });
+    }
+    @Override
+    protected void onStop() {
+        super.onStop();
+        if(timer!=null)timer.cancel();
+        LogUtil.e("++++++++活动被停止了？？");
+        LogUtil.e("堆栈数量："+ AppManager.getAppManager().currentStackSize());
     }
 }

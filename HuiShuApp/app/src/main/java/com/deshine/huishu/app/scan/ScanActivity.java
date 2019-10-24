@@ -101,7 +101,7 @@ public class ScanActivity extends BaseActivity implements QRCodeView.Delegate {
 
     private void vibrate() {
         Vibrator vibrator = (Vibrator) getSystemService(VIBRATOR_SERVICE);
-        vibrator.vibrate(200);
+        vibrator.vibrate(500);
     }
     /**
      * 处理扫描结果
@@ -115,6 +115,8 @@ public class ScanActivity extends BaseActivity implements QRCodeView.Delegate {
             vibrate();
             mZXingView.startSpot(); // 开始识别
         }else{
+            vibrate();
+            mZXingView.stopSpot();//成功识别后停止识别
             //eventBus 通知扫码消息
             String type = getIntent().getStringExtra("fromActivity");
             EventBus.getDefault().post(new ScanEvent(result, type));

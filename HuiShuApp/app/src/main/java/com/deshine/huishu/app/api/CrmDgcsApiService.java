@@ -22,7 +22,7 @@ import retrofit2.http.Part;
 import retrofit2.http.Path;
 
 public interface CrmDgcsApiService {
-    public static final String BASE_URL = "http://192.168.38.174:8080/crm_dgcs/api/";
+    public static final String BASE_URL = "http://192.168.38.201:8080/crm_dgcs/api/";
     //登录
     @POST("user/login")
     Observable<UserResponse> login(@Body LoginRequest request);
