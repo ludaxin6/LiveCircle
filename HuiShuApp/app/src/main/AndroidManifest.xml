@@ -35,6 +35,9 @@
             </intent-filter>
         </activity>
         <activity android:name=".customerInvite.CustomerInviteActivity"></activity>
+        <activity android:name=".customerInvite.CustomerInviteActivity1"></activity>
+        <activity android:name=".customerInvite.CustomerInviteActivity2"></activity>
+        <activity android:name=".customerInvite.CustomerInviteActivity3"></activity>
         <activity android:name=".scan.ScanActivity" />
         <activity android:name=".scan.TestScanActivity" />
         <activity android:name=".workbench.view.WorkbenchActivity" />

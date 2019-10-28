@@ -59,8 +59,6 @@ public class CustomerInviteActivity extends BaseActivity implements CustomerInvi
     //toolbar
     @BindView(R.id.common_titlebar)
     Toolbar mToolbar;
-    @BindView(R.id.common_titlebar_tv)
-    TextView mTextView;
 
     //提货人姓名
     @BindView(R.id.user_layout)
@@ -182,6 +180,13 @@ public class CustomerInviteActivity extends BaseActivity implements CustomerInvi
             ToastUitl.showLong("请检查相机权限");
         }
     }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        if(timer != null) timer.cancel();
+    }
+
     /*********************
      * 子类实现
      *****************************/
@@ -197,8 +202,8 @@ public class CustomerInviteActivity extends BaseActivity implements CustomerInvi
     @Override
     public void initView() {
         //设置标题栏
-        mTextView.setText(R.string.hs_customer_invite);
-        setSupportActionBar(mToolbar);
+        mToolbar.setTitle(R.string.hs_customer_invite);
+        baseToolbar(mToolbar);
         //初始化页面显示样式
         initViewVisable();
         //清空缓存数据
@@ -255,13 +260,57 @@ public class CustomerInviteActivity extends BaseActivity implements CustomerInvi
         mUserName.setText(customerInviteDto.getConsigneeName());
         //扫码完成后显示的界面
         initCustomerInviteDataView();
-        //调用发送短信验证码 TODO
+        customerInvitePresenter.sendSmsVerifyCode(getIdCard(),customerInviteDto.getConsigneeMobilePhone(),time);
+    }
+    @Override
+    public void sendSmsVerifyCodeBack() {
+        //调用发送短信验证码
         mSmsTip.setText("验证码已发至提货人手机"+customerInviteDto.getConsigneeMobilePhone()+"，请输入验证码");
-        mSmsVal.setText(customerInviteDto.getConsigneeMobilePhone());
+        timeCountDown();
+        separatedEdit.clearText();
+        separatedEdit.setPassword(true);
+        separatedEdit.setInputType(InputType.TYPE_CLASS_NUMBER);
+        separatedEdit.showSoftInput();
+        separatedEdit.setTextChangedListener(new SeparatedEditText.TextChangedListener() {
+            @Override
+            public void textChanged(CharSequence changeText) {
+            }
+
+            @Override
+            public void textCompleted(CharSequence text) {
+                //调用短信验证
+                customerInvitePresenter.checkSmsVerifyCode(getIdCard(),text.toString().trim());
+            }
+        });
+    }
+
+    @Override
+    public void checkSmsVerifyCodeBack(boolean flage) {
+        if(flage){
+            ToastUitl.showShort("短信验证通过");
+            //定时销毁
+            if(timer!=null)timer.cancel();
+            //隐藏软键盘
+            separatedEdit.hideSoftInput();
+            initSmsSuccessView();
+            mSmsStatus.setText(R.string.hs_check_success);
+            mSmsStatus.setTextColor(getResources().getColor(R.color.hs_success));
+            String idCardNo = getIdCard();
+            mIdCardVal.setText(idCardNo.substring(0,idCardNo.length()-4));
+            mIdCardVal1.setText(idCardNo.substring(idCardNo.length()-4));
+        }else{
+            ToastUitl.showShort("短信验证失败");
+            if(time>0){
+                separatedEdit.clearText();
+            }
+        }
+    }
+
+    public void timeCountDown(){
         //倒计时
-        time=60;
+        time=120;
         //倒计时60秒,这里不直接写60000,而用1000*60是因为后者看起来更直观,每走一步是1000毫秒也就是1秒
-        timer = new CountDownTimer(1000 * 60, 1000) {
+        timer = new CountDownTimer(1000 * 120, 1000) {
             @SuppressLint("DefaultLocale")
             @Override
             public void onTick(long millisUntilFinished) {
@@ -277,24 +326,11 @@ public class CustomerInviteActivity extends BaseActivity implements CustomerInvi
             public void onFinish() {
                 mSmsTime.setText("重新获取");
                 mSmsTime.setBackgroundColor(getResources().getColor(R.color.colorPrimary));
+                timer.cancel();
             }
         };
         timer.start();
-        separatedEdit.setPassword(true);
-        separatedEdit.setInputType(InputType.TYPE_CLASS_NUMBER);
-        separatedEdit.showSoftInput();
-        separatedEdit.setTextChangedListener(new SeparatedEditText.TextChangedListener() {
-            @Override
-            public void textChanged(CharSequence changeText) {
-            }
-
-            @Override
-            public void textCompleted(CharSequence text) {
-                smsCallback(text.toString());
-            }
-        });
     }
-
     /**
      * 更新身份证数据
      * @param idCardList
@@ -393,27 +429,6 @@ public class CustomerInviteActivity extends BaseActivity implements CustomerInvi
             }
         }
     }
-    //短信验证回调
-    public void smsCallback(String text){
-        if(SMS_PWD.equals(text)){
-            ToastUitl.showShort("短信验证通过");
-            //定时销毁
-            if(timer!=null)timer.cancel();
-            //隐藏软键盘
-            separatedEdit.hideSoftInput();
-            initSmsSuccessView();
-            mSmsStatus.setText(R.string.hs_check_success);
-            mSmsStatus.setTextColor(getResources().getColor(R.color.hs_success));
-            String idCardNo = getIdCard();
-            mIdCardVal.setText(idCardNo.substring(0,idCardNo.length()-4));
-            mIdCardVal1.setText(idCardNo.substring(idCardNo.length()-4));
-        }else{
-            ToastUitl.showShort("短信验证失败");
-            if(time>0){
-                separatedEdit.clearText();
-            }
-        }
-    }
     //身份证正面拍照
     public void idCardFrontClick(){
         Bundle bundle = new Bundle();
@@ -465,7 +480,7 @@ public class CustomerInviteActivity extends BaseActivity implements CustomerInvi
         }
         int leaveCount = customerInviteDto.getSignOrderTotal()-affixList.size();
         if(leaveCount>0){
-            cameraBtn.setText(getResources().getString(R.string.hs_sign_order_camera)+"\n还需"+leaveCount+"张，请继续拍照上传");
+            cameraBtn.setText(getResources().getString(R.string.hs_sign_order_camera)+"，还需"+leaveCount+"张");
         }else if(leaveCount==0){
             initSubmit();
         }
@@ -538,12 +553,5 @@ public class CustomerInviteActivity extends BaseActivity implements CustomerInvi
                         ToastUitl.showLong(builder.toString() + " show Rational");
                     }
                 });
-    }
-    @Override
-    protected void onStop() {
-        super.onStop();
-        if(timer!=null)timer.cancel();
-        LogUtil.e("++++++++活动被停止了？？");
-        LogUtil.e("堆栈数量："+ AppManager.getAppManager().currentStackSize());
     }
 }

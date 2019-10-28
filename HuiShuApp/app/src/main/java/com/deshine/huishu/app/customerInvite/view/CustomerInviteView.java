@@ -13,6 +13,8 @@ public interface CustomerInviteView {
      * 更新页面
      */
     void updateInfo(FinanceBillDto dto);
+    void sendSmsVerifyCodeBack();
+    void checkSmsVerifyCodeBack(boolean flage);
     void setIdCardData(List<CommonAffix> idCardList);
     void setSignOrderPhoto(List<CommonAffix> affixList);
     void loading();

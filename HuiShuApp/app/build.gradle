@@ -58,5 +58,7 @@ dependencies {
     compile 'cn.bingoogolapple:bga-qrcode-zxing:1.3.6'
     //这个要去掉
     compile 'cn.bingoogolapple:bga-flowlayout:1.0.0@aar'
+    //身份证扫描相机
+    compile project(path:':idcardcamera')
 
 }

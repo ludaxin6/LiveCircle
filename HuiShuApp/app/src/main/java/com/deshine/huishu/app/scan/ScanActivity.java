@@ -7,6 +7,10 @@ import android.os.Vibrator;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
 import android.util.Log;
+import android.view.Gravity;
+import android.view.View;
+import android.widget.ImageButton;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.deshine.huishu.app.R;
@@ -32,8 +36,6 @@ public class ScanActivity extends BaseActivity implements QRCodeView.Delegate {
     ZXingView mZXingView;
     @BindView(R.id.common_titlebar)
     Toolbar mToolbar;
-    @BindView(R.id.common_titlebar_tv)
-    TextView mTextView;
     private Context mContext;
 
     /**
@@ -62,9 +64,9 @@ public class ScanActivity extends BaseActivity implements QRCodeView.Delegate {
     @Override
     public void initView() {
         //设置标题栏
-        mTextView.setText(R.string.hs_scan);
-        setSupportActionBar(mToolbar);
-
+        mToolbar.setTitle("");
+        mToolbar.setBackgroundColor(getResources().getColor(R.color.transparent));
+        baseToolbar(mToolbar);
         mContext = this;
 
         BGAQRCodeUtil.setDebug(true);

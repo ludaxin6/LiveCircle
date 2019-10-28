@@ -29,12 +29,19 @@ public interface CrmDgcsApiService {
     //客户自提查询
     @GET("app/erp/finance/bill/ps4Os/{bizNo}/{userId}")
     Observable<BaseResponse<CustomerInviteVo>> getPsData4Os(@Path("bizNo") String bizNo, @Path("userId") String userId);
-    //客户自提出库
-    @POST("erp/finance/bill/osFromPs")
-    Observable<FinanceBillResponse> addOs4PtBillFromPs(@Body Map<String,Object> request);
     //客户自提附件添加索引
     @POST("app/erp/finance/bill/customerInvite/{osId}save/affixList")
     Observable<BaseResponse<Integer>> saveCustomerInviteAffix(@Path("osId") String osId,@Body CustomerInviteAffix request);
+    //发送短信验证码
+    @POST("app/erp/finance/bill/customerInvite/{idCardNo}/{mobilePhone}/{expireSeconds}/smsVerifyCode")
+    Observable<BaseResponse<Boolean>> sendSmsVerifyCode(@Path("idCardNo") String idCardNo, @Path("mobilePhone") String mobilePhone, @Path("expireSeconds") int expireSeconds);
+    //校验短信验证码
+    @POST("app/erp/finance/bill/customerInvite/{idCardNo}/{verifyCode}/checkSmsVerifyCode")
+    Observable<BaseResponse<Boolean>> checkSmsVerifyCode(@Path("idCardNo") String idCardNo, @Path("verifyCode") String verifyCode);
+
+    //客户自提出库
+    @POST("erp/finance/bill/osFromPs")
+    Observable<FinanceBillResponse> addOs4PtBillFromPs(@Body Map<String,Object> request);
     //附件上传到文件服务器
     @POST("file/ueditorUpload")
     @Multipart
@@ -42,4 +49,5 @@ public interface CrmDgcsApiService {
     //附件索引上传
     @POST("affix/save/{bizId}/{bizType}/{userId}/affix")
     Observable<BaseResponse<List<CommonAffix>>> uploadAffixInfo(@Path("bizId") String bizId, @Path("bizType") String bizType, @Path("userId") String userId, @Body List<CommonAffix> affixList);
+
 }

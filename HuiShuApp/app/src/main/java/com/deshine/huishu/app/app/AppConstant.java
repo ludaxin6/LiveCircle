@@ -37,6 +37,7 @@ public class AppConstant {
     public static final String USER_ID = "userId";
     public static final String USER_NAME = "userName";
     public static final String USER_INFO_JSON = "UserInfoJson";
+    public static final String CUSTOMER_INVITE_SCAN_DATA = "customerInviteScanData";
 
     /*工作台*/
     public static final String WORKBENCH_ALL = "WORKBENCH_ALL";

@@ -286,7 +286,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@color/colorPrimary"
-                    android:text="@string/hs_submit"
+                    android:text="@string/hs_customer_invite_next"
                     android:textColor="@color/white"
                     android:visibility="gone" />
 
@@ -295,7 +295,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@color/colorPrimary"
-                    android:text="@string/hs_submit"
+                    android:text="@string/hs_customer_invite_submit"
                     android:textColor="@color/white"
                     android:visibility="gone" />
             </LinearLayout>

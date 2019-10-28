@@ -6,10 +6,16 @@ import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
+import android.view.Gravity;
+import android.view.View;
 import android.view.Window;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import com.deshine.huishu.app.R;
 import com.deshine.huishu.app.app.AppManager;
+import com.deshine.huishu.app.cameralib.util.LogUtil;
 import com.deshine.huishu.app.utils.StatusBarSetting;
 import com.deshine.huishu.app.utils.StatusBarUtil;
 import com.deshine.huishu.app.utils.ToastUitl;
@@ -34,13 +40,32 @@ public abstract class BaseActivity extends AppCompatActivity {
         doBeforeSetcontentView();
         setContentView(getLayoutId());
         // 默认着色状态栏
-        //SetStatusBarColor();
+//        SetStatusBarColor();
         StatusBarSetting.setColorNoTranslucent(this, getResources().getColor(R.color.colorPrimary));
         mUnbinder = ButterKnife.bind(this);
         mContext = this;
 
         this.initPresenter();
         this.initView();
+    }
+    public void baseToolbar(Toolbar mToolbar){
+        baseToolbarNoEvent(mToolbar);
+        mToolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
+    }
+    public void baseToolbarNoEvent(Toolbar mToolbar){
+        TextView titleView = null;
+        if(mToolbar.getChildCount()>1){
+            titleView = (TextView)mToolbar.getChildAt(1);
+            titleView.getLayoutParams().width = LinearLayout.LayoutParams.MATCH_PARENT;
+            titleView.setGravity(Gravity.CENTER_HORIZONTAL);
+            titleView.setPadding(0,0,250,0);
+        }
+        setSupportActionBar(mToolbar);
     }
 
     /**
@@ -225,6 +250,13 @@ public abstract class BaseActivity extends AppCompatActivity {
     protected void onPause() {
         super.onPause();
 
+    }
+    @Override
+    protected void onStop() {
+        super.onStop();
+        LogUtil.e("++++++++BaseActivity活动被停止了");
+        AppManager appManager = AppManager.getAppManager();
+        LogUtil.e("堆栈数量："+ appManager.currentStackSize()+" 活动名称："+appManager.activityStackName());
     }
 
 

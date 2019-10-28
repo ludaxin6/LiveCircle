@@ -34,4 +34,19 @@ public interface CustomerInvitePresenter {
      * 根据出库id,客户自提附件信息，条件附件索引记录
      */
     void uploadCustomerInviteAffix(String osId, FinanceBillDto dto);
+
+    /**
+     * 发送短信验证码
+     * @param idCardNo
+     * @param mobilePhone
+     * @param expireSeconds
+     */
+    void sendSmsVerifyCode(String idCardNo, String mobilePhone, int expireSeconds);
+
+    /**
+     * 短信验证码校验
+     * @param idCardNo
+     * @param verifyCode
+     */
+    void checkSmsVerifyCode(String idCardNo, String verifyCode);
 }

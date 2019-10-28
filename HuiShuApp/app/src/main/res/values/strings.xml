@@ -31,10 +31,12 @@
     <string name="hs_thrsj">提货人手机</string>
     <string name="hs_thrsfz">提货人身份证号</string>
     <string name="hs_submit">提交</string>
-    <string name="hs_idCard_positive">头像面，对准点击拍照</string>
-    <string name="hs_idCard_contrary">国徽面，对准点击拍照</string>
+    <string name="hs_customer_invite_next">下一步，签收单拍照</string>
+    <string name="hs_customer_invite_submit">提交并出库</string>
+    <string name="hs_idCard_positive">头像面拍照</string>
+    <string name="hs_idCard_contrary">国徽面拍照</string>
     <string name="hs_check_success">已验证</string>
     <string name="hs_idCard_success">已拍照</string>
     <string name="hs_sign_order_tip">请逐页拍照已签字的签收单 </string>
-    <string name="hs_sign_order_camera">将此框对准签收单，点击拍照 </string>
+    <string name="hs_sign_order_camera">签收单拍照 </string>
 </resources>

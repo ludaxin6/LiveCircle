@@ -2,15 +2,11 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     style="@style/MatchMatch">
-
-    <!--标题栏-->
-    <include layout="@layout/activity_common_titlebar" />
-
     <cn.bingoogolapple.qrcode.zxing.ZXingView
         android:id="@+id/zxingview"
         style="@style/MatchMatch"
         app:qrcv_animTime="1000"
-        app:qrcv_barCodeTipText="将条码放入框内，即可自动扫描"
+        app:qrcv_barCodeTipText="请对准签收单二维码"
         app:qrcv_barcodeRectHeight="120dp"
         app:qrcv_borderColor="@android:color/white"
         app:qrcv_borderSize="1dp"
@@ -30,7 +26,7 @@
         app:qrcv_isShowTipTextAsSingleLine="false"
         app:qrcv_isTipTextBelowRect="false"
         app:qrcv_maskColor="#33FFFFFF"
-        app:qrcv_qrCodeTipText="将二维码/条码放入框内，即可自动扫描"
+        app:qrcv_qrCodeTipText="请对准签收单二维码"
         app:qrcv_rectWidth="200dp"
         app:qrcv_scanLineColor="@color/colorPrimaryDark"
         app:qrcv_scanLineMargin="0dp"
@@ -40,4 +36,6 @@
         app:qrcv_toolbarHeight="56dp"
         app:qrcv_topOffset="65dp"
         app:qrcv_verticalBias="-1" />
+    <!--标题栏-->
+    <include layout="@layout/activity_common_titlebar" />
 </RelativeLayout>

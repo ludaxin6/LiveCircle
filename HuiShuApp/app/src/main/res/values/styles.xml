@@ -1,9 +1,10 @@
 <resources>
     <style name="MyTheme" parent="Theme.AppCompat.Light.NoActionBar">
-        <item name="android:colorPrimary">@android:color/holo_blue_light</item>
-        <item name="android:colorAccent">@color/accent_material_light</item>
-        <item name="android:colorPrimaryDark">@android:color/holo_blue_light</item>
+        <item name="colorPrimary">@android:color/holo_blue_light</item>
+        <item name="colorAccent">@color/accent_material_light</item>
+        <item name="colorPrimaryDark">@android:color/holo_blue_light</item>
     </style>
+
     <!-- Base application theme. -->
     <style name="AppTheme" parent="MyTheme">
         <item name="android:windowAnimationStyle">@style/AnimationActivity</item>

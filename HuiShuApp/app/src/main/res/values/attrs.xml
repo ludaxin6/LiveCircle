@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-
+    <!--短信验证码控件-->
     <declare-styleable name="SeparatedEditText">
         <attr name="password" format="boolean" />
         <attr name="showCursor" format="boolean" />
@@ -21,6 +21,7 @@
     <integer name="type_solid">2</integer>
     <integer name="type_underline">3</integer>
 
+    <!--签收单上传拍照-->
     <attr name="iconSize" format="dimension"/>
     <attr name="iconMargin" format="dimension"/>
     <attr name="iconSrc" format="reference"/>

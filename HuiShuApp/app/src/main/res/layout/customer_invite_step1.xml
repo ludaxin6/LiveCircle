@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <!--标题栏-->
+    <include layout="@layout/activity_common_titlebar" />
+    <!--滚动-->
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/white">
+        <!--内容根布局-->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+            <!--提货人姓名-->
+            <LinearLayout
+                android:id="@+id/user_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/shape_border_bottom"
+                android:orientation="horizontal"
+                android:padding="@dimen/text_margin">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/hs_thrxm"
+                    android:textColor="@color/hs_label" />
+
+                <TextView
+                    android:id="@+id/user_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/hs_val"
+                    android:textStyle="bold" />
+            </LinearLayout>
+            <!--手机验证-->
+            <LinearLayout
+                android:id="@+id/sms_check_layout"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/white"
+                android:orientation="vertical"
+                android:padding="@dimen/text_margin">
+
+                <TextView
+                    android:id="@+id/sms_tip"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:textColor="@color/hs_warning" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/white"
+                    android:orientation="vertical">
+
+                    <com.deshine.huishu.app.widget.SeparatedEditText
+                        android:id="@+id/edit_hollow"
+                        android:layout_width="200dp"
+                        android:layout_height="50dp"
+                        android:layout_gravity="center"
+                        android:layout_marginTop="20dp"
+                        android:inputType="number"
+                        app:borderColor="@color/lightGrey"
+                        app:corner="10dp"
+                        app:cursorColor="@android:color/holo_orange_light"
+                        app:cursorWidth="3dp"
+                        app:maxLength="4"
+                        app:separateType="@integer/type_hollow"
+                        app:textColor="@color/colorAccent" />
+
+                    <TextView
+                        android:id="@+id/sms_time"
+                        android:layout_width="200dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginTop="20dp"
+                        android:background="@color/hs_gray"
+                        android:gravity="center"
+                        android:padding="@dimen/text_margin"
+                        android:textColor="@color/hs_val" />
+
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+        </LinearLayout>
+    </ScrollView>
+
+</LinearLayout>

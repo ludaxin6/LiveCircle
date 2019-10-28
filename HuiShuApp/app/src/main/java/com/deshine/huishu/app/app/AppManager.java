@@ -4,6 +4,7 @@ package com.deshine.huishu.app.app;
 import android.app.Activity;
 import android.app.ActivityManager;
 import android.content.Context;
+import android.support.v4.app.ActivityCompat;
 
 import java.util.Stack;
 
@@ -184,5 +185,14 @@ public class AppManager {
      */
     public int currentStackSize(){
         return activityStack.size();
+    }
+    public String activityStackName(){
+        StringBuffer sb = new StringBuffer();
+        int size = currentStackSize();
+        for(int i=0;i<size;i++){
+            Activity activity = activityStack.get(i);
+            sb.append(activity.getClass().getSimpleName()).append(",");
+        }
+        return sb.toString();
     }
 }

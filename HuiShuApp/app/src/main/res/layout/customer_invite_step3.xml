@@ -1,0 +1,192 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <!--标题栏-->
+    <include layout="@layout/activity_common_titlebar" />
+    <!--滚动-->
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/white">
+        <!--内容根布局-->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+            <!--提货人姓名-->
+            <LinearLayout
+                android:id="@+id/user_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/shape_border_bottom"
+                android:orientation="horizontal"
+                android:padding="@dimen/text_margin">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/hs_thrxm"
+                    android:textColor="@color/hs_label" />
+
+                <TextView
+                    android:id="@+id/user_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/hs_val"
+                    android:textStyle="bold" />
+            </LinearLayout>
+            <!--提货人手机号-->
+            <LinearLayout
+                android:id="@+id/sms_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/shape_border_bottom"
+                android:orientation="horizontal"
+                android:padding="@dimen/text_margin">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/hs_thrsj"
+                    android:textColor="@color/hs_label" />
+
+                <TextView
+                    android:id="@+id/sms_val"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/hs_val"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/sms_status"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="8dp" />
+            </LinearLayout>
+            <!--提货人身份证-->
+            <LinearLayout
+                android:id="@+id/idCard_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/shape_border_bottom"
+                android:orientation="horizontal"
+                android:padding="@dimen/text_margin">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/hs_thrsfz"
+                    android:textColor="@color/hs_label" />
+
+                <TextView
+                    android:id="@+id/idCard_val"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/hs_val" />
+
+                <TextView
+                    android:id="@+id/idCard_val_1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/hs_val"
+                    android:textSize="@dimen/font_normal8"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/idCard_status"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="8dp" />
+            </LinearLayout>
+            <!--签收单上传-->
+            <LinearLayout
+                android:id="@+id/sign_order_layout"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/white"
+                android:orientation="vertical"
+                android:padding="@dimen/text_margin">
+
+                <LinearLayout
+                    android:id="@+id/sign_order_tip_layout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/shape_border_green"
+                    android:orientation="vertical"
+                    android:paddingLeft="@dimen/dp_5"
+                    android:paddingRight="@dimen/dp_5">
+
+                    <TextView
+                        android:id="@+id/sign_order_count"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/dp_3"
+                        android:textColor="@color/hs_warning"
+                        android:textSize="@dimen/font_norma20"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/dp_5"
+                        android:layout_marginBottom="@dimen/dp_3"
+                        android:text="@string/hs_sign_order_tip"
+                        android:textColor="@color/hs_green" />
+                </LinearLayout>
+
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/recyclerView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fadeScrollbars="true"
+                    android:scrollbarFadeDuration="1"
+                    android:scrollbars="vertical" />
+
+                <TextView
+                    android:id="@+id/camera_btn"
+                    android:layout_width="match_parent"
+                    android:layout_height="180dp"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="@dimen/text_margin"
+                    android:layout_marginBottom="@dimen/text_margin"
+                    android:background="@drawable/shape_border"
+                    android:gravity="center"
+                    android:text="@string/hs_sign_order_camera"
+                    android:textColor="@color/hs_label" />
+
+                <ImageView
+                    android:id="@+id/photo_view"
+                    android:layout_width="133dp"
+                    android:layout_height="100dp"
+                    android:layout_gravity="center"
+                    android:contentDescription="@string/hs_empty"
+                    android:visibility="gone" />
+            </LinearLayout>
+            <!--底部按钮-->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="bottom"
+                android:orientation="vertical">
+
+                <Button
+                    android:id="@+id/submit"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/colorPrimary"
+                    android:text="@string/hs_customer_invite_submit"
+                    android:textColor="@color/white"
+                    android:visibility="gone" />
+            </LinearLayout>
+
+        </LinearLayout>
+    </ScrollView>
+
+</LinearLayout>

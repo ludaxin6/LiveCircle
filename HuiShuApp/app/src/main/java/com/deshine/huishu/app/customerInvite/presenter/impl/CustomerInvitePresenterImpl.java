@@ -222,4 +222,62 @@ public class CustomerInvitePresenterImpl implements CustomerInvitePresenter {
             }
         });
     }
+
+    /**
+     * 发送短信验证码
+     *
+     * @param idCardNo
+     * @param mobilePhone
+     * @param expireSeconds
+     */
+    @Override
+    public void sendSmsVerifyCode(String idCardNo, String mobilePhone, int expireSeconds) {
+        customerInviteView.sendSmsVerifyCodeBack();
+//        customerInviteView.loading();
+//        customerInviteModel.sendSmsVerifyCode(idCardNo,mobilePhone,expireSeconds,new OnHttpCallBack<BaseResponse<Boolean>>() {
+//            @Override
+//            public void onSuccessful(BaseResponse<Boolean> response) {
+//                customerInviteView.stopLoading();//隐藏进度条
+//                if(response.getData()){
+//                    customerInviteView.sendSmsVerifyCodeBack();
+//                }else{
+//                    customerInviteView.stopLoading();//隐藏进度条
+//                    customerInviteView.showErrorMsg("发送短信验证码失败");//显示错误信息
+//                }
+//            }
+//
+//            @Override
+//            public void onFaild(String errorMsg, String errorCode) {
+//                customerInviteView.stopLoading();//隐藏进度条
+//                customerInviteView.showErrorMsg(errorMsg);//显示错误信息
+//                CommonCallBackFaild.onFaild(errorCode);
+//            }
+//        });
+    }
+
+    /**
+     * 短信验证码校验
+     *
+     * @param idCardNo
+     * @param verifyCode
+     */
+    @Override
+    public void checkSmsVerifyCode(String idCardNo, String verifyCode) {
+        customerInviteView.checkSmsVerifyCodeBack(true);
+//        customerInviteView.loading();
+//        customerInviteModel.checkSmsVerifyCode(idCardNo,verifyCode,new OnHttpCallBack<BaseResponse<Boolean>>() {
+//            @Override
+//            public void onSuccessful(BaseResponse<Boolean> response) {
+//                customerInviteView.stopLoading();//隐藏进度条
+//                customerInviteView.checkSmsVerifyCodeBack(response.getData());
+//            }
+//
+//            @Override
+//            public void onFaild(String errorMsg, String errorCode) {
+//                customerInviteView.stopLoading();//隐藏进度条
+//                customerInviteView.showErrorMsg(errorMsg);//显示错误信息
+//                CommonCallBackFaild.onFaild(errorCode);
+//            }
+//        });
+    }
 }

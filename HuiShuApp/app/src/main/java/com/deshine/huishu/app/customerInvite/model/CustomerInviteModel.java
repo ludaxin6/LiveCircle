@@ -31,4 +31,20 @@ public interface CustomerInviteModel {
      * @param request
      */
     void uploadCustomerInviteAffix(String osId, CustomerInviteAffix request,OnHttpCallBack<BaseResponse<Integer>> callBack);
+
+    /**
+     * 发送短信验证码
+     * @param idCardNo
+     * @param mobilePhone
+     * @param expireSeconds
+     */
+    void sendSmsVerifyCode(String idCardNo, String mobilePhone, int expireSeconds,OnHttpCallBack<BaseResponse<Boolean>> callBack);
+
+    /**
+     * 短信验证码校验
+     * @param idCardNo
+     * @param verifyCode
+     * @param callBack
+     */
+    void checkSmsVerifyCode(String idCardNo, String verifyCode,OnHttpCallBack<BaseResponse<Boolean>> callBack);
 }

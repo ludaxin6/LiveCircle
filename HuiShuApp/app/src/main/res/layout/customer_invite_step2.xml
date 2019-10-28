@@ -1,0 +1,188 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <!--标题栏-->
+    <include layout="@layout/activity_common_titlebar" />
+    <!--滚动-->
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/white">
+        <!--内容根布局-->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+            <!--提货人姓名-->
+            <LinearLayout
+                android:id="@+id/user_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/shape_border_bottom"
+                android:orientation="horizontal"
+                android:padding="@dimen/text_margin">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/hs_thrxm"
+                    android:textColor="@color/hs_label" />
+
+                <TextView
+                    android:id="@+id/user_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/hs_val"
+                    android:textStyle="bold" />
+            </LinearLayout>
+            <!--提货人手机号-->
+            <LinearLayout
+                android:id="@+id/sms_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/shape_border_bottom"
+                android:orientation="horizontal"
+                android:padding="@dimen/text_margin">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/hs_thrsj"
+                    android:textColor="@color/hs_label" />
+
+                <TextView
+                    android:id="@+id/sms_val"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/hs_val"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/sms_status"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="8dp" />
+            </LinearLayout>
+            <!--提货人身份证-->
+            <LinearLayout
+                android:id="@+id/idCard_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/shape_border_bottom"
+                android:orientation="horizontal"
+                android:padding="@dimen/text_margin">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/hs_thrsfz"
+                    android:textColor="@color/hs_label" />
+
+                <TextView
+                    android:id="@+id/idCard_val"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/hs_val" />
+
+                <TextView
+                    android:id="@+id/idCard_val_1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/hs_val"
+                    android:textSize="@dimen/font_normal8"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/idCard_status"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="8dp" />
+            </LinearLayout>
+            <!--身份证验证-->
+            <LinearLayout
+                android:id="@+id/idCard_check_layout"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/white"
+                android:orientation="vertical"
+                android:paddingLeft="@dimen/title_margin"
+                android:paddingTop="@dimen/text_margin"
+                android:paddingRight="@dimen/title_margin"
+                android:paddingBottom="@dimen/text_margin">
+
+                <TextView
+                    android:id="@+id/tvFront"
+                    android:layout_width="match_parent"
+                    android:layout_height="180dp"
+                    android:layout_gravity="center"
+                    android:background="@drawable/shape_border"
+                    android:gravity="center"
+                    android:text="@string/hs_idCard_positive"
+                    android:textColor="@color/hs_label" />
+
+                <ImageView
+                    android:id="@+id/tvFrontImage"
+                    android:layout_width="wrap_content"
+                    android:layout_height="180dp"
+                    android:layout_gravity="center"
+                    android:contentDescription="@string/hs_empty"
+                    android:visibility="gone" />
+
+                <TextView
+                    android:id="@+id/tvBack"
+                    android:layout_width="match_parent"
+                    android:layout_height="180dp"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="20dp"
+                    android:background="@drawable/shape_border"
+                    android:gravity="center"
+                    android:text="@string/hs_idCard_contrary"
+                    android:textColor="@color/hs_label" />
+
+                <ImageView
+                    android:id="@+id/tvBackImage"
+                    android:layout_width="wrap_content"
+                    android:layout_height="180dp"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="20dp"
+                    android:contentDescription="@string/hs_empty"
+                    android:visibility="gone" />
+
+            </LinearLayout>
+            <!--底部按钮-->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="bottom"
+                android:orientation="vertical">
+
+                <Button
+                    android:id="@+id/idCard_submit"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/colorPrimary"
+                    android:text="@string/hs_customer_invite_next"
+                    android:textColor="@color/white"
+                    android:visibility="gone" />
+
+                <Button
+                    android:id="@+id/submit"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/colorPrimary"
+                    android:text="@string/hs_customer_invite_submit"
+                    android:textColor="@color/white"
+                    android:visibility="gone" />
+            </LinearLayout>
+
+        </LinearLayout>
+    </ScrollView>
+
+</LinearLayout>

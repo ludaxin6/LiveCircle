@@ -60,7 +60,10 @@ public class TestScanActivity extends BaseActivity implements QRCodeView.Delegat
     @Override
     public void initView() {
         //设置标题栏
-        StatusBarSetting.setColorNoTranslucent(this, getResources().getColor(R.color.colorPrimary));
+        //StatusBarSetting.setColorNoTranslucent(this, getResources().getColor(R.color.transparent));
+        SetTranslanteBar();
+        mToolbar.setBackgroundColor(getResources().getColor(R.color.transparent));
+//        StatusBarSetting.setTransparent(this);
         setSupportActionBar(mToolbar);
         BGAQRCodeUtil.setDebug(true);
         mZXingView.setDelegate(this);
