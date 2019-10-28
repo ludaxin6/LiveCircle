@@ -265,7 +265,7 @@ public class CustomerInviteActivity extends BaseActivity implements CustomerInvi
     @Override
     public void sendSmsVerifyCodeBack() {
         //调用发送短信验证码
-        mSmsTip.setText("验证码已发至提货人手机"+customerInviteDto.getConsigneeMobilePhone()+"，请输入验证码");
+        mSmsTip.setText("验证码已发至提货人手机"+customerInviteDto.getConsigneeMobilePhone());
         timeCountDown();
         separatedEdit.clearText();
         separatedEdit.setPassword(true);

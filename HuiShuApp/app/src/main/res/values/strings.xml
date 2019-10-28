@@ -26,6 +26,7 @@
     <string name="hs_scan">扫一扫</string>
     <string name="camera_permission_required">本功能需要相机权限！</string>
     <string name="hs_scan_result_label">扫码结果</string>
+    <string name="hs_sms_static_tip">请输入验证码</string>
     <string name="hs_customer_invite">客户自提</string>
     <string name="hs_thrxm">提货人姓名</string>
     <string name="hs_thrsj">提货人手机</string>
