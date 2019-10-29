@@ -63,8 +63,6 @@ public class CustomerInviteActivity1 extends BaseActivity implements CustomerInv
     private FinanceBillDto customerInviteDto;
     private int time=120;
     private CountDownTimer timer;
-
-    private static final String SMS_PWD="1234";
     /**
      * 入口
      *
@@ -166,6 +164,7 @@ public class CustomerInviteActivity1 extends BaseActivity implements CustomerInv
         separatedEdit.setPassword(true);
         separatedEdit.setInputType(InputType.TYPE_CLASS_NUMBER);
         separatedEdit.showSoftInput();
+        separatedEdit.requestFocus();
         separatedEdit.setTextChangedListener(new SeparatedEditText.TextChangedListener() {
             @Override
             public void textChanged(CharSequence changeText) {

@@ -11,6 +11,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ScrollView;
 import android.widget.TextView;
 
 import com.deshine.huishu.app.R;
@@ -32,6 +33,8 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.OnClick;
+import de.greenrobot.event.EventBus;
+import de.greenrobot.event.Subscribe;
 
 /**
  * 客户自提
@@ -81,8 +84,11 @@ public class CustomerInviteActivity2 extends BaseActivity implements CustomerInv
     @BindView(R.id.tvBack)
     TextView mTvBack;
 
+    //滚动对象
+    @BindView(R.id.main_scroll)
+    ScrollView scrollView;
 
-    private CustomerInvitePresenter2 customerInvitePresenter;
+   private CustomerInvitePresenter2 customerInvitePresenter;
     private FinanceBillDto customerInviteDto;
     private static final int IDCARD_FRONT_REQUEST_CODE = 1001;
     private static final int IDCARD_BACK_REQUEST_CODE = 1002;
@@ -114,6 +120,13 @@ public class CustomerInviteActivity2 extends BaseActivity implements CustomerInv
             tvBackImage.setVisibility(View.VISIBLE);
             idcardSubmit.setVisibility(View.VISIBLE);
             tvBackImage.setImageURI(Uri.fromFile(new File(CustomerInviteActivity2.this.getFilesDir(), AppConstant.IDCARD_BACK_IMAGE_NAME)));
+            //滚动到底部
+            //EventBus.getDefault().post(new MScrollEvent(ScrollView.FOCUS_DOWN,this.getClass().getSimpleName()));
+            scrollView.post(new Runnable() {
+                public void run() {
+                    scrollView.fullScroll(ScrollView.FOCUS_DOWN);
+                }
+            });
         }
     }
     /*********************
@@ -143,6 +156,10 @@ public class CustomerInviteActivity2 extends BaseActivity implements CustomerInv
         String idCardNo = getIdCard();
         mIdCardVal.setText(idCardNo.substring(0,idCardNo.length()-4));
         mIdCardVal1.setText(idCardNo.substring(idCardNo.length()-4));
+
+        if (!EventBus.getDefault().isRegistered(this)) {
+            EventBus.getDefault().register(this);
+        }
 
     }
 
@@ -278,5 +295,39 @@ public class CustomerInviteActivity2 extends BaseActivity implements CustomerInv
                         ToastUitl.showLong(builder.toString() + " show Rational");
                     }
                 });
+    }
+    @Subscribe
+    public void onScrollEvent(MScrollEvent event) {
+        if(this.getClass().getSimpleName().equals(event.getTargetActivityName())){
+            event.toFullScrollByType(event.getScrollType());
+        }
+    }
+    public class MScrollEvent{
+        private int scrollType;
+        private String targetActivityName;
+        public MScrollEvent(){}
+        public MScrollEvent(int scrollType, String targetActivityName){
+            this.scrollType = scrollType;
+            this.targetActivityName = targetActivityName;
+        }
+        public int getScrollType() {
+            return scrollType;
+        }
+
+        public void setScrollType(int scrollType) {
+            this.scrollType = scrollType;
+        }
+
+        public String getTargetActivityName() {
+            return targetActivityName;
+        }
+
+        public void setTargetActivityName(String targetActivityName) {
+            this.targetActivityName = targetActivityName;
+        }
+
+        public void toFullScrollByType(int scrollType){
+            scrollView.fullScroll(ScrollView.FOCUS_DOWN);
+        }
     }
 }
