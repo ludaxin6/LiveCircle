@@ -536,6 +536,10 @@ public class JCameraView extends FrameLayout implements CameraInterface.CameraOp
     public void setTip(String tip) {
         mCaptureLayout.setTip(tip);
     }
+    @Override
+    public void hidePicture() {
+        mCaptureLayout.setIconSrc(iconLeft,0);
+    }
 
     @Override
     public void startPreviewCallback() {

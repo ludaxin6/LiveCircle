@@ -31,6 +31,7 @@ import com.deshine.huishu.app.utils.ToastUitl;
 import com.deshine.huishu.app.workbench.model.WorkbenchModel;
 import com.deshine.huishu.app.workbench.model.bean.Workbench;
 import com.deshine.huishu.app.workbench.model.impl.WorkbenchModelImpl;
+import com.deshine.huishu.idcardcamera.camera.IDCardCamera;
 
 import java.util.List;
 

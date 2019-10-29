@@ -4,9 +4,11 @@ import android.Manifest;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -27,6 +29,8 @@ import com.deshine.huishu.app.permission.PermissionUtil;
 import com.deshine.huishu.app.permission.callback.PermissionResultCallBack;
 import com.deshine.huishu.app.utils.GesonUtil;
 import com.deshine.huishu.app.utils.ToastUitl;
+import com.deshine.huishu.app.workbench.view.WorkbenchActivity;
+import com.deshine.huishu.idcardcamera.camera.IDCardCamera;
 
 import java.io.File;
 import java.util.List;
@@ -128,6 +132,22 @@ public class CustomerInviteActivity2 extends BaseActivity implements CustomerInv
                 }
             });
         }
+        //新的控件
+//        else if (resultCode == IDCardCamera.RESULT_CODE) {
+//            //获取图片路径，显示图片
+//            final String path = IDCardCamera.getImagePath(data);
+//            if (!TextUtils.isEmpty(path)) {
+//                if (requestCode == IDCardCamera.TYPE_IDCARD_FRONT) { //身份证正面
+//                    mTvFront.setVisibility(View.GONE);
+//                    tvFrontImage.setVisibility(View.VISIBLE);
+//                    tvFrontImage.setImageBitmap(BitmapFactory.decodeFile(path));
+//                } else if (requestCode == IDCardCamera.TYPE_IDCARD_BACK) {  //身份证反面
+//                    mTvBack.setVisibility(View.GONE);
+//                    tvBackImage.setVisibility(View.VISIBLE);
+//                    tvBackImage.setImageBitmap(BitmapFactory.decodeFile(path));
+//                }
+//            }
+//        }
     }
     /*********************
      * 子类实现
@@ -213,9 +233,6 @@ public class CustomerInviteActivity2 extends BaseActivity implements CustomerInv
     public void showErrorMsg(String errorMsg){
         ToastUitl.showShort(errorMsg);
     }
-    //客户自提成功处理完成跳转到工作台
-    public void toSuccessPage(){
-    }
 
     //短信验证通过
     public void initSmsSuccessView(){
@@ -226,21 +243,32 @@ public class CustomerInviteActivity2 extends BaseActivity implements CustomerInv
     //身份证正面拍照
     public void idCardFrontClick(){
         Bundle bundle = new Bundle();
-        bundle.putString("outputFilePath", new File(CustomerInviteActivity2.this.getFilesDir(), AppConstant.IDCARD_FRONT_IMAGE_NAME).toString());
-        bundle.putString("contentType", "IDCardFront");
+        bundle.putString(OcrCameraActivity.KEY_OUTPUT_FILE_PATH, new File(CustomerInviteActivity2.this.getFilesDir(), AppConstant.IDCARD_FRONT_IMAGE_NAME).toString());
+        bundle.putString(OcrCameraActivity.KEY_CONTENT_TYPE, OcrCameraActivity.CONTENT_TYPE_ID_CARD_FRONT);
+        bundle.putBoolean(OcrCameraActivity.KEY_HIDE_PICTURE, true);//不允许从相册选取
         startActivityForResult(OcrCameraActivity.class,bundle,IDCARD_FRONT_REQUEST_CODE);
+
+//        IDCardCamera.create(CustomerInviteActivity2.this).openCamera(IDCardCamera.TYPE_IDCARD_FRONT);
     }
     //身份证反面拍照
     public void idCardBackClick(){
         Bundle bundle = new Bundle();
-        bundle.putString("outputFilePath", new File(CustomerInviteActivity2.this.getFilesDir(), AppConstant.IDCARD_BACK_IMAGE_NAME).toString());
-        bundle.putString("contentType", "IDCardBack");
+        bundle.putString(OcrCameraActivity.KEY_OUTPUT_FILE_PATH, new File(CustomerInviteActivity2.this.getFilesDir(), AppConstant.IDCARD_BACK_IMAGE_NAME).toString());
+        bundle.putString(OcrCameraActivity.KEY_CONTENT_TYPE, OcrCameraActivity.CONTENT_TYPE_ID_CARD_BACK);
+        bundle.putBoolean(OcrCameraActivity.KEY_HIDE_PICTURE, true);//不允许从相册选取
         startActivityForResult(OcrCameraActivity.class,bundle,IDCARD_BACK_REQUEST_CODE);
+//        IDCardCamera.create(this).openCamera(IDCardCamera.TYPE_IDCARD_BACK);
     }
     //身份证上传
     public void idCardUpload(){
         //身份证上传
-        customerInvitePresenter.uploadIdCardPhoto(CustomerInviteActivity2.this.getFilesDir().toString());
+        if(tvFrontImage.getVisibility() == View.GONE){
+            ToastUitl.showShort("请上传身份证头像面照片");
+        }else if(tvBackImage.getVisibility() == View.GONE){
+            ToastUitl.showShort("请上传身份证国徽面照片");
+        }else{
+            customerInvitePresenter.uploadIdCardPhoto(CustomerInviteActivity2.this.getFilesDir().toString());
+        }
     }
     @Deprecated
     public void applyPermission(String[] permissions){

@@ -20,9 +20,13 @@ import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
+import android.view.Gravity;
 import android.view.Surface;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.deshine.huishu.app.R;
@@ -36,6 +40,7 @@ public class OcrCameraActivity extends AppCompatActivity {
 
     public static final String KEY_OUTPUT_FILE_PATH = "outputFilePath";
     public static final String KEY_CONTENT_TYPE = "contentType";
+    public static final String KEY_HIDE_PICTURE = "hidePicture";
 
     public static final String CONTENT_TYPE_GENERAL = "general";
     public static final String CONTENT_TYPE_ID_CARD_FRONT = "IDCardFront";
@@ -59,6 +64,7 @@ public class OcrCameraActivity extends AppCompatActivity {
     private CropView cropView;
     private FrameOverlayView overlayView;
     private MaskView cropMaskView;
+    private Toolbar mToolbar;
     private PermissionCallback permissionCallback = new PermissionCallback() {
         @Override
         public boolean onRequestPermission() {
@@ -74,6 +80,20 @@ public class OcrCameraActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.bd_ocr_activity_camera);
 
+        //设置标题栏
+        mToolbar = (Toolbar) findViewById(R.id.common_titlebar);
+        mToolbar.setTitle("");
+        mToolbar.setBackgroundColor(getResources().getColor(R.color.transparent));
+        setSupportActionBar(mToolbar);
+        mToolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                setResult(Activity.RESULT_CANCELED);
+                finish();
+            }
+        });
+
+
         takePictureContainer = (OCRCameraLayout) findViewById(R.id.take_picture_container);
         confirmResultContainer = (OCRCameraLayout) findViewById(R.id.confirm_result_container);
 
@@ -81,7 +101,7 @@ public class OcrCameraActivity extends AppCompatActivity {
         cameraView.getCameraControl().setPermissionCallback(permissionCallback);
         lightButton = (ImageView) findViewById(R.id.light_button);
         lightButton.setOnClickListener(lightButtonOnClickListener);
-        findViewById(R.id.album_button).setOnClickListener(albumButtonOnClickListener);
+
         findViewById(R.id.take_photo_button).setOnClickListener(takeButtonOnClickListener);
         findViewById(R.id.close_button).setOnClickListener(closeButtonOnClickListener);
 
@@ -146,6 +166,14 @@ public class OcrCameraActivity extends AppCompatActivity {
         }
         cameraView.setMaskType(maskType);
         cropMaskView.setMaskType(maskType);
+        boolean hidePicture = getIntent().getBooleanExtra(KEY_HIDE_PICTURE,true);
+        if(hidePicture){
+            findViewById(R.id.album_button).setVisibility(View.INVISIBLE);
+            findViewById(R.id.album_button).setOnClickListener(null);
+        }else{
+            findViewById(R.id.album_button).setVisibility(View.VISIBLE);
+            findViewById(R.id.album_button).setOnClickListener(albumButtonOnClickListener);
+        }
     }
 
     private void showTakePicture() {

@@ -4,6 +4,7 @@ import android.Manifest;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.os.Bundle;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -18,6 +19,7 @@ import com.deshine.huishu.app.adapter.CommonAffixAdapter;
 import com.deshine.huishu.app.app.AppConstant;
 import com.deshine.huishu.app.app.AppManager;
 import com.deshine.huishu.app.base.BaseActivity;
+import com.deshine.huishu.app.camera.CameraActivity;
 import com.deshine.huishu.app.cameralib.util.LogUtil;
 import com.deshine.huishu.app.commonAffix.bean.CommonAffix;
 import com.deshine.huishu.app.commonAffix.constants.AffixBizType;
@@ -28,12 +30,14 @@ import com.deshine.huishu.app.customerInvite.presenter.impl.CustomerInvitePresen
 import com.deshine.huishu.app.customerInvite.presenter.impl.CustomerInvitePresenterImpl;
 import com.deshine.huishu.app.customerInvite.view.CustomerInviteView;
 import com.deshine.huishu.app.customerInvite.view.CustomerInviteView3;
+import com.deshine.huishu.app.orcameralib.OcrCameraActivity;
 import com.deshine.huishu.app.permission.PermissionUtil;
 import com.deshine.huishu.app.permission.callback.PermissionResultCallBack;
 import com.deshine.huishu.app.utils.GesonUtil;
 import com.deshine.huishu.app.utils.ToastUitl;
 import com.deshine.huishu.app.workbench.view.WorkbenchActivity;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -199,7 +203,10 @@ public class CustomerInviteActivity3 extends BaseActivity implements CustomerInv
     }
     //签收单拍照
     public void signOrderPhotograph(){
-        startActivityForResult(com.deshine.huishu.app.camera.CameraActivity.class,SIGN_ORDER_REQUEST_CODE);
+        Bundle bundle = new Bundle();
+        bundle.putBoolean(CameraActivity.KEY_HIDE_PICTURE, true);//不允许从相册选取
+        bundle.putString(CameraActivity.KEY_TIP, "");
+        startActivityForResult(CameraActivity.class,bundle,SIGN_ORDER_REQUEST_CODE);
     }
     //签收单拍照回调
     public void signOrderPhotoCallback(String imgPath){

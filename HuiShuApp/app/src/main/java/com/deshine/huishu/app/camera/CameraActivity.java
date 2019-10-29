@@ -7,6 +7,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.support.v7.app.AppCompatActivity;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
@@ -24,6 +25,8 @@ import java.io.File;
 
 public class CameraActivity extends AppCompatActivity {
     private JCameraView jCameraView;
+    public static final String KEY_HIDE_PICTURE="hidePicture";
+    public static final String KEY_TIP="tip";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,11 +34,15 @@ public class CameraActivity extends AppCompatActivity {
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         setContentView(R.layout.activity_camera);
+        boolean hidePicture = getIntent().getBooleanExtra(KEY_HIDE_PICTURE,true);
+        String tip = getIntent().getStringExtra(KEY_TIP);
         jCameraView = (JCameraView) findViewById(R.id.jcameraview);
         //设置视频保存路径
         jCameraView.setSaveVideoPath(Environment.getExternalStorageDirectory().getPath() + File.separator + "JCamera");
         jCameraView.setFeatures(JCameraView.BUTTON_STATE_BOTH);
-        //jCameraView.setTip("JCameraView Tip");
+        if(tip!=null){
+            jCameraView.setTip(tip);
+        }
         jCameraView.setMediaQuality(JCameraView.MEDIA_QUALITY_MIDDLE);
         jCameraView.setErrorLisenter(new ErrorListener() {
             @Override
@@ -83,12 +90,18 @@ public class CameraActivity extends AppCompatActivity {
                 CameraActivity.this.finish();
             }
         });
-        jCameraView.setRightClickListener(new ClickListener() {
-            @Override
-            public void onClick() {
-                //Toast.makeText(CameraActivity.this,"Right",Toast.LENGTH_SHORT).show();
-            }
-        });
+        if(hidePicture){
+            jCameraView.hidePicture();
+            jCameraView.setRightClickListener(null);
+        }else{
+            jCameraView.setRightClickListener(new ClickListener() {
+                @Override
+                public void onClick() {
+                    //Toast.makeText(CameraActivity.this,"Right",Toast.LENGTH_SHORT).show();
+                }
+            });
+        }
+
 
         Log.i("CJT", DeviceUtil.getDeviceModel());
     }

@@ -337,6 +337,14 @@ public class CaptureLayout extends FrameLayout {
     public void showTip() {
         txt_tip.setVisibility(VISIBLE);
     }
+    public void hidePicture(boolean flage){
+        if(flage){
+            iv_custom_right.setVisibility(GONE);
+        }else{
+            iv_custom_right.setVisibility(VISIBLE);
+        }
+
+    }
 
     public void setIconSrc(int iconLeft, int iconRight) {
         this.iconLeft = iconLeft;
