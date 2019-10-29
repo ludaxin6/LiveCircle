@@ -13,6 +13,7 @@ import android.widget.TextView;
 
 import com.deshine.huishu.app.R;
 import com.deshine.huishu.app.app.AppConstant;
+import com.deshine.huishu.app.app.AppManager;
 import com.deshine.huishu.app.base.BaseActivity;
 import com.deshine.huishu.app.cameralib.util.LogUtil;
 import com.deshine.huishu.app.commonAffix.bean.CommonAffix;
@@ -26,6 +27,7 @@ import com.deshine.huishu.app.customerInvite.view.CustomerInviteView1;
 import com.deshine.huishu.app.utils.GesonUtil;
 import com.deshine.huishu.app.utils.ToastUitl;
 import com.deshine.huishu.app.widget.SeparatedEditText;
+import com.deshine.huishu.app.workbench.view.WorkbenchActivity;
 
 import java.util.List;
 
@@ -228,6 +230,11 @@ public class CustomerInviteActivity1 extends BaseActivity implements CustomerInv
     public void stopLoading(){stopProgressDialog();}
     public void showErrorMsg(String errorMsg){
         ToastUitl.showShort(errorMsg);
+    }
+
+    @Override
+    public void backToWorkBench() {
+        AppManager.getAppManager().returnToActivity(WorkbenchActivity.class);
     }
 
 

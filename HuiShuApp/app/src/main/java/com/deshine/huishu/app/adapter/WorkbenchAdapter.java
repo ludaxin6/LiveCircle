@@ -1,6 +1,7 @@
 package com.deshine.huishu.app.adapter;
 
 import android.content.Context;
+import android.graphics.Typeface;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -12,6 +13,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.deshine.huishu.app.R;
+import com.deshine.huishu.app.app.AppApplication;
 import com.deshine.huishu.app.bean.ChannelBean;
 import com.deshine.huishu.app.widget.ItemDragHelperCallback;
 import com.deshine.huishu.app.workbench.model.bean.Workbench;
@@ -55,7 +57,8 @@ public class WorkbenchAdapter extends RecyclerView.Adapter<WorkbenchAdapter.Work
     public void onBindViewHolder(WorkbenchViewHolder holder, int position) {
         Workbench table = mTables.get(position);
         holder.mTextView.setText(table.getName());
-        holder.mImageView.setImageResource(table.getImgRes());
+        holder.mIconTextView.setText(table.getImgRes());
+        holder.mIconTextView.setTextColor(context.getResources().getColor(table.getColorRes()));
         //handleLongPress(holder, table);
         handleOnClick(holder, table);
     }
@@ -117,13 +120,14 @@ public class WorkbenchAdapter extends RecyclerView.Adapter<WorkbenchAdapter.Work
 
     public class WorkbenchViewHolder extends RecyclerView.ViewHolder {
         private TextView mTextView;
-        private ImageView mImageView;
+        private TextView mIconTextView;
+        //private ImageView mImageView;
         private CardView mCardView;
         private RelativeLayout mLayout;
 
         public WorkbenchViewHolder(View itemView) {
             super(itemView);
-            mImageView = (ImageView) itemView.findViewById(R.id.iv_channel_logo);
+            mIconTextView = (TextView) itemView.findViewById(R.id.iv_channel_logo);
             mTextView = (TextView) itemView.findViewById(R.id.tv_channel_name);
             mCardView = (CardView) itemView.findViewById(R.id.cardView);
             mLayout = (RelativeLayout) itemView.findViewById(R.id.rl_root);

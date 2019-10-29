@@ -7,13 +7,23 @@ public class Workbench implements Serializable {
     private int index;
     private String name;
     private int imgRes;
+    private int colorRes;
     private boolean selected = false;
     public Workbench(){}
-    public Workbench(String id, String name, int index, int imgRes){
+    public Workbench(String id, String name, int index, int imgRes, int colorRes){
         this.id = id;
         this.name = name;
         this.index = index;
         this.imgRes = imgRes;
+        this.colorRes = colorRes;
+    }
+
+    public int getColorRes() {
+        return colorRes;
+    }
+
+    public void setColorRes(int colorRes) {
+        this.colorRes = colorRes;
     }
 
     public String getId() {

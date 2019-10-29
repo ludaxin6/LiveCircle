@@ -12,6 +12,7 @@
         <item>T1348654204705</item>
         <item>T1348649654285</item>
         <item>T1348649654255</item>
+        <item>T1348649654256</item>
     </string-array>
     <!--工作台频道-->
     <string-array name="workbench_channel_name">
@@ -23,6 +24,7 @@
         <item>更多...</item>
         <item>考勤签到</item>
         <item>外出拜访</item>
+        <item>请假</item>
         <item>扫一扫</item>
         <item>注销</item>
     </string-array>

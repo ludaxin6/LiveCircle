@@ -15,5 +15,6 @@ public interface CustomerInviteView1 {
     void loading();
     void stopLoading();
     void showErrorMsg(String errorMsg);
+    void backToWorkBench();
 
 }

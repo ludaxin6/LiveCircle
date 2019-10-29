@@ -17,6 +17,8 @@
 package com.deshine.huishu.app.workbench.db;
 
 
+import android.graphics.Typeface;
+
 import com.deshine.huishu.app.R;
 import com.deshine.huishu.app.api.ApiConstants;
 import com.deshine.huishu.app.app.AppApplication;
@@ -40,19 +42,34 @@ public class WorkbenchTableManager {
         List<String> channelName = Arrays.asList(AppApplication.getAppContext().getResources().getStringArray(R.array.workbench_channel_name));
         List<String> channelId = Arrays.asList(AppApplication.getAppContext().getResources().getStringArray(R.array.workbench_channel_id));
         List<Integer> channelImgRes = new ArrayList<Integer>();
-        channelImgRes.add(R.drawable.news_house);
-        channelImgRes.add(R.drawable.news_play);
-        channelImgRes.add(R.drawable.news_movie);
-        channelImgRes.add(R.drawable.news_car);
-        channelImgRes.add(R.drawable.news_game);
-        channelImgRes.add(R.drawable.news_education);
-        channelImgRes.add(R.drawable.news_travel);
-        channelImgRes.add(R.drawable.news_mobile);
-        channelImgRes.add(R.drawable.news_social);
-        channelImgRes.add(R.drawable.news_social);
+        List<Integer> channelImgColorRes = new ArrayList<Integer>();
+        channelImgRes.add(R.string.hs_icon_diandeng);
+        channelImgRes.add(R.string.hs_icon_diandeng);
+        channelImgRes.add(R.string.hs_icon_diandeng);
+        channelImgRes.add(R.string.hs_icon_qianshoudan);
+        channelImgRes.add(R.string.hs_icon_ziyuan);
+        channelImgRes.add(R.string.hs_icon_diandeng);
+        channelImgRes.add(R.string.hs_icon_diandeng);
+        channelImgRes.add(R.string.hs_icon_baifang);
+        channelImgRes.add(R.string.hs_icon_app_qingjia);
+        channelImgRes.add(R.string.hs_icon_diandeng);
+        channelImgRes.add(R.string.hs_icon_diandeng);
+
+        channelImgColorRes.add(R.color.hs_ht_icon);
+        channelImgColorRes.add(R.color.hs_db_icon);
+        channelImgColorRes.add(R.color.hs_rb_icon);
+        channelImgColorRes.add(R.color.hs_qsdsc_icon);
+        channelImgColorRes.add(R.color.hs_khzt_icon);
+        channelImgColorRes.add(R.color.hs_khzt_icon);
+        channelImgColorRes.add(R.color.hs_kqqd_icon);
+        channelImgColorRes.add(R.color.hs_bf_icon);
+        channelImgColorRes.add(R.color.hs_qj_icon);
+        channelImgColorRes.add(R.color.hs_khzt_icon);
+        channelImgColorRes.add(R.color.hs_khzt_icon);
+
         ArrayList<Workbench> workbenchList = new ArrayList<>();
         for (int i = 0; i < channelName.size(); i++) {
-            Workbench entity = new Workbench( channelId.get(i), channelName.get(i) ,i, channelImgRes.get(i));
+            Workbench entity = new Workbench( channelId.get(i), channelName.get(i) ,i, channelImgRes.get(i),channelImgColorRes.get(i));
             workbenchList.add(entity);
         }
         return workbenchList;

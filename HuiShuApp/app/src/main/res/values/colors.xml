@@ -27,6 +27,14 @@
     <color name="hs_green_bg">#E7F9FF</color>
     <color name="hs_green">#54B9E1</color>
     <color name="hs_green_border">#00C1E1</color>
+    <color name="hs_ht_icon">#F1875D</color>
+    <color name="hs_db_icon">#60C8C1</color>
+    <color name="hs_rb_icon">#63C05D</color>
+    <color name="hs_qsdsc_icon">#FF9F2C</color>
+    <color name="hs_khzt_icon">#1297DB</color>
+    <color name="hs_kqqd_icon">#0070E3</color>
+    <color name="hs_bf_icon">#D39D08</color>
+    <color name="hs_qj_icon">#F5826D</color>
 
     <color name="lightGrey">#d3d3d3</color>
 

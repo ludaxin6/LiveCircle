@@ -82,7 +82,12 @@ public class CustomerInvitePresenter1Impl implements CustomerInvitePresenter1 {
             public void onFaild(String errorMsg, String errorCode) {
                 customerInviteView.stopLoading();//隐藏进度条
                 customerInviteView.showErrorMsg(errorMsg);//显示错误信息
-                CommonCallBackFaild.onFaild(errorCode);
+                CommonCallBackFaild.onFaild(errorCode, new CommonCallBackFaild.FaildCallback() {
+                    @Override
+                    public void callback() {
+                        customerInviteView.backToWorkBench();
+                    }
+                });
             }
         });
     }

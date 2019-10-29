@@ -49,5 +49,6 @@ public class AppConstant {
     public static final String IDCARD_FRONT_IMAGE_NAME = "idcard_front.jpg";
     /*身份证反面文件名称*/
     public static final String IDCARD_BACK_IMAGE_NAME = "idcard_back.jpg";
+    public static final int APP_CLIENT_TYPE = 1;
 
 }

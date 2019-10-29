@@ -40,4 +40,19 @@
     <string name="hs_idCard_success">已拍照</string>
     <string name="hs_sign_order_tip">请逐页拍照已签字的签收单 </string>
     <string name="hs_sign_order_camera">签收单拍照 </string>
+    <!--文字图标-->
+    <string name="hs_icon_waichubaifang">&#xe60c;</string>
+    <string name="hs_icon_kafei">&#xe612;</string>
+    <string name="hs_icon_kucun">&#xe6c1;</string>
+    <string name="hs_icon_app_qingjia">&#xe602;</string>
+    <string name="hs_icon_ziyuan">&#xe601;</string>
+    <string name="hs_icon_diandeng">&#xe608;</string>
+    <string name="hs_icon_qingjia">&#xe631;</string>
+    <string name="hs_icon_baifang">&#xe64e;</string>
+    <string name="hs_icon_tanhao">&#xe600;</string>
+    <string name="hs_icon_dalou">&#xe60a;</string>
+    <string name="hs_icon_xuanzekehu">&#xe7bc;</string>
+    <string name="hs_icon_chakanmingxi">&#xe603;</string>
+    <string name="hs_icon_wifi">&#xe604;</string>
+    <string name="hs_icon_qianshoudan">&#xe65d;</string>
 </resources>

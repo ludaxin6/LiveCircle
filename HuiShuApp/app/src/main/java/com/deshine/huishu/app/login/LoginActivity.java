@@ -7,6 +7,7 @@ import android.view.View;
 import android.widget.EditText;
 
 import com.deshine.huishu.app.R;
+import com.deshine.huishu.app.app.AppConstant;
 import com.deshine.huishu.app.base.BaseActivity;
 import com.deshine.huishu.app.login.model.bean.UserInfo;
 import com.deshine.huishu.app.login.presenter.LoginPresenter;
@@ -103,7 +104,7 @@ public class LoginActivity extends BaseActivity implements LoginView {
         userInfo.setLoginId(loginId);
         userInfo.setPassword(passwordEnc);
         userInfo.setConfPassword(password);
-        userInfo.setClientType(0);
+        userInfo.setClientType(AppConstant.APP_CLIENT_TYPE);
         return userInfo;
     }
 

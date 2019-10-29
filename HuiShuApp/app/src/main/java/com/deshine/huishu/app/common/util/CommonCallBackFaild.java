@@ -19,4 +19,20 @@ public class CommonCallBackFaild {
             LoginActivity.startAction(AppManager.getAppManager().currentActivity());
         }
     }
+    public static void onFaild(String resultCode,CommonCallBackFaild.FaildCallback callback){
+        if(ResultCode.Base.Auth.TOKEN_EXPIRE.equals(resultCode) ||
+                ResultCode.Base.Auth.INVALID_TOKEN.equals(resultCode) ||
+                ResultCode.Base.Auth.NO_AUTH.equals(resultCode) ||
+                ResultCode.Base.Auth.NO_BINDING_INFO.equals(resultCode)||
+                ResultCode.Biz.User.DATA_LOST.equals(resultCode)||
+                ResultCode.Biz.User.LOGIN_ERROR.equals(resultCode)){
+            //跳转到登录页面
+            LoginActivity.startAction(AppManager.getAppManager().currentActivity());
+        }else{
+            callback.callback();
+        }
+    }
+    public interface FaildCallback{
+        public void callback();
+    }
 }
