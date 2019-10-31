@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/navigation_home"
+        android:icon="@drawable/hs_erweima"
+        android:title="@string/hs_sign_order_nav_1" />
+
+    <item
+        android:id="@+id/navigation_dashboard"
+        android:icon="@drawable/hs_sign_no_upload"
+        android:title="@string/hs_sign_order_nav_2" />
+</menu>

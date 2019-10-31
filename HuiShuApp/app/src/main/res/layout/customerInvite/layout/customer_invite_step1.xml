@@ -31,13 +31,13 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:text="@string/hs_thrxm"
-                    android:textColor="@color/hs_label" />
+                    android:textColor="@color/hs_base_font_label" />
 
                 <TextView
                     android:id="@+id/user_name"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textColor="@color/hs_val"
+                    android:textColor="@color/hs_base_font_input"
                     android:textStyle="bold" />
             </LinearLayout>
             <!--手机验证-->
@@ -63,7 +63,7 @@
                     android:layout_gravity="center"
                     android:gravity="center"
                     android:text="@string/hs_sms_static_tip"
-                    android:textColor="@color/hs_label"
+                    android:textColor="@color/hs_base_font_label"
                     android:layout_marginTop="@dimen/text_margin"/>
 
                 <LinearLayout
@@ -96,7 +96,7 @@
                         android:background="@color/hs_gray"
                         android:gravity="center"
                         android:padding="@dimen/text_margin"
-                        android:textColor="@color/hs_val" />
+                        android:textColor="@color/hs_base_font_input" />
 
 
                 </LinearLayout>

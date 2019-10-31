@@ -9,6 +9,15 @@ public class CustomerInviteScanData implements Serializable {
     private Integer pieceCount;//件数
     private BigDecimal weight;//重量
     private Integer signOrderTotal;//签收单张数
+    private String osId;//出库单id
+
+    public String getOsId() {
+        return osId;
+    }
+
+    public void setOsId(String osId) {
+        this.osId = osId;
+    }
 
     public String getSoNo() {
         return soNo;

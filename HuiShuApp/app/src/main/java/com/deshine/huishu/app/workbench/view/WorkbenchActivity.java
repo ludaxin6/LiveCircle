@@ -16,7 +16,6 @@ import com.deshine.huishu.app.app.AppManager;
 import com.deshine.huishu.app.base.BaseActivity;
 import com.deshine.huishu.app.cameralib.util.LogUtil;
 import com.deshine.huishu.app.client.RxDisposeManager;
-import com.deshine.huishu.app.customerInvite.CustomerInviteActivity;
 import com.deshine.huishu.app.customerInvite.CustomerInviteActivity1;
 import com.deshine.huishu.app.customerInvite.model.bean.CustomerInviteScanData;
 import com.deshine.huishu.app.home.MainActivity;
@@ -26,12 +25,12 @@ import com.deshine.huishu.app.login.model.impl.LoginModelImpl;
 import com.deshine.huishu.app.scan.ScanActivity;
 import com.deshine.huishu.app.scan.TestScanActivity;
 import com.deshine.huishu.app.scan.bean.ScanEvent;
+import com.deshine.huishu.app.signOrderUpload.activity.SignOrderUpload1;
 import com.deshine.huishu.app.utils.GesonUtil;
 import com.deshine.huishu.app.utils.ToastUitl;
 import com.deshine.huishu.app.workbench.model.WorkbenchModel;
 import com.deshine.huishu.app.workbench.model.bean.Workbench;
 import com.deshine.huishu.app.workbench.model.impl.WorkbenchModelImpl;
-import com.deshine.huishu.idcardcamera.camera.IDCardCamera;
 
 import java.util.List;
 
@@ -108,11 +107,13 @@ public class WorkbenchActivity extends BaseActivity {
             public void onItemClick(View view, int position) {
                 Workbench workbench = mWorkbenchAdapter.getAdapterData().get(position);
                 if(workbench.getName().equals("客户自提")){
-                    //MainActivity.startAction(WorkbenchActivity.this);
-                    //finish();
 //                    CustomerInviteActivity.startAction(WorkbenchActivity.this);
                     scanType = workbench.getName();
                     ScanActivity.startAction(WorkbenchActivity.this);
+                }if(workbench.getName().equals("签收单上传")){
+//                    CustomerInviteActivity.startAction(WorkbenchActivity.this);
+                    scanType = workbench.getName();
+                    SignOrderUpload1.startAction(WorkbenchActivity.this);
                 }else if(workbench.getName().equals("注销")){
                     LoginModel mLoginModel = new LoginModelImpl();
                     mLoginModel.removeUserInfo(AppApplication.getAppContext());

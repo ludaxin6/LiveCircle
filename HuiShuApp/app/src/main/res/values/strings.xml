@@ -25,6 +25,7 @@
     <string name="hs_working">工作台</string>
     <string name="hs_scan">扫一扫</string>
     <string name="camera_permission_required">本功能需要相机权限！</string>
+    <!--客户自提-->
     <string name="hs_scan_result_label">扫码结果</string>
     <string name="hs_sms_static_tip">请输入验证码</string>
     <string name="hs_customer_invite">客户自提</string>
@@ -40,6 +41,11 @@
     <string name="hs_idCard_success">已拍照</string>
     <string name="hs_sign_order_tip">请逐页拍照已签字的签收单 </string>
     <string name="hs_sign_order_camera">签收单拍照 </string>
+    <!--签收单上传-->
+    <string name="hs_sign_order_title">签收单上传</string>
+    <string name="hs_sign_order_nav_1">扫描二维码</string>
+    <string name="hs_sign_order_nav_2">未上传清单</string>
+    <string name="hs_sign_order_upload_submit">拍照完成，确认提交</string>
     <!--文字图标-->
     <string name="hs_icon_waichubaifang">&#xe60c;</string>
     <string name="hs_icon_kafei">&#xe612;</string>
@@ -54,5 +60,13 @@
     <string name="hs_icon_xuanzekehu">&#xe7bc;</string>
     <string name="hs_icon_chakanmingxi">&#xe603;</string>
     <string name="hs_icon_wifi">&#xe604;</string>
+    <string name="hs_icon_erweima">&#xe630;</string>
+    <string name="hs_icon_ribao">&#xe605;</string>
     <string name="hs_icon_qianshoudan">&#xe65d;</string>
+    <string name="hs_icon_hetong">&#xe65c;</string>
+    <string name="hs_icon_daiban">&#xe61a;</string>
+    <string name="hs_icon_kaoqin">&#xe60f;</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

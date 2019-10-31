@@ -1,5 +1,6 @@
 package com.deshine.huishu.app.api;
 
+import com.deshine.huishu.app.base.request.BaseRequest;
 import com.deshine.huishu.app.base.response.BaseResponse;
 import com.deshine.huishu.app.commonAffix.bean.CommonAffix;
 import com.deshine.huishu.app.customerInvite.model.bean.CustomerInviteAffix;
@@ -8,6 +9,7 @@ import com.deshine.huishu.app.customerInvite.model.bean.FinanceBillResponse;
 import com.deshine.huishu.app.customerInvite.model.bean.ResultFile;
 import com.deshine.huishu.app.login.model.bean.request.LoginRequest;
 import com.deshine.huishu.app.login.model.bean.response.UserResponse;
+import com.deshine.huishu.app.signOrderUpload.model.bean.dto.FreightOrderDto;
 
 import java.util.List;
 import java.util.Map;
@@ -22,10 +24,21 @@ import retrofit2.http.Part;
 import retrofit2.http.Path;
 
 public interface CrmDgcsApiService {
-    public static final String BASE_URL = "http://192.168.38.201:8080/crm_dgcs/api/";
+    public static final String BASE_URL = "http://192.168.38.192:8080/crm_dgcs/api/";
+    //附件上传到文件服务器
+    @POST("file/ueditorUpload")
+    @Multipart
+    Observable<List<ResultFile>> upLoad(@Part List<MultipartBody.Part> files);
+    //附件索引上传
+    @POST("affix/save/{bizId}/{bizType}/{userId}/affix")
+    Observable<BaseResponse<List<CommonAffix>>> uploadAffixInfo(@Path("bizId") String bizId, @Path("bizType") String bizType, @Path("userId") String userId, @Body List<CommonAffix> affixList);
+
+
+
     //登录
     @POST("user/login")
     Observable<UserResponse> login(@Body LoginRequest request);
+
     //客户自提查询
     @GET("app/erp/finance/bill/ps4Os/{bizNo}/{userId}")
     Observable<BaseResponse<CustomerInviteVo>> getPsData4Os(@Path("bizNo") String bizNo, @Path("userId") String userId);
@@ -42,12 +55,16 @@ public interface CrmDgcsApiService {
     //客户自提出库
     @POST("erp/finance/bill/osFromPs")
     Observable<FinanceBillResponse> addOs4PtBillFromPs(@Body Map<String,Object> request);
-    //附件上传到文件服务器
-    @POST("file/ueditorUpload")
-    @Multipart
-    Observable<List<ResultFile>> upLoad(@Part List<MultipartBody.Part> files);
-    //附件索引上传
-    @POST("affix/save/{bizId}/{bizType}/{userId}/affix")
-    Observable<BaseResponse<List<CommonAffix>>> uploadAffixInfo(@Path("bizId") String bizId, @Path("bizType") String bizType, @Path("userId") String userId, @Body List<CommonAffix> affixList);
+
+    //未上传签收单列表查询
+    @POST("erp/bill/sf/deliverySignOrderList")
+    Observable<BaseResponse<List<FreightOrderDto>>> selectDeliverySignOrderList(@Body BaseRequest<FreightOrderDto> request);
+    //根据出库单查询签收单数据
+    @GET("erp/bill/sf/{osId}/{driverUserId}/deliverySignOrder")
+    Observable<BaseResponse<FreightOrderDto>> selectDeliverySignOrder(@Path("osId") String osId, @Path("driverUserId") String driverUserId);
+    //签收单图片上传
+    @POST("erp/bill/sf/zzps/{sfBillId}/addSignPic")
+    Observable<BaseResponse<Integer>> addSignOrderPic(@Path("sfBillId") String sfBillId,@Body List<CommonAffix> affixList);
+
 
 }

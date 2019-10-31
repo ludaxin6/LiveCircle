@@ -14,6 +14,7 @@
 
     <uses-feature android:name="android.hardware.camera" />
     <uses-feature android:name="android.hardware.camera.autofocus" />
+
     <uses-permission android:name="android.permission.WAKE_LOCK" />
 
     <application
@@ -34,10 +35,12 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".customerInvite.CustomerInviteActivity"></activity>
-        <activity android:name=".customerInvite.CustomerInviteActivity1"></activity>
-        <activity android:name=".customerInvite.CustomerInviteActivity2"></activity>
-        <activity android:name=".customerInvite.CustomerInviteActivity3"></activity>
+        <activity android:name=".customerInvite.CustomerInviteActivity" />
+        <activity android:name=".customerInvite.CustomerInviteActivity1" />
+        <activity android:name=".customerInvite.CustomerInviteActivity2" />
+        <activity android:name=".customerInvite.CustomerInviteActivity3" />
+        <activity android:name=".signOrderUpload.activity.SignOrderUpload1"></activity>
+        <activity android:name=".signOrderUpload.activity.SignOrderUpload"></activity>
         <activity android:name=".scan.ScanActivity" />
         <activity android:name=".scan.TestScanActivity" />
         <activity android:name=".workbench.view.WorkbenchActivity" />
@@ -46,8 +49,12 @@
         <activity android:name=".news.activity.NewsChannelActivity" />
         <activity android:name=".news.activity.NewsDetailActivity" />
         <activity android:name=".news.activity.NewsPhotoDetailActivity" />
-        <activity android:name=".orcameralib.OcrCameraActivity" android:screenOrientation="portrait" />
-        <activity android:name=".camera.CameraActivity" android:allowBackup="true" />
+        <activity
+            android:name=".orcameralib.OcrCameraActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".camera.CameraActivity"
+            android:allowBackup="true" />
     </application>
 
 </manifest>

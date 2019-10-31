@@ -31,13 +31,13 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:text="@string/hs_thrxm"
-                    android:textColor="@color/hs_label" />
+                    android:textColor="@color/hs_base_font_label" />
 
                 <TextView
                     android:id="@+id/user_name"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textColor="@color/hs_val"
+                    android:textColor="@color/hs_base_font_input"
                     android:textStyle="bold" />
             </LinearLayout>
             <!--提货人手机号-->
@@ -54,13 +54,13 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:text="@string/hs_thrsj"
-                    android:textColor="@color/hs_label" />
+                    android:textColor="@color/hs_base_font_label" />
 
                 <TextView
                     android:id="@+id/sms_val"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textColor="@color/hs_val"
+                    android:textColor="@color/hs_base_font_input"
                     android:textStyle="bold" />
 
                 <TextView
@@ -83,19 +83,19 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:text="@string/hs_thrsfz"
-                    android:textColor="@color/hs_label" />
+                    android:textColor="@color/hs_base_font_label" />
 
                 <TextView
                     android:id="@+id/idCard_val"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textColor="@color/hs_val" />
+                    android:textColor="@color/hs_base_font_input" />
 
                 <TextView
                     android:id="@+id/idCard_val_1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textColor="@color/hs_val"
+                    android:textColor="@color/hs_base_font_input"
                     android:textSize="@dimen/font_normal8"
                     android:textStyle="bold" />
 
@@ -159,7 +159,7 @@
                     android:background="@drawable/shape_border"
                     android:gravity="center"
                     android:text="@string/hs_sign_order_camera"
-                    android:textColor="@color/hs_label" />
+                    android:textColor="@color/hs_base_font_label" />
 
                 <ImageView
                     android:id="@+id/photo_view"

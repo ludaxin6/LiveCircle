@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    style="@style/MatchMatch">
+    <include layout="@layout/activity_base_scan"/>
+    <!--标题栏-->
+    <include layout="@layout/activity_common_titlebar" />
+</RelativeLayout>

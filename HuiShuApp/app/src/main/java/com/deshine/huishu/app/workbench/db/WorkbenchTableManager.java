@@ -43,16 +43,16 @@ public class WorkbenchTableManager {
         List<String> channelId = Arrays.asList(AppApplication.getAppContext().getResources().getStringArray(R.array.workbench_channel_id));
         List<Integer> channelImgRes = new ArrayList<Integer>();
         List<Integer> channelImgColorRes = new ArrayList<Integer>();
-        channelImgRes.add(R.string.hs_icon_diandeng);
-        channelImgRes.add(R.string.hs_icon_diandeng);
-        channelImgRes.add(R.string.hs_icon_diandeng);
+        channelImgRes.add(R.string.hs_icon_hetong);
+        channelImgRes.add(R.string.hs_icon_daiban);
+        channelImgRes.add(R.string.hs_icon_ribao);
         channelImgRes.add(R.string.hs_icon_qianshoudan);
         channelImgRes.add(R.string.hs_icon_ziyuan);
         channelImgRes.add(R.string.hs_icon_diandeng);
-        channelImgRes.add(R.string.hs_icon_diandeng);
+        channelImgRes.add(R.string.hs_icon_kaoqin);
         channelImgRes.add(R.string.hs_icon_baifang);
         channelImgRes.add(R.string.hs_icon_app_qingjia);
-        channelImgRes.add(R.string.hs_icon_diandeng);
+        channelImgRes.add(R.string.hs_icon_erweima);
         channelImgRes.add(R.string.hs_icon_diandeng);
 
         channelImgColorRes.add(R.color.hs_ht_icon);
