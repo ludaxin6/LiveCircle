@@ -1,6 +1,7 @@
 package com.deshine.huishu.app.signOrderUpload.model;
 
 import com.deshine.huishu.app.base.OnHttpCallBack;
+import com.deshine.huishu.app.base.request.BaseRequest;
 import com.deshine.huishu.app.base.response.BaseResponse;
 import com.deshine.huishu.app.commonAffix.bean.CommonAffix;
 import com.deshine.huishu.app.signOrderUpload.model.bean.dto.FreightOrderDto;
@@ -23,4 +24,11 @@ public interface SignOrderUploadModel {
      * @param callBack
      */
     void addSignOrderPic(String sfBillId, List<CommonAffix> affixList, OnHttpCallBack<BaseResponse<Integer>> callBack);
+
+    /**
+     * 未上传签收单列表查询
+     * @param request
+     * @param callBack
+     */
+    void selectDeliverySignOrderList(BaseRequest<FreightOrderDto> request,OnHttpCallBack<BaseResponse<List<FreightOrderDto>>> callBack);
 }

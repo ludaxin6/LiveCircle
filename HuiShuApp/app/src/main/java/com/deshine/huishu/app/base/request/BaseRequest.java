@@ -16,9 +16,6 @@ public class BaseRequest<T> extends Request {
     //关键字查询
     private String keyword;
 
-    //当前登录人id
-    private String userId;
-
     /**
      * 流程执行dto
      */
@@ -41,16 +38,6 @@ public class BaseRequest<T> extends Request {
 
     public void setKeyword(String keyword) {
         this.keyword = keyword == null ? keyword : keyword.trim();
-    }
-
-    @Override
-    public String getUserId() {
-        return userId;
-    }
-
-    @Override
-    public void setUserId(String userId) {
-        this.userId = userId;
     }
 
     public CommandExecDto getCommandExecDto() {

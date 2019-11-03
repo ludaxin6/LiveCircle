@@ -21,6 +21,7 @@ import com.deshine.huishu.app.scan.ScanFragment;
 import com.deshine.huishu.app.scan.bean.ScanEvent;
 import com.deshine.huishu.app.signOrderUpload.fragment.SignOrderListFragment;
 import com.deshine.huishu.app.utils.GesonUtil;
+import com.deshine.huishu.app.utils.ToastUitl;
 
 import java.util.ArrayList;
 

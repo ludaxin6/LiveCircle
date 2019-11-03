@@ -123,8 +123,10 @@ public abstract class BaseFragment extends Fragment {
      * @param msg
      */
     public void startProgressDialog(String msg) {
-        LoadingDialog.showDialogForLoading(getActivity(), msg, true);
-
+        count++;
+        if(count==1){
+            LoadingDialog.showDialogForLoading(getActivity(), msg, true);
+        }
     }
 
     /**
@@ -183,18 +185,12 @@ public abstract class BaseFragment extends Fragment {
 
     }
 
-    public void showLoading() {
-
-    }
-
-    public void stopLoading() {
-
-    }
-
     @Override
     public void onDestroyView() {
         super.onDestroyView();
         mUnbinder.unbind();
+        //关闭弹出框
+        LoadingDialog.cancelDialogForLoading();
     }
 
     /**

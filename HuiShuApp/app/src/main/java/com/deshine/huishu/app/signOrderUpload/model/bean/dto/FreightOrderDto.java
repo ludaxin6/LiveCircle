@@ -1,12 +1,14 @@
 package com.deshine.huishu.app.signOrderUpload.model.bean.dto;
 
+import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Date;
 
 /**
  * 运费单查询对象
  */
-public class FreightOrderDto {
+public class FreightOrderDto implements Serializable {
+    private static final long serialVersionUID = 1L;
     private Date bookedDate;//记账日期
     private String deliverName;//送货人
     private String locationName;//发货库房

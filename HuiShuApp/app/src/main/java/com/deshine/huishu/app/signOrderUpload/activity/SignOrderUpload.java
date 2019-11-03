@@ -28,6 +28,7 @@ import com.deshine.huishu.app.signOrderUpload.presenter.SignOrderUploadPresenter
 import com.deshine.huishu.app.signOrderUpload.presenter.impl.SignOrderUploadPresenterImpl;
 import com.deshine.huishu.app.signOrderUpload.view.SignOrderUploadView;
 import com.deshine.huishu.app.utils.DateUtil;
+import com.deshine.huishu.app.utils.GesonUtil;
 import com.deshine.huishu.app.utils.ToastUitl;
 
 import java.util.ArrayList;
@@ -69,7 +70,6 @@ public class SignOrderUpload extends BaseActivity implements SignOrderUploadView
     @BindView(R.id.recyclerView)
     RecyclerView mRecyclerView;
 
-    private CustomerInviteScanData scanData;
     private FreightOrderDto freighOrderDto;
     private SignOrderUploadPresenter mPresenter;
     private static final int SIGN_ORDER_REQUEST_CODE = 100;
@@ -82,11 +82,18 @@ public class SignOrderUpload extends BaseActivity implements SignOrderUploadView
      */
     public static void startAction(Activity activity, CustomerInviteScanData scanData) {
         Intent intent = new Intent(activity, SignOrderUpload.class);
-        intent.putExtra(AppConstant.CUSTOMER_INVITE_SCAN_DATA,scanData);
+        intent.putExtra(AppConstant.CUSTOMER_INVITE_SCAN_DATA, GesonUtil.getGson().toJson(scanData));
         activity.startActivity(intent);
         activity.overridePendingTransition(R.anim.fade_in,
                 R.anim.fade_out);
     }
+//    public static void startAction(Activity activity, FreightOrderDto freightOrderDto) {
+//        Intent intent = new Intent(activity, SignOrderUpload.class);
+//        intent.putExtra(AppConstant.FREIGHT_ORDER_DTO,GesonUtil.getGson().toJson(freightOrderDto));
+//        activity.startActivity(intent);
+//        activity.overridePendingTransition(R.anim.fade_in,
+//                R.anim.fade_out);
+//    }
     /*********************
      * 子类实现
      *****************************/
@@ -105,12 +112,25 @@ public class SignOrderUpload extends BaseActivity implements SignOrderUploadView
         //设置标题栏
         mToolbar.setTitle(R.string.hs_sign_order_title);
         baseToolbar(mToolbar);
-        scanData = (CustomerInviteScanData)getIntent().getSerializableExtra(AppConstant.CUSTOMER_INVITE_SCAN_DATA);
-        //获取客户自提数据,并发送短信验证码
-        if(freighOrderDto == null){
-            mPresenter.fetchSignOrderByOsId(scanData.getOsId());
+        String scanJson = getIntent().getStringExtra(AppConstant.CUSTOMER_INVITE_SCAN_DATA);
+        String freightOrderDtoJson = null;
+        Bundle bundle = getIntent().getExtras();
+        if(bundle != null && bundle.getString(AppConstant.FREIGHT_ORDER_DTO) != null){
+            freightOrderDtoJson = bundle.getString(AppConstant.FREIGHT_ORDER_DTO);
+        }
+        if(!TextUtils.isEmpty(scanJson)){
+            CustomerInviteScanData scanData = GesonUtil.getGson().fromJson(scanJson, CustomerInviteScanData.class);
+            //获取客户自提数据,并发送短信验证码
+            if(freighOrderDto == null){
+                mPresenter.fetchSignOrderByOsId(scanData.getOsId());
+            }else{
+                LogUtil.i("---------重复扫码了");
+            }
+        }else if(!TextUtils.isEmpty(freightOrderDtoJson)){
+            fetchSignOrderByOsIdBack(GesonUtil.getGson().fromJson(freightOrderDtoJson, FreightOrderDto.class));
         }else{
-            LogUtil.i("---------重复扫码了");
+            ToastUitl.showShort("参数为空");
+            finish();
         }
     }
     /**
@@ -168,7 +188,7 @@ public class SignOrderUpload extends BaseActivity implements SignOrderUploadView
         bookDate.setText(DateUtil.format(freightOrderDto.getBookedDate(),"yyyy-MM-dd"));
         mSmsVal.setText(TextUtils.isEmpty(freightOrderDto.getConsigneeMobilePhone())?freightOrderDto.getConsigneePhone():freightOrderDto.getConsigneeMobilePhone());
         address.setText(freightOrderDto.getConsigneeAddress());
-        signOrderCount.setText("共"+scanData.getSignOrderTotal()+"页");
+        signOrderCount.setText("共"+freightOrderDto.getSignReceiptNum()+"页");
     }
     //签收单上传完成后，界面初始化
     public void initSubmit(){
@@ -198,7 +218,7 @@ public class SignOrderUpload extends BaseActivity implements SignOrderUploadView
         }else{
             affixList.add(commonAffix);
         }
-        int leaveCount = scanData.getSignOrderTotal()-affixList.size();
+        int leaveCount = freighOrderDto.getSignReceiptNum()-affixList.size();
         if(leaveCount>0){
             cameraBtn.setText(getResources().getString(R.string.hs_sign_order_camera)+"，还需"+leaveCount+"张");
         }else if(leaveCount==0){
