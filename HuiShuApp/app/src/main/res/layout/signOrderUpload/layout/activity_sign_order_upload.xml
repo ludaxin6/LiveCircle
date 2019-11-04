@@ -33,7 +33,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:textColor="@color/hs_base_font_input"
-                    android:textSize="@dimen/font_normal6"
+                    android:textSize="@dimen/font_normal8"
                     android:textStyle="bold"
                     />
                 <!--创建日期-->
@@ -60,7 +60,7 @@
                     android:layout_height="wrap_content"
                     android:textColor="@color/hs_base_font_input"
                     android:textStyle="bold"
-                    android:textSize="@dimen/font_normal6"/>
+                    android:textSize="@dimen/font_normal8"/>
                 <!--收货地址-->
                 <TextView
                     android:id="@+id/address_val"

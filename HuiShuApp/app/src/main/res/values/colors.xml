@@ -9,7 +9,7 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
     <color name="primary_text_white">#deffffff</color>
-    <color name="red">#FFFF0000</color>
+    <color name="red">#FF0000</color>
     <color name="green">#FF00FF00</color>
     <color name="gray">#FFF0F0F0</color>
     <color name="gray_deep">#c9000000</color>

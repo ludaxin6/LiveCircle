@@ -23,7 +23,6 @@
             android:layout_margin="@dimen/item_margin"
             android:scaleType="centerCrop"
             android:background="@color/hs_warning"
-            android:text="未上传"
             android:gravity="center"
             android:textSize="@dimen/font_small"
             android:textColor="@color/white"
@@ -39,8 +38,7 @@
             android:lines="1"
             android:textSize="@dimen/font_normal"
             android:textStyle="bold"
-            android:textColor="@color/hs_base_font_input"
-            tools:text="用户名"/>
+            android:textColor="@color/hs_base_font_input"/>
 
         <TextView
             android:id="@+id/news_summary_digest_tv"
@@ -54,8 +52,7 @@
             android:lines="2"
             android:textAppearance="@style/TextAppearance.AppCompat.Small"
             android:textSize="@dimen/font_small"
-            android:textColor="@color/hs_base_font_input"
-            tools:text="科技是国之利器，中国人民生活要好，必须有强大科技。"/>
+            android:textColor="@color/hs_base_font_input"/>
 
         <TextView
             android:id="@+id/news_summary_ptime_tv"
@@ -65,8 +62,7 @@
             android:layout_marginTop="18dp"
             android:layout_marginRight="@dimen/item_margin"
             android:textSize="@dimen/font_tiny"
-            android:textColor="@color/hs_base_font_label"
-            tools:text="05-28 20:09"/>
+            android:textColor="@color/hs_base_font_label"/>
 
     </RelativeLayout>
 

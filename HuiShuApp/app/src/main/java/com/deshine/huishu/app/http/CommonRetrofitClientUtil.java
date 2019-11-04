@@ -37,9 +37,9 @@ import retrofit2.converter.gson.GsonConverterFactory;
  * Created by HDL on 2016/7/29.
  */
 public class CommonRetrofitClientUtil {
-    private static final int READ_TIMEOUT = 100;//读取超时时间,单位  秒
-    private static final int WRITE_TIMEOUT = 100;//读取超时时间,单位  秒
-    private static final int CONN_TIMEOUT = 600;//连接超时时间,单位  秒
+    private static final int READ_TIMEOUT = 1000;//读取超时时间,单位  秒
+    private static final int WRITE_TIMEOUT = 1000;//读取超时时间,单位  秒
+    private static final int CONN_TIMEOUT = 1000;//连接超时时间,单位  秒
     private static HttpLoggingInterceptor loggingInterceptor;
     private static OkHttpClient okHttpClient;
     private static Retrofit mRetrofit;

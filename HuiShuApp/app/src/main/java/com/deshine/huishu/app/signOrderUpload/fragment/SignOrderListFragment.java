@@ -23,6 +23,7 @@ import com.deshine.huishu.app.signOrderUpload.view.SignOrderListView;
 import com.deshine.huishu.app.utils.GesonUtil;
 import com.deshine.huishu.app.utils.ToastUitl;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
@@ -89,7 +90,11 @@ public class SignOrderListFragment extends BaseFragment implements SignOrderList
 
     @Override
     public void selectDeliverySignOrderListBack(List<FreightOrderDto> list, int totalPageSize) {
-        freightOrderDtos = list;
+        if(list == null || totalPageSize==0){
+            ToastUitl.showShort("没有符合条件的签收单");
+        }else{
+            freightOrderDtos = list;
+        }
         total = totalPageSize;
         if (!isFirst) {
             isFirst = true;

@@ -183,12 +183,17 @@ public class SignOrderUpload extends BaseActivity implements SignOrderUploadView
 
     /*签收单查询返回*/
     public void fetchSignOrderByOsIdBack(FreightOrderDto freightOrderDto){
-        this.freighOrderDto = freightOrderDto;
-        mUserName.setText(freightOrderDto.getConsigneeName());
-        bookDate.setText(DateUtil.format(freightOrderDto.getBookedDate(),"yyyy-MM-dd"));
-        mSmsVal.setText(TextUtils.isEmpty(freightOrderDto.getConsigneeMobilePhone())?freightOrderDto.getConsigneePhone():freightOrderDto.getConsigneeMobilePhone());
-        address.setText(freightOrderDto.getConsigneeAddress());
-        signOrderCount.setText("共"+freightOrderDto.getSignReceiptNum()+"页");
+        if(freightOrderDto == null){
+            ToastUitl.showLong("没有符合条件的签收单");
+            finish();
+        }else{
+            this.freighOrderDto = freightOrderDto;
+            mUserName.setText(freightOrderDto.getConsigneeName());
+            bookDate.setText(DateUtil.format(freightOrderDto.getBookedDate(),"yyyy-MM-dd"));
+            mSmsVal.setText(TextUtils.isEmpty(freightOrderDto.getConsigneeMobilePhone())?freightOrderDto.getConsigneePhone():freightOrderDto.getConsigneeMobilePhone());
+            address.setText(freightOrderDto.getConsigneeAddress());
+            signOrderCount.setText("共"+freightOrderDto.getSignReceiptNum()+"页");
+        }
     }
     //签收单上传完成后，界面初始化
     public void initSubmit(){
