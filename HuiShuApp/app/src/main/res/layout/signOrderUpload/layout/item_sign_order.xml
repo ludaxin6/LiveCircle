@@ -3,17 +3,18 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    style="@style/news_summary_card_view"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
     android:clickable="true"
-    app:cardCornerRadius="3dp"
-    app:cardElevation="8dp"
+
     >
 
     <RelativeLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
         android:id="@+id/rl_root"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:background="@drawable/shape_border_bottom">
         <TextView
             android:id="@+id/news_summary_photo_iv"
             android:layout_width="72dp"

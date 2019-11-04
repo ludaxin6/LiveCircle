@@ -24,7 +24,7 @@ import retrofit2.http.Part;
 import retrofit2.http.Path;
 
 public interface CrmDgcsApiService {
-    public static final String BASE_URL = "http://192.168.38.225:8080/crm_dgcs/api/";
+    public static final String BASE_URL = "http://192.168.38.110:8080/crm_dgcs/api/";
     //附件上传到文件服务器
     @POST("file/ueditorUpload")
     @Multipart
