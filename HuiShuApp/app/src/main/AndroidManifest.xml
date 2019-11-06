@@ -31,7 +31,6 @@
             android:theme="@style/AppTheme.Launcher">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
@@ -49,6 +48,7 @@
         <activity android:name=".news.activity.NewsChannelActivity" />
         <activity android:name=".news.activity.NewsDetailActivity" />
         <activity android:name=".news.activity.NewsPhotoDetailActivity" />
+        <activity android:name=".permission.HelpActivity" />
         <activity
             android:name=".orcameralib.OcrCameraActivity"
             android:screenOrientation="portrait" />

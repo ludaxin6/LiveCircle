@@ -12,10 +12,37 @@ android {
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
-        release {
+        /**
+         * 开发环境
+         */
+        debug {
+            //是否混淆,开发是选否
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            //对应服务器地址
+            buildConfigField 'String', 'SERVER_URL', '"http://192.168.38.17:8080/crm_dgcs/api/"'
+            buildConfigField 'String', 'ENV', '"dev"'
         }
+        /**
+         * 正式环境
+         */
+        release {
+            minifyEnabled true
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            //对应服务器地址
+            buildConfigField 'String', 'SERVER_URL', '"http://192.168.38.188:8188/crm_dgcs/api/"'
+            buildConfigField 'String', 'ENV', '"prod"'
+        }
+        /**
+         * 测试环境
+         */
+        //预生产版本
+        pre.initWith(debug)
+        pre {
+            buildConfigField "String", "SERVER_URL", '"http://192.168.38.188:8188/crm_dgcs/api/"'
+            buildConfigField 'String', 'ENV', '"test"'
+        }
+
     }
 
     sourceSets {

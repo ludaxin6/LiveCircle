@@ -99,25 +99,6 @@ public class WorkbenchAdapter extends RecyclerView.Adapter<WorkbenchAdapter.Work
         return mTables.size();
     }
 
-//    @Override
-//    public boolean onItemMove(int fromPosition, int toPosition) {
-//        if (isChannelFixed(fromPosition, toPosition)) {
-//            return false;
-//        }
-//        //在我的频道子频道的移动
-//        Collections.swap(getAdapterData(), fromPosition, toPosition);
-//        notifyItemMoved(fromPosition, toPosition);
-//        //通知顺序变换，存储，设置频道顺序，以及显示的顺序
-//        System.out.println("发送移动的消息");
-//        EventBus.getDefault().post(new ChannelBean(getAdapterData()));
-//        return true;
-//    }
-
-    //不能移动头条
-    private boolean isChannelFixed(int fromPosition, int toPosition) {
-        return fromPosition == 0 || toPosition == 0;
-    }
-
     public class WorkbenchViewHolder extends RecyclerView.ViewHolder {
         private TextView mTextView;
         private TextView mIconTextView;

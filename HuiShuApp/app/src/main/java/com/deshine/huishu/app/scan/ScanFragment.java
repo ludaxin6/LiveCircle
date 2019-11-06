@@ -16,6 +16,7 @@ import android.widget.TextView;
 
 import com.deshine.huishu.app.R;
 import com.deshine.huishu.app.base.BaseFragment;
+import com.deshine.huishu.app.cameralib.util.LogUtil;
 import com.deshine.huishu.app.scan.bean.ScanEvent;
 import com.deshine.huishu.app.utils.ToastUitl;
 
@@ -42,10 +43,9 @@ public class ScanFragment extends BaseFragment implements QRCodeView.Delegate {
     public void initView() {
         mContext = getActivity();
         Bundle bundle = getArguments();
-        BGAQRCodeUtil.setDebug(true);
-        mZXingView.setDelegate(this);
         //这里就拿到了之前传递的参数
         param = bundle.getString("fromActivity");
+
 
 //        mZXingView.startCamera(Camera.CameraInfo.CAMERA_FACING_FRONT); // 打开前置摄像头开始预览，但是并未开始识别
 //        mZXingView.changeToScanQRCodeStyle(); // 切换成扫描二维码样式
@@ -56,29 +56,31 @@ public class ScanFragment extends BaseFragment implements QRCodeView.Delegate {
     protected void onFragmentVisibleChange(boolean isVisible) {
         if(isVisible){
             //可见，并且是第一次加载
-
+            BGAQRCodeUtil.setDebug(true);
+            mZXingView.setDelegate(this);
+            isFirst = true;
         }else{
             //取消加载
-            if(mZXingView!=null){
-                mZXingView.stopCamera();
-            }
         }
     }
     @Override
     public void onStart() {
         super.onStart();
-
+        LogUtil.i("ScanFragment-onStart: isFirst:"+this.isFirst+
+                "isAdded:"+this.isAdded()+"isDetached:"+this.isDetached()+"isHidden:"+this.isHidden()+"isVisible:"+this.isVisible());
         mZXingView.startCamera(); // 打开后置摄像头开始预览，但是并未开始识别
 //        mZXingView.startCamera(Camera.CameraInfo.CAMERA_FACING_FRONT); // 打开前置摄像头开始预览，但是并未开始识别
 
         mZXingView.changeToScanQRCodeStyle(); // 切换成扫描二维码样式
-        mZXingView.setType(BarcodeType.ALL, null); // 识别所有类型的码
+        mZXingView.setType(BarcodeType.ONLY_QR_CODE, null); // 识别所有类型的码
         mZXingView.startSpotAndShowRect(); // 显示扫描框，并开始识别
     }
     @Override
     public void onStop() {
         mZXingView.stopCamera(); // 关闭摄像头预览，并且隐藏扫描框
         super.onStop();
+        LogUtil.i("ScanFragment-onStop: isFirst:"+this.isFirst+
+                "isAdded:"+this.isAdded()+"isDetached:"+this.isDetached()+"isHidden:"+this.isHidden()+"isVisible:"+this.isVisible());
     }
 
     @Override

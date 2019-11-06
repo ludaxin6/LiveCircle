@@ -1,5 +1,6 @@
 package com.deshine.huishu.app.api;
 
+import com.deshine.huishu.app.BuildConfig;
 import com.deshine.huishu.app.base.request.BaseRequest;
 import com.deshine.huishu.app.base.response.BaseResponse;
 import com.deshine.huishu.app.commonAffix.bean.CommonAffix;
@@ -10,6 +11,7 @@ import com.deshine.huishu.app.customerInvite.model.bean.ResultFile;
 import com.deshine.huishu.app.login.model.bean.request.LoginRequest;
 import com.deshine.huishu.app.login.model.bean.response.UserResponse;
 import com.deshine.huishu.app.signOrderUpload.model.bean.dto.FreightOrderDto;
+import com.deshine.huishu.app.workbench.model.bean.Menu;
 
 import java.util.List;
 import java.util.Map;
@@ -24,7 +26,7 @@ import retrofit2.http.Part;
 import retrofit2.http.Path;
 
 public interface CrmDgcsApiService {
-    public static final String BASE_URL = "http://192.168.38.110:8080/crm_dgcs/api/";
+    public static final String BASE_URL = BuildConfig.SERVER_URL;
     //附件上传到文件服务器
     @POST("file/ueditorUpload")
     @Multipart
@@ -65,6 +67,9 @@ public interface CrmDgcsApiService {
     //签收单图片上传
     @POST("erp/bill/sf/zzps/{sfBillId}/addSignPic")
     Observable<BaseResponse<Integer>> addSignOrderPic(@Path("sfBillId") String sfBillId,@Body List<CommonAffix> affixList);
+
+    @GET("menu/userId/{userId}/mobile")
+    Observable<BaseResponse<List<Menu>>> fetchMenuList(@Path("userId") String userId);
 
 
 }

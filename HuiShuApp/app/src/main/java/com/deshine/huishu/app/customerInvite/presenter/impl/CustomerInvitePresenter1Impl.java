@@ -2,8 +2,10 @@ package com.deshine.huishu.app.customerInvite.presenter.impl;
 
 import android.content.Context;
 
+import com.deshine.huishu.app.BuildConfig;
 import com.deshine.huishu.app.app.AppApplication;
 import com.deshine.huishu.app.app.AppConstant;
+import com.deshine.huishu.app.base.ENV;
 import com.deshine.huishu.app.base.OnHttpCallBack;
 import com.deshine.huishu.app.base.response.BaseResponse;
 import com.deshine.huishu.app.common.model.CommonModel;
@@ -100,27 +102,30 @@ public class CustomerInvitePresenter1Impl implements CustomerInvitePresenter1 {
      */
     @Override
     public void sendSmsVerifyCode(String idCardNo, String mobilePhone, int expireSeconds) {
-        customerInviteView.sendSmsVerifyCodeBack();
-//        customerInviteView.loading();
-//        customerInviteModel.sendSmsVerifyCode(idCardNo,mobilePhone,expireSeconds,new OnHttpCallBack<BaseResponse<Boolean>>() {
-//            @Override
-//            public void onSuccessful(BaseResponse<Boolean> response) {
-//                customerInviteView.stopLoading();//隐藏进度条
-//                if(response.getData()){
-//                    customerInviteView.sendSmsVerifyCodeBack();
-//                }else{
-//                    customerInviteView.stopLoading();//隐藏进度条
-//                    customerInviteView.showErrorMsg("发送短信验证码失败");//显示错误信息
-//                }
-//            }
-//
-//            @Override
-//            public void onFaild(String errorMsg, String errorCode) {
-//                customerInviteView.stopLoading();//隐藏进度条
-//                customerInviteView.showErrorMsg(errorMsg);//显示错误信息
-//                CommonCallBackFaild.onFaild(errorCode);
-//            }
-//        });
+        if(BuildConfig.ENV.equals(ENV.PROD)){
+            customerInviteView.loading();
+            customerInviteModel.sendSmsVerifyCode(idCardNo,mobilePhone,expireSeconds,new OnHttpCallBack<BaseResponse<Boolean>>() {
+                @Override
+                public void onSuccessful(BaseResponse<Boolean> response) {
+                    customerInviteView.stopLoading();//隐藏进度条
+                    if(response.getData()){
+                        customerInviteView.sendSmsVerifyCodeBack();
+                    }else{
+                        customerInviteView.stopLoading();//隐藏进度条
+                        customerInviteView.showErrorMsg("发送短信验证码失败");//显示错误信息
+                    }
+                }
+
+                @Override
+                public void onFaild(String errorMsg, String errorCode) {
+                    customerInviteView.stopLoading();//隐藏进度条
+                    customerInviteView.showErrorMsg(errorMsg);//显示错误信息
+                    CommonCallBackFaild.onFaild(errorCode);
+                }
+            });
+        }else{
+            customerInviteView.sendSmsVerifyCodeBack();
+        }
     }
 
     /**
@@ -131,21 +136,24 @@ public class CustomerInvitePresenter1Impl implements CustomerInvitePresenter1 {
      */
     @Override
     public void checkSmsVerifyCode(String idCardNo, String verifyCode) {
-        customerInviteView.checkSmsVerifyCodeBack(true);
-//        customerInviteView.loading();
-//        customerInviteModel.checkSmsVerifyCode(idCardNo,verifyCode,new OnHttpCallBack<BaseResponse<Boolean>>() {
-//            @Override
-//            public void onSuccessful(BaseResponse<Boolean> response) {
-//                customerInviteView.stopLoading();//隐藏进度条
-//                customerInviteView.checkSmsVerifyCodeBack(response.getData());
-//            }
-//
-//            @Override
-//            public void onFaild(String errorMsg, String errorCode) {
-//                customerInviteView.stopLoading();//隐藏进度条
-//                customerInviteView.showErrorMsg(errorMsg);//显示错误信息
-//                CommonCallBackFaild.onFaild(errorCode);
-//            }
-//        });
+        if(BuildConfig.ENV.equals(ENV.PROD)){
+            customerInviteView.loading();
+            customerInviteModel.checkSmsVerifyCode(idCardNo,verifyCode,new OnHttpCallBack<BaseResponse<Boolean>>() {
+                @Override
+                public void onSuccessful(BaseResponse<Boolean> response) {
+                    customerInviteView.stopLoading();//隐藏进度条
+                    customerInviteView.checkSmsVerifyCodeBack(response.getData());
+                }
+
+                @Override
+                public void onFaild(String errorMsg, String errorCode) {
+                    customerInviteView.stopLoading();//隐藏进度条
+                    customerInviteView.showErrorMsg(errorMsg);//显示错误信息
+                    CommonCallBackFaild.onFaild(errorCode);
+                }
+            });
+        }else{
+            customerInviteView.checkSmsVerifyCodeBack(true);
+        }
     }
 }

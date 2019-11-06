@@ -111,7 +111,7 @@ public class CustomerInviteActivity1 extends BaseActivity implements CustomerInv
         //清空缓存数据
         this.getSharedPreferences(AppConstant.CACHE_DATA, Context.MODE_PRIVATE).edit()
                 .remove(AppConstant.CUSTOMER_INVITE)
-                .commit();
+                .apply();
         CustomerInviteScanData scanData = (CustomerInviteScanData)getIntent().getSerializableExtra(AppConstant.CUSTOMER_INVITE_SCAN_DATA);
         //获取客户自提数据,并发送短信验证码
         if(customerInviteDto == null){
@@ -146,7 +146,7 @@ public class CustomerInviteActivity1 extends BaseActivity implements CustomerInv
         this.customerInviteDto = dto;
         this.getSharedPreferences(AppConstant.CACHE_DATA, Context.MODE_PRIVATE).edit()
                 .putString(AppConstant.CUSTOMER_INVITE, GesonUtil.getGson().toJson(this.customerInviteDto))
-                .commit();
+                .apply();
         //扫码后界面显示
         initAfterScanView();
         mUserName.setText(customerInviteDto.getConsigneeName());

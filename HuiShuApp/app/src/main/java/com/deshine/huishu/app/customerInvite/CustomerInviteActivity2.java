@@ -77,8 +77,6 @@ public class CustomerInviteActivity2 extends BaseActivity implements CustomerInv
     ImageView tvBackImage;
     @BindView(R.id.idCard_submit)
     Button idcardSubmit;
-    @BindView(R.id.submit)
-    Button submit;
 
     //身份证验证
     @BindView(R.id.idCard_check_layout)

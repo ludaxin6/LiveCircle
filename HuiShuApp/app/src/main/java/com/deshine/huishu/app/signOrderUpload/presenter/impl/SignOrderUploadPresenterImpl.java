@@ -114,7 +114,7 @@ public class SignOrderUploadPresenterImpl implements SignOrderUploadPresenter {
      */
     @Override
     public void signOrderUploadSubmit(String sfBillId, List<CommonAffix> affixList) {
-        signOrderUploadView.loading();
+        //signOrderUploadView.loading();
         signOrderUploadModel.addSignOrderPic(sfBillId,affixList,new OnHttpCallBack<BaseResponse<Integer>>() {
             @Override
             public void onSuccessful(BaseResponse<Integer> response) {

@@ -66,10 +66,8 @@ public class SignOrderListPresenterImpl implements SignOrderListPresenter {
             public void onSuccessful(BaseResponse<List<FreightOrderDto>> listBaseResponse) {
                 List<FreightOrderDto> freightOrderDtos = listBaseResponse.getData();
                 int totalPageSize = listBaseResponse.getTotal();
-                if(!CollectionUtils.isEmpty(freightOrderDtos)){
-                    signOrderListView.stopLoading();//隐藏进度条
-                    signOrderListView.selectDeliverySignOrderListBack(freightOrderDtos,totalPageSize);
-                }
+                signOrderListView.stopLoading();//隐藏进度条
+                signOrderListView.selectDeliverySignOrderListBack(freightOrderDtos,totalPageSize);
             }
 
             @Override

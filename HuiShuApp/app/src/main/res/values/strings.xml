@@ -66,6 +66,7 @@
     <string name="hs_icon_hetong">&#xe65c;</string>
     <string name="hs_icon_daiban">&#xe61a;</string>
     <string name="hs_icon_kaoqin">&#xe60f;</string>
+    <string name="hs_icon_qianshouchaxun_yuluru">&#xe624;</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>

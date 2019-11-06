@@ -43,7 +43,14 @@ public class WorkbenchTableManager {
         List<String> channelId = Arrays.asList(AppApplication.getAppContext().getResources().getStringArray(R.array.workbench_channel_id));
         List<Integer> channelImgRes = new ArrayList<Integer>();
         List<Integer> channelImgColorRes = new ArrayList<Integer>();
-        channelImgRes.add(R.string.hs_icon_hetong);
+
+        try {
+            channelImgRes.add(Integer.parseInt(R.string.class.getField("hs_icon_hetong").get(null).toString()));//(R.string.hs_icon_hetong
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
+        } catch (NoSuchFieldException e) {
+            e.printStackTrace();
+        }
         channelImgRes.add(R.string.hs_icon_daiban);
         channelImgRes.add(R.string.hs_icon_ribao);
         channelImgRes.add(R.string.hs_icon_qianshoudan);
@@ -55,17 +62,17 @@ public class WorkbenchTableManager {
         channelImgRes.add(R.string.hs_icon_erweima);
         channelImgRes.add(R.string.hs_icon_diandeng);
 
-        channelImgColorRes.add(R.color.hs_ht_icon);
-        channelImgColorRes.add(R.color.hs_db_icon);
-        channelImgColorRes.add(R.color.hs_rb_icon);
-        channelImgColorRes.add(R.color.hs_qsdsc_icon);
-        channelImgColorRes.add(R.color.hs_khzt_icon);
-        channelImgColorRes.add(R.color.hs_khzt_icon);
-        channelImgColorRes.add(R.color.hs_kqqd_icon);
-        channelImgColorRes.add(R.color.hs_bf_icon);
-        channelImgColorRes.add(R.color.hs_qj_icon);
-        channelImgColorRes.add(R.color.hs_khzt_icon);
-        channelImgColorRes.add(R.color.hs_khzt_icon);
+        channelImgColorRes.add(R.color.hs_icon_hetong_c);
+        channelImgColorRes.add(R.color.hs_icon_daiban_c);
+        channelImgColorRes.add(R.color.hs_icon_ribao_c);
+        channelImgColorRes.add(R.color.hs_icon_qianshouchaxun_yuluru_c);
+        channelImgColorRes.add(R.color.hs_icon_ziyuan_c);
+        channelImgColorRes.add(R.color.hs_icon_ziyuan_c);
+        channelImgColorRes.add(R.color.hs_icon_kaoqin_c);
+        channelImgColorRes.add(R.color.hs_icon_baifang_c);
+        channelImgColorRes.add(R.color.hs_icon_app_qingjia_c);
+        channelImgColorRes.add(R.color.hs_icon_ziyuan_c);
+        channelImgColorRes.add(R.color.hs_icon_ziyuan_c);
 
         ArrayList<Workbench> workbenchList = new ArrayList<>();
         for (int i = 0; i < channelName.size(); i++) {

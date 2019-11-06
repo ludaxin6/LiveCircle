@@ -27,14 +27,16 @@
     <color name="hs_green_bg">#E7F9FF</color>
     <color name="hs_green">#54B9E1</color>
     <color name="hs_green_border">#00C1E1</color>
-    <color name="hs_ht_icon">#F1875D</color>
-    <color name="hs_db_icon">#60C8C1</color>
-    <color name="hs_rb_icon">#63C05D</color>
-    <color name="hs_qsdsc_icon">#FF9F2C</color>
-    <color name="hs_khzt_icon">#1297DB</color>
-    <color name="hs_kqqd_icon">#0070E3</color>
-    <color name="hs_bf_icon">#D39D08</color>
-    <color name="hs_qj_icon">#F5826D</color>
+    <color name="hs_common_c">#00C1DE</color>
+    <color name="hs_icon_hetong_c">#F1875D</color>
+    <color name="hs_icon_daiban_c">#60C8C1</color>
+    <color name="hs_icon_ribao_c">#63C05D</color>
+    <color name="hs_icon_qianshouchaxun_yuluru_c">#FF9F2C</color>
+    <color name="hs_icon_ziyuan_c">#1297DB</color>
+    <color name="hs_icon_kaoqin_c">#0070E3</color>
+    <color name="hs_icon_baifang_c">#D39D08</color>
+    <color name="hs_icon_app_qingjia_c">#F5826D</color>
+    <color name="hs_icon_erweima_c">#F5826D</color>
 
     <color name="lightGrey">#d3d3d3</color>
 

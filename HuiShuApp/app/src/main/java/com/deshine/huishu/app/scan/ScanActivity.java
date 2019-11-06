@@ -1,5 +1,6 @@
 package com.deshine.huishu.app.scan;
 
+import android.Manifest;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
@@ -15,6 +16,8 @@ import android.widget.TextView;
 
 import com.deshine.huishu.app.R;
 import com.deshine.huishu.app.base.BaseActivity;
+import com.deshine.huishu.app.permission.PermissionUtil;
+import com.deshine.huishu.app.permission.callback.PermissionResultCallBack;
 import com.deshine.huishu.app.scan.bean.ScanEvent;
 import com.deshine.huishu.app.utils.StatusBarSetting;
 import com.deshine.huishu.app.utils.ToastUitl;
@@ -69,8 +72,10 @@ public class ScanActivity extends BaseActivity implements QRCodeView.Delegate {
         baseToolbar(mToolbar);
         mContext = this;
 
+        applyPermission(null);
         BGAQRCodeUtil.setDebug(true);
         mZXingView.setDelegate(this);
+
 
 //        mZXingView.startCamera(Camera.CameraInfo.CAMERA_FACING_FRONT); // 打开前置摄像头开始预览，但是并未开始识别
 //        mZXingView.changeToScanQRCodeStyle(); // 切换成扫描二维码样式
@@ -84,9 +89,8 @@ public class ScanActivity extends BaseActivity implements QRCodeView.Delegate {
 
         mZXingView.startCamera(); // 打开后置摄像头开始预览，但是并未开始识别
 //        mZXingView.startCamera(Camera.CameraInfo.CAMERA_FACING_FRONT); // 打开前置摄像头开始预览，但是并未开始识别
-
         mZXingView.changeToScanQRCodeStyle(); // 切换成扫描二维码样式
-        mZXingView.setType(BarcodeType.ALL, null); // 识别所有类型的码
+        mZXingView.setType(BarcodeType.ONLY_QR_CODE, null); // 识别所有类型的码
         mZXingView.startSpotAndShowRect(); // 显示扫描框，并开始识别
     }
     @Override
@@ -192,5 +196,58 @@ public class ScanActivity extends BaseActivity implements QRCodeView.Delegate {
 //                }
 //            }.execute();
         }
+    }
+    public void applyPermission(String[] permissions){
+        if(permissions == null || permissions.length<=0){
+            permissions = new String[]{Manifest.permission.CAMERA, Manifest.permission.READ_EXTERNAL_STORAGE};
+        }
+        PermissionUtil.getInstance().request(ScanActivity.this,
+                permissions,
+                new PermissionResultCallBack() {
+                    /**
+                     * 当所有权限的申请被用户同意之后,该方法会被调用
+                     */
+                    @Override
+                    public void onPermissionGranted() {
+                        ToastUitl.showLong("all granted");
+                    }
+                    /**
+                     * 返回此次申请中通过的权限列表
+                     */
+                    @Override
+                    public void onPermissionGranted(String... permissions) {
+                        StringBuilder builder = new StringBuilder();
+                        for (String permission : permissions) {
+                            builder.append(permission.substring(permission.lastIndexOf(".") + 1) + " ");
+                        }
+                        ToastUitl.showLong(builder.toString() + " is granted");
+                    }
+                    /**
+                     * 当权限申请中的某一个或多个权限,在此次申请中被用户否定了,并勾选了不再提醒选项时（权限的申请窗口不能再弹出，
+                     * 没有办法再次申请）,该方法将会被调用。该方法调用时机在onRationalShow之前.onDenied和onRationalShow
+                     * 有可能都会被触发.
+                     */
+                    @Override
+                    public void onPermissionDenied(String... permissions) {
+                        StringBuilder builder = new StringBuilder();
+                        for (String permission : permissions) {
+                            builder.append(permission.substring(permission.lastIndexOf(".") + 1) + " ");
+                        }
+                        ToastUitl.showLong(builder.toString() + " is denied");
+                    }
+                    /**
+                     * 当权限申请中的某一个或多个权限,在此次申请中被用户否定了,但没有勾选不再提醒选项时（权限申请窗口还能再次申请弹出）
+                     * 该方法将会被调用.这个方法会在onPermissionDenied之后调用,当申请权限为多个时,onDenied和onRationalShow
+                     * 有可能都会被触发.
+                     */
+                    @Override
+                    public void onRationalShow(String... permissions) {
+                        StringBuilder builder = new StringBuilder();
+                        for (String permission : permissions) {
+                            builder.append(permission.substring(permission.lastIndexOf(".") + 1) + " ");
+                        }
+                        ToastUitl.showLong(builder.toString() + " show Rational");
+                    }
+                });
     }
 }

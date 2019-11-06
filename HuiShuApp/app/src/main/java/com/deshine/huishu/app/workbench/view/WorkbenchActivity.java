@@ -15,7 +15,6 @@ import com.deshine.huishu.app.app.AppApplication;
 import com.deshine.huishu.app.app.AppManager;
 import com.deshine.huishu.app.base.BaseActivity;
 import com.deshine.huishu.app.cameralib.util.LogUtil;
-import com.deshine.huishu.app.client.RxDisposeManager;
 import com.deshine.huishu.app.customerInvite.CustomerInviteActivity1;
 import com.deshine.huishu.app.customerInvite.model.bean.CustomerInviteScanData;
 import com.deshine.huishu.app.home.MainActivity;
@@ -28,26 +27,23 @@ import com.deshine.huishu.app.scan.bean.ScanEvent;
 import com.deshine.huishu.app.signOrderUpload.activity.SignOrderUpload1;
 import com.deshine.huishu.app.utils.GesonUtil;
 import com.deshine.huishu.app.utils.ToastUitl;
-import com.deshine.huishu.app.workbench.model.WorkbenchModel;
 import com.deshine.huishu.app.workbench.model.bean.Workbench;
-import com.deshine.huishu.app.workbench.model.impl.WorkbenchModelImpl;
+import com.deshine.huishu.app.workbench.presenter.WorkbenchPresenter;
+import com.deshine.huishu.app.workbench.presenter.impl.WorkbenchPresenterImpl;
 
 import java.util.List;
 
 import butterknife.BindView;
 import de.greenrobot.event.EventBus;
 import de.greenrobot.event.Subscribe;
-import io.reactivex.Observable;
-import io.reactivex.Observer;
-import io.reactivex.disposables.Disposable;
 
-public class WorkbenchActivity extends BaseActivity {
+public class WorkbenchActivity extends BaseActivity implements WorkbenchView{
     @BindView(R.id.common_titlebar)
     Toolbar mToolbar;
     @BindView(R.id.work_list)
     RecyclerView mWorkbenchRv;
-    private WorkbenchModel mModel;
     private WorkbenchAdapter mWorkbenchAdapter;
+    private WorkbenchPresenter workbenchPresenter;
     private String scanType = "扫一扫";
     @Override
     public int getLayoutId() {
@@ -56,7 +52,7 @@ public class WorkbenchActivity extends BaseActivity {
 
     @Override
     public void initPresenter() {
-        mModel = new WorkbenchModelImpl();
+        workbenchPresenter = new WorkbenchPresenterImpl(this);
     }
 
     @Override
@@ -71,33 +67,14 @@ public class WorkbenchActivity extends BaseActivity {
             }
         });
         //加载工作台九宫格数据
-        Observable<List<Workbench>> moreObservable = mModel.lodeAllWorkbenchItem(true);
-        moreObservable.subscribe(new Observer<List<Workbench>>() {
-            @Override
-            public void onSubscribe(Disposable d) {
-                RxDisposeManager.get().add("workbench", d);
-            }
-
-            @Override
-            public void onNext(List<Workbench> tables) {
-                showWorkbench(tables);
-            }
-
-            @Override
-            public void onError(Throwable e) {
-            }
-
-            @Override
-            public void onComplete() {
-
-            }
-        });
+        workbenchPresenter.loadMenu();
 
         if (!EventBus.getDefault().isRegistered(this)) {
             EventBus.getDefault().register(this);
         }
     }
-    public void showWorkbench(List<Workbench> tables){
+    @Override
+    public void loadMenuBack(List<Workbench> tables){
         mWorkbenchAdapter = new WorkbenchAdapter(this, tables);
         mWorkbenchRv.setLayoutManager(new GridLayoutManager(this, 3, LinearLayoutManager.VERTICAL, false));
         mWorkbenchRv.setItemAnimator(new DefaultItemAnimator());
@@ -128,6 +105,18 @@ public class WorkbenchActivity extends BaseActivity {
             }
         });
     }
+
+    @Override
+    public void showErrorMsg(String errorMsg) {
+        ToastUitl.showShort(errorMsg);
+    }
+
+    @Override
+    public void toExit() {
+        LoginActivity.startAction(this);
+        //finish();
+    }
+
     /**
      * 入口
      *

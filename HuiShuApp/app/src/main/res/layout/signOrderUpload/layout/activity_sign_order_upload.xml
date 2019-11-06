@@ -138,7 +138,7 @@
                     android:id="@+id/submit"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="@color/colorPrimary"
+                    android:background="@color/hs_common_c"
                     android:text="@string/hs_sign_order_upload_submit"
                     android:textColor="@color/white"
                     android:visibility="gone" />

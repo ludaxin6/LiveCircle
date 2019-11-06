@@ -20,6 +20,7 @@ import com.deshine.huishu.app.signOrderUpload.model.bean.dto.FreightOrderDto;
 import com.deshine.huishu.app.signOrderUpload.presenter.SignOrderListPresenter;
 import com.deshine.huishu.app.signOrderUpload.presenter.impl.SignOrderListPresenterImpl;
 import com.deshine.huishu.app.signOrderUpload.view.SignOrderListView;
+import com.deshine.huishu.app.utils.CollectionUtils;
 import com.deshine.huishu.app.utils.GesonUtil;
 import com.deshine.huishu.app.utils.ToastUitl;
 
@@ -90,7 +91,9 @@ public class SignOrderListFragment extends BaseFragment implements SignOrderList
 
     @Override
     public void selectDeliverySignOrderListBack(List<FreightOrderDto> list, int totalPageSize) {
-        if(list == null || totalPageSize==0){
+        if(CollectionUtils.isEmpty(list) || totalPageSize==0){
+            freightOrderDtos = new ArrayList<>();
+            totalPageSize = 0;
             ToastUitl.showShort("没有符合条件的签收单");
         }else{
             freightOrderDtos = list;

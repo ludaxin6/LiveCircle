@@ -43,6 +43,8 @@ public class SignOrderUpload1 extends BaseActivity {
     private ScanFragment mScanFragment;
     private SignOrderListFragment mSignOrderListFragment;
     private HomeViewPagerAdapter mAdapter;
+    private int navigationPosition =0;
+    private boolean isRestart = false;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -158,6 +160,7 @@ public class SignOrderUpload1 extends BaseActivity {
                 }else{
                     mScanFragment.onStart();
                 }
+                navigationPosition = position;
                 //这里使用navigation.setSelectedItemId(position);无效，
                 //setSelectedItemId(position)的官网原句：Set the selected
                 // menu item ID. This behaves the same as tapping on an item
@@ -185,5 +188,26 @@ public class SignOrderUpload1 extends BaseActivity {
             SignOrderUpload.startAction(SignOrderUpload1.this,scanData);
 
         }
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        LogUtil.i("SignOrderUpload1---onResume");
+        if(isRestart){
+            if(navigationPosition!=0){
+                mScanFragment.onStop();
+            }else{
+                mScanFragment.onStart();
+            }
+            isRestart = false;
+        }
+    }
+
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+        isRestart = true;
+        LogUtil.i("SignOrderUpload1---tab页面重新启动"+navigationPosition);
     }
 }

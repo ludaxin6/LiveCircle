@@ -25,6 +25,7 @@ import butterknife.BindView;
  */
 
 public class SplashActivity extends BaseActivity {
+
     @BindView(R.id.iv_logo)
     ImageView mIvLogo;
     @BindView(R.id.tv_name)
