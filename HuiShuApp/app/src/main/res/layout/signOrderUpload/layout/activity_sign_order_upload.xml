@@ -3,7 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@color/hs_gray">
     <!--标题栏-->
     <include layout="@layout/activity_common_titlebar" />
     <!--滚动-->

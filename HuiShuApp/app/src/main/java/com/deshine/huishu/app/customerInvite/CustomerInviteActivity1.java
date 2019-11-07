@@ -218,7 +218,7 @@ public class CustomerInviteActivity1 extends BaseActivity implements CustomerInv
             @Override
             public void onFinish() {
                 mSmsTime.setText("重新获取");
-                mSmsTime.setBackgroundColor(getResources().getColor(R.color.colorPrimary));
+                mSmsTime.setBackgroundColor(getResources().getColor(R.color.hs_common_c));
                 timer.cancel();
             }
         };

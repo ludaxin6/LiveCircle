@@ -69,7 +69,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="50dp"
-        android:background="@color/colorPrimary"
+        android:background="@color/hs_common_c"
         android:textColor="@color/white"
         android:text="登 录" />
 </LinearLayout>

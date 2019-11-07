@@ -66,8 +66,6 @@ public class ScanFragment extends BaseFragment implements QRCodeView.Delegate {
     @Override
     public void onStart() {
         super.onStart();
-        LogUtil.i("ScanFragment-onStart: isFirst:"+this.isFirst+
-                "isAdded:"+this.isAdded()+"isDetached:"+this.isDetached()+"isHidden:"+this.isHidden()+"isVisible:"+this.isVisible());
         mZXingView.startCamera(); // 打开后置摄像头开始预览，但是并未开始识别
 //        mZXingView.startCamera(Camera.CameraInfo.CAMERA_FACING_FRONT); // 打开前置摄像头开始预览，但是并未开始识别
 
@@ -79,8 +77,6 @@ public class ScanFragment extends BaseFragment implements QRCodeView.Delegate {
     public void onStop() {
         mZXingView.stopCamera(); // 关闭摄像头预览，并且隐藏扫描框
         super.onStop();
-        LogUtil.i("ScanFragment-onStop: isFirst:"+this.isFirst+
-                "isAdded:"+this.isAdded()+"isDetached:"+this.isDetached()+"isHidden:"+this.isHidden()+"isVisible:"+this.isVisible());
     }
 
     @Override

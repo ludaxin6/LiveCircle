@@ -209,7 +209,7 @@ public class ScanActivity extends BaseActivity implements QRCodeView.Delegate {
                      */
                     @Override
                     public void onPermissionGranted() {
-                        ToastUitl.showLong("all granted");
+                        //ToastUitl.showLong("all granted");
                     }
                     /**
                      * 返回此次申请中通过的权限列表
@@ -220,7 +220,7 @@ public class ScanActivity extends BaseActivity implements QRCodeView.Delegate {
                         for (String permission : permissions) {
                             builder.append(permission.substring(permission.lastIndexOf(".") + 1) + " ");
                         }
-                        ToastUitl.showLong(builder.toString() + " is granted");
+                        //ToastUitl.showLong(builder.toString() + " is granted");
                     }
                     /**
                      * 当权限申请中的某一个或多个权限,在此次申请中被用户否定了,并勾选了不再提醒选项时（权限的申请窗口不能再弹出，
@@ -233,7 +233,7 @@ public class ScanActivity extends BaseActivity implements QRCodeView.Delegate {
                         for (String permission : permissions) {
                             builder.append(permission.substring(permission.lastIndexOf(".") + 1) + " ");
                         }
-                        ToastUitl.showLong(builder.toString() + " is denied");
+                        //ToastUitl.showLong(builder.toString() + " is denied");
                     }
                     /**
                      * 当权限申请中的某一个或多个权限,在此次申请中被用户否定了,但没有勾选不再提醒选项时（权限申请窗口还能再次申请弹出）
@@ -246,7 +246,7 @@ public class ScanActivity extends BaseActivity implements QRCodeView.Delegate {
                         for (String permission : permissions) {
                             builder.append(permission.substring(permission.lastIndexOf(".") + 1) + " ");
                         }
-                        ToastUitl.showLong(builder.toString() + " show Rational");
+                        //ToastUitl.showLong(builder.toString() + " show Rational");
                     }
                 });
     }

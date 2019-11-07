@@ -8,9 +8,12 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
+import android.widget.GridView;
+import android.widget.SimpleAdapter;
 
 import com.deshine.huishu.app.R;
 import com.deshine.huishu.app.adapter.WorkbenchAdapter;
+import com.deshine.huishu.app.adapter.WorkbenchAdapter1;
 import com.deshine.huishu.app.app.AppApplication;
 import com.deshine.huishu.app.app.AppManager;
 import com.deshine.huishu.app.base.BaseActivity;
@@ -40,14 +43,16 @@ import de.greenrobot.event.Subscribe;
 public class WorkbenchActivity extends BaseActivity implements WorkbenchView{
     @BindView(R.id.common_titlebar)
     Toolbar mToolbar;
-    @BindView(R.id.work_list)
-    RecyclerView mWorkbenchRv;
-    private WorkbenchAdapter mWorkbenchAdapter;
+//    @BindView(R.id.work_list)
+//    RecyclerView mWorkbenchRv;
+    @BindView(R.id.workbench_grid_view)
+    GridView gridView;
+    private WorkbenchAdapter1 mWorkbenchAdapter;
     private WorkbenchPresenter workbenchPresenter;
-    private String scanType = "扫一扫";
+    private String scanType = "";
     @Override
     public int getLayoutId() {
-        return R.layout.activity_workbench;
+        return R.layout.activity_workbench_1;
     }
 
     @Override
@@ -75,35 +80,47 @@ public class WorkbenchActivity extends BaseActivity implements WorkbenchView{
     }
     @Override
     public void loadMenuBack(List<Workbench> tables){
-        mWorkbenchAdapter = new WorkbenchAdapter(this, tables);
-        mWorkbenchRv.setLayoutManager(new GridLayoutManager(this, 3, LinearLayoutManager.VERTICAL, false));
-        mWorkbenchRv.setItemAnimator(new DefaultItemAnimator());
-        mWorkbenchRv.setAdapter(mWorkbenchAdapter);
-        mWorkbenchAdapter.setOnItemClickListener(new WorkbenchAdapter.OnItemClickListener() {
+//        mWorkbenchAdapter = new WorkbenchAdapter1(this, tables);
+//        mWorkbenchRv.setLayoutManager(new GridLayoutManager(this, 3, LinearLayoutManager.VERTICAL, false));
+//        mWorkbenchRv.setItemAnimator(new DefaultItemAnimator());
+//        mWorkbenchRv.setAdapter(mWorkbenchAdapter);
+//        mWorkbenchAdapter.setOnItemClickListener(new WorkbenchAdapter1.OnItemClickListener() {
+//            @Override
+//            public void onItemClick(View view, int position) {
+//                itemClickEvent(view, position);
+//            }
+//        });
+        mWorkbenchAdapter = new WorkbenchAdapter1(this, R.layout.workbench_item,tables);
+        mWorkbenchAdapter.setOnItemClickListener(new WorkbenchAdapter1.OnItemClickListener() {
             @Override
             public void onItemClick(View view, int position) {
-                Workbench workbench = mWorkbenchAdapter.getAdapterData().get(position);
-                if(workbench.getName().equals("客户自提")){
-//                    CustomerInviteActivity.startAction(WorkbenchActivity.this);
-                    scanType = workbench.getName();
-                    ScanActivity.startAction(WorkbenchActivity.this);
-                }if(workbench.getName().equals("签收单上传")){
-//                    CustomerInviteActivity.startAction(WorkbenchActivity.this);
-                    scanType = workbench.getName();
-                    SignOrderUpload1.startAction(WorkbenchActivity.this);
-                }else if(workbench.getName().equals("注销")){
-                    LoginModel mLoginModel = new LoginModelImpl();
-                    mLoginModel.removeUserInfo(AppApplication.getAppContext());
-                    ToastUitl.showShort("用户已注销");
-                    LoginActivity.startAction(WorkbenchActivity.this);
-                }else if(workbench.getName().equals("扫一扫")){
-                    scanType = workbench.getName();
-                    TestScanActivity.startAction(WorkbenchActivity.this);
-                }else if(workbench.getName().equals("更多...")){
-                    MainActivity.startAction(WorkbenchActivity.this);
-                }
+                itemClickEvent(view, position);
             }
         });
+        gridView.setAdapter(mWorkbenchAdapter);
+    }
+    public void itemClickEvent(View view, int position){
+        Workbench workbench = mWorkbenchAdapter.getAdapterData().get(position);
+        if(workbench.getName().equals("客户自提")){
+//                    CustomerInviteActivity.startAction(WorkbenchActivity.this);
+            scanType = workbench.getName();
+            ScanActivity.startAction(WorkbenchActivity.this);
+        }if(workbench.getName().equals("签收单上传")){
+//                    CustomerInviteActivity.startAction(WorkbenchActivity.this);
+            scanType = workbench.getName();
+            SignOrderUpload1.startAction(WorkbenchActivity.this);
+        }else if(workbench.getName().equals("注销")){
+            LoginModel mLoginModel = new LoginModelImpl();
+            mLoginModel.removeUserInfo(AppApplication.getAppContext());
+            ToastUitl.showShort("用户已注销");
+            LoginActivity.startAction(WorkbenchActivity.this);
+            finish();
+        }else if(workbench.getName().equals("扫一扫")){
+            scanType = workbench.getName();
+            TestScanActivity.startAction(WorkbenchActivity.this);
+        }else if(workbench.getName().equals("更多...")){
+            MainActivity.startAction(WorkbenchActivity.this);
+        }
     }
 
     @Override
@@ -114,7 +131,7 @@ public class WorkbenchActivity extends BaseActivity implements WorkbenchView{
     @Override
     public void toExit() {
         LoginActivity.startAction(this);
-        //finish();
+        finish();
     }
 
     /**
@@ -132,15 +149,10 @@ public class WorkbenchActivity extends BaseActivity implements WorkbenchView{
     @Subscribe
     public void onScanSuccessBackEvent(ScanEvent event) {
         if(this.getClass().getSimpleName().equals(event.getTargetActivityName())){
-            if("扫一扫".equals(scanType)){
-                //扫码返回
-                ToastUitl.showLong("ScanBack:"+event.getScanValue());
-            }else{
-                //设置参数
-                LogUtil.i("扫码结果："+event.getScanValue());
-                CustomerInviteScanData scanData = GesonUtil.getGson().fromJson(event.getScanValue(), CustomerInviteScanData.class);
-                CustomerInviteActivity1.startAction(WorkbenchActivity.this,scanData);
-            }
+            //设置参数
+            LogUtil.i("扫码结果："+event.getScanValue());
+            CustomerInviteScanData scanData = GesonUtil.getGson().fromJson(event.getScanValue(), CustomerInviteScanData.class);
+            CustomerInviteActivity1.startAction(WorkbenchActivity.this,scanData);
 
         }
     }

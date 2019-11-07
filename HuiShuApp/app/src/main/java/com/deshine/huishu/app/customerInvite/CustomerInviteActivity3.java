@@ -191,10 +191,14 @@ public class CustomerInviteActivity3 extends BaseActivity implements CustomerInv
     public void toSuccessPage(){
         ToastUitl.showShort("出库成功");
         AppManager appManager = AppManager.getAppManager();
-        appManager.finishActivity(CustomerInviteActivity1.class);
-        appManager.finishActivity(CustomerInviteActivity2.class);
-        appManager.returnToActivity(WorkbenchActivity.class);
         finish();
+        appManager.returnToActivity(WorkbenchActivity.class);
+        appManager.finishActivity(CustomerInviteActivity1.class);
+        try{
+            appManager.finishActivity(CustomerInviteActivity1.class);
+        }catch (Exception e){
+
+        }
     }
     //签收单上传完成后，界面初始化
     public void initSubmit(){

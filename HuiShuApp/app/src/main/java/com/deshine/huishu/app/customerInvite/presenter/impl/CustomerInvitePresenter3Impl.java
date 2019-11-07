@@ -92,6 +92,7 @@ public class CustomerInvitePresenter3Impl implements CustomerInvitePresenter3 {
      */
     @Override
     public void customerInviteSubmit(final FinanceBillDto dto) {
+//        customerInviteView.toSuccessPage();
         customerInviteView.loading();
         Map<String,Object> map = new HashMap<>();
         map.put("entity",dto);
