@@ -1,6 +1,7 @@
 package com.deshine.huishu.app.scan;
 
 
+import android.Manifest;
 import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
@@ -17,6 +18,8 @@ import android.widget.TextView;
 import com.deshine.huishu.app.R;
 import com.deshine.huishu.app.base.BaseFragment;
 import com.deshine.huishu.app.cameralib.util.LogUtil;
+import com.deshine.huishu.app.permission.PermissionUtil;
+import com.deshine.huishu.app.permission.callback.PermissionResultCallBack;
 import com.deshine.huishu.app.scan.bean.ScanEvent;
 import com.deshine.huishu.app.utils.ToastUitl;
 
@@ -58,6 +61,7 @@ public class ScanFragment extends BaseFragment implements QRCodeView.Delegate {
             //可见，并且是第一次加载
             BGAQRCodeUtil.setDebug(true);
             mZXingView.setDelegate(this);
+            applyPermission(null);
             isFirst = true;
         }else{
             //取消加载
@@ -147,40 +151,57 @@ public class ScanFragment extends BaseFragment implements QRCodeView.Delegate {
         Log.e(mContext.getClass().getSimpleName(), "打开相机出错");
         ToastUitl.showShort("打开相机出错");
     }
-
-//    @Override
-//    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-//        super.onActivityResult(requestCode, resultCode, data);
-//
-//        mZXingView.startSpotAndShowRect(); // 显示扫描框，并开始识别
-//
-//        if (resultCode == Activity.RESULT_OK && requestCode == REQUEST_CODE_CHOOSE_QRCODE_FROM_GALLERY) {
-//            final String picturePath = "";//BGAPhotoPickerActivity.getSelectedPhotos(data).get(0);
-//            // 本来就用到 QRCodeView 时可直接调 QRCodeView 的方法，走通用的回调
-//            mZXingView.decodeQRCode(picturePath);
-//
-//            /*
-//            没有用到 QRCodeView 时可以调用 QRCodeDecoder 的 syncDecodeQRCode 方法
-//
-//            这里为了偷懒，就没有处理匿名 AsyncTask 内部类导致 Activity 泄漏的问题
-//            请开发在使用时自行处理匿名内部类导致Activity内存泄漏的问题，处理方式可参考 https://github
-//            .com/GeniusVJR/LearningNotes/blob/master/Part1/Android/Android%E5%86%85%E5%AD%98%E6%B3%84%E6%BC%8F%E6%80%BB%E7%BB%93.md
-//             */
-////            new AsyncTask<Void, Void, String>() {
-////                @Override
-////                protected String doInBackground(Void... params) {
-////                    return QRCodeDecoder.syncDecodeQRCode(picturePath);
-////                }
-////
-////                @Override
-////                protected void onPostExecute(String result) {
-////                    if (TextUtils.isEmpty(result)) {
-////                        Toast.makeText(TestScanActivity.this, "未发现二维码", Toast.LENGTH_SHORT).show();
-////                    } else {
-////                        Toast.makeText(TestScanActivity.this, result, Toast.LENGTH_SHORT).show();
-////                    }
-////                }
-////            }.execute();
-//        }
-//    }
+    public void applyPermission(String[] permissions){
+    if(permissions == null || permissions.length<=0){
+        permissions = new String[]{Manifest.permission.CAMERA, Manifest.permission.READ_EXTERNAL_STORAGE};
+    }
+    PermissionUtil.getInstance().request(getActivity(),
+            permissions,
+            new PermissionResultCallBack() {
+                /**
+                 * 当所有权限的申请被用户同意之后,该方法会被调用
+                 */
+                @Override
+                public void onPermissionGranted() {
+                    //ToastUitl.showLong("all granted");
+                }
+                /**
+                 * 返回此次申请中通过的权限列表
+                 */
+                @Override
+                public void onPermissionGranted(String... permissions) {
+                    StringBuilder builder = new StringBuilder();
+                    for (String permission : permissions) {
+                        builder.append(permission.substring(permission.lastIndexOf(".") + 1) + " ");
+                    }
+                    //ToastUitl.showLong(builder.toString() + " is granted");
+                }
+                /**
+                 * 当权限申请中的某一个或多个权限,在此次申请中被用户否定了,并勾选了不再提醒选项时（权限的申请窗口不能再弹出，
+                 * 没有办法再次申请）,该方法将会被调用。该方法调用时机在onRationalShow之前.onDenied和onRationalShow
+                 * 有可能都会被触发.
+                 */
+                @Override
+                public void onPermissionDenied(String... permissions) {
+                    StringBuilder builder = new StringBuilder();
+                    for (String permission : permissions) {
+                        builder.append(permission.substring(permission.lastIndexOf(".") + 1) + " ");
+                    }
+                    //ToastUitl.showLong(builder.toString() + " is denied");
+                }
+                /**
+                 * 当权限申请中的某一个或多个权限,在此次申请中被用户否定了,但没有勾选不再提醒选项时（权限申请窗口还能再次申请弹出）
+                 * 该方法将会被调用.这个方法会在onPermissionDenied之后调用,当申请权限为多个时,onDenied和onRationalShow
+                 * 有可能都会被触发.
+                 */
+                @Override
+                public void onRationalShow(String... permissions) {
+                    StringBuilder builder = new StringBuilder();
+                    for (String permission : permissions) {
+                        builder.append(permission.substring(permission.lastIndexOf(".") + 1) + " ");
+                    }
+                    //ToastUitl.showLong(builder.toString() + " show Rational");
+                }
+            });
+}
 }
